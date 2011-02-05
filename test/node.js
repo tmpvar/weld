@@ -1,4 +1,5 @@
 var tests      = module.exports = {};
+    assert     = require('assert'),
     jsdom      = require("jsdom"),
     fs         = require("fs"),
     setupWeld  = require("../lib/weld").setupWeld,
@@ -12,7 +13,7 @@ var tests      = module.exports = {};
         jsdom.jQueryify(window, __dirname + "/jquery.js", function() {
           // TODO: this is nasty, but quick.
           setupWeld(window);
-          cb(null, window);
+          cb(null, window.weld, window.$, window);
         });
       })
     };
@@ -26,12 +27,13 @@ var tests      = module.exports = {};
 
 
 tests.template_singular_instance = function(t) {
-  html(__dirname + "/files/singular.html", function(err, window) {
+  html(__dirname + "/files/singular.html", function(err, weld, $, window) {
     
-    var weld       = window.weld,
-        dummyData1 = [{ "key": "someKey", "value": "someValue" }];
+    var dummyData1 = [{ "key": "someKey", "value": "someValue" }];
     
     weld('#singular', dummyData1);    
+    console.log($(".key").html())
+    t.ok($(".key").html() === dummyData1[0].key);
     
     t.done();
   });
