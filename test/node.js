@@ -32,10 +32,11 @@ var tests      = module.exports = {}
 tests.template_singular_instance = function(t) {
   html("singular.html", function(err, weld, $, window) {
 
-    var data = { "key": "someKey", "value": "someValue" }; // some dummy data that could come from
+    var data = { key: "someKey", value: "someValue", icon : "/path/to/image.png" }; // some dummy data that could come from
     weld('#singular', data);
 
     t.ok($(".key").html() === data.key);
+    t.ok($(".icon").attr('src') === data.icon);
     t.done();
   });
 };
@@ -61,7 +62,7 @@ tests.template_array_of_instances = function(t) {
   });
 };
 
-tests.template_masster_includes_singular = function(t) {
+tests.template_master_includes_singular = function(t) {
   html("master.html", function(err, weld, $, window) {
     weld('#page-content', '/../test/files/singular.html', function() {
       t.ok($(".key").length > 0);
