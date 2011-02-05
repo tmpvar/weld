@@ -28,33 +28,22 @@ var tests      = module.exports = {}
   data
 */
 
-
 tests.template_singular_instance = function(t) {
   html("singular.html", function(err, weld, $, window) {
 
     var data = { key: "someKey", value: "someValue", icon : "/path/to/image.png" }; // some dummy data that could come from
     weld('#singular', data);
-
     t.ok($(".key").html() === data.key);
     t.ok($(".icon").attr('src') === data.icon);
     t.done();
   });
 };
 
-
 tests.template_array_of_instances = function(t) {
   html("contacts.html", function(err, weld, $, window) {
     
-    var data = [
-      {
-        name  : "Paulo",
-        title : "code exploder"
-      },
-      {
-        name  : "Elijah",
-        title : "code pimp"
-      }
-    ];
+    var data = [{ name: "Paulo",  title : "code exploder" },
+                { name: "Elijah", title : "code pimp" }];
 
     weld('.contact', data);
     t.ok($(".name:first").html() === data[0].name);
@@ -62,6 +51,7 @@ tests.template_array_of_instances = function(t) {
   });
 };
 
+/*
 tests.template_master_includes_singular = function(t) {
   html("master.html", function(err, weld, $, window) {
     weld('#page-content', '/../test/files/singular.html', function() {
@@ -69,7 +59,7 @@ tests.template_master_includes_singular = function(t) {
       t.done();
     });
   });
-};
+};*/
 
 tests.template_form_elements = function(t) {
   html("form.html", function(err, weld, $, window) {
