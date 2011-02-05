@@ -1,9 +1,10 @@
-var tests      = module.exports = {};
-    assert     = require('assert'),
-    jsdom      = require("jsdom"),
-    fs         = require("fs"),
-    setupWeld  = require("../lib/weld").setupWeld,
-    html       = function(file, cb) {
+
+var tests      = module.exports = {}
+    ,assert     = require('assert')
+    ,jsdom      = require("jsdom")
+    ,fs         = require("fs")
+    ,setupWeld  = require("../lib/weld").setupWeld
+    ,html       = function(file, cb) {
       fs.readFile(file, function(err, data) {
         if (err) {
           return cb(err);
@@ -28,10 +29,15 @@ var tests      = module.exports = {};
 
 tests.template_singular_instance = function(t) {
   html(__dirname + "/files/singular.html", function(err, weld, $, window) {
-    var data = { "key": "someKey", "value": "someValue" };
+
+
+    var data = { "key": "someKey", "value": "someValue" }; // some dummy data that could come from
     weld('#singular', data);
+
+
     t.ok($(".key").html() === data.key);
     t.done();
+    
   });
 };
 
@@ -61,8 +67,14 @@ console.log(window.document.body.innerHTML)
 tests.template_masster_includes_singular = function(t) {
   html(__dirname + "/files/master.html", function(err, weld, $, window) {
     
-    weld('#page-content', '/files/singular.html');
-    t.ok($(".key").length > 0);
-    t.done();
+
+    weld('#page-content', '/../test/files/singular.html', function() {
+
+      t.ok($(".key").length > 0);
+      t.done();      
+
+    });
+
+    
   });
 };
