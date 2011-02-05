@@ -3,23 +3,24 @@
 function parseConfig(config) {
   
   for(var o in config) {
+
     if (config[o].hasOwnProperty(o)) {
+
+      var collection = $(o);
 
       if(config[o].file) {
         
       }
-      
+      else if(config[o].selector) {
+        
+      }
+      else if(config[o].map) {
+        
+      }
+    
       if(config[o].data) {
         
-      }
-      
-      if(config[o].selector) {
-        
-      }
-      
-      if(config[o].map) {
-        
-      }                  
+      }         
 
     }
   }
