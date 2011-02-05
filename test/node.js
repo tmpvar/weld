@@ -70,23 +70,6 @@ tests.template_masster_includes_singular = function(t) {
   });
 };
 
-tests.template_contacts_with_callback  = function(t) {
-  html("contacts.html", function(err, weld, $, window) {
-    var data = [{
-        name  : "Paulo",
-        title : "code exploder"
-    }];
-    
-    $(".contacts").weld(data, function(el, k, v) {
-      $(el).append("<" + k + ">" + v + "</" + k + ">");
-    });
-
-    t.ok($(".name").attr('attr-name') === data[0].name)
-    t.done()
-    
-  });
-};
-
 tests.template_form_elements = function(t) {
   html("form.html", function(err, weld, $, window) {
     var data = {
