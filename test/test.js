@@ -8,7 +8,10 @@ var sys = require('sys')
 
 weld({
 
-  '.whatever': { selector: '#someothershit' },
+  ''
+
+
+/*   '.whatever': { selector: '#someothershit' },
   '.name': { data: [{'name': 'bla'}, { 'name': 'foo' }] },
   
   '.foo': { file: '/foo.html' },
@@ -21,5 +24,6 @@ weld({
     }
   },
   '#bar': { selector: '#bla' }
+*/
 
 });

@@ -1,6 +1,7 @@
 var tests      = module.exports = {};
     jsdom      = require("jsdom"),
     fs         = require("fs"),
+    weld       = require("../lib/weld"),
     html       = function(file, cb) {
       fs.readFile(file, function(err, data) {
         if (err) {
@@ -25,6 +26,20 @@ var tests      = module.exports = {};
 tests.template_singular_instance = function(t) {
   html(__dirname + "/files/singular.html", function(err, window) {
     
+    var dummyData1 = [{ "key": "someKey", "value": "someValue" }];
+    
+    weld({
+
+      '#singular': { data: dummyData1 }
+
+    });
+    
     t.done()
   });
 }
+
+
+
+
+
+
