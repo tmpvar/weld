@@ -1,6 +1,8 @@
 
 var sys = require('sys')
     ,fs = require('fs')
+    ,jsdom = require('jsdom')
+    ,jquery = require('./jquery')
     ,weld = require('../lib/weld.js')
     ;
 
