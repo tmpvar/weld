@@ -12,9 +12,10 @@ templates + instructions + data = html
 ## Usage
 
 weld takes three arguments.
-<br/>
-  weld(&lt;selector&gt;, &lt;data&gt;, [&lt;callback&gt;]);
-<br/>
+<pre>
+  weld(<i>selector, data, [callback]</i>);
+</pre>
+
 1) selector - just like jquery!
 
 2) data - the source for the data that you want to populate the elements collected by the selector. this source can be one of the following...<br/>
