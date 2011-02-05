@@ -57,7 +57,6 @@ tests.template_array_of_instances = function(t) {
     ];
 
     weld('.contact', data);
-console.log(window.document.body.innerHTML)
 
     t.ok($(".name:first").html() === data[0].name);
     t.done();
