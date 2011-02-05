@@ -2,7 +2,7 @@
 
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/doc/weld.png)
 
-Weld is template antimatter for javascript. 
+weld is template antimatter for javascript. 
 
 - Promotes code portability & separation of concerns.
 - More readable and maintainable.
@@ -28,3 +28,9 @@ weld takes three arguments.
 - an array of object literals<br/>
 
 3) callback (optional) - if the data parameter is a file, the callback will get called after the file loads. if the data parameter is an array, the callback will behave as a map function.
+
+## Credits
+developed by tmpvar and hij1nx!!
+
+## Version
+0.1.0
