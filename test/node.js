@@ -45,11 +45,11 @@ tests.template_array_of_instances = function(t) {
     var data = [
       {
         name  : "Paulo",
-        title : "code warrior"
+        title : "code exploder"
       },
       {
         name  : "Elijah",
-        title : "code monkey"
+        title : "code pimp"
       }
     ];
 
