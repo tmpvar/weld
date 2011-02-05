@@ -51,15 +51,15 @@ tests.template_array_of_instances = function(t) {
   });
 };
 
-/*
 tests.template_master_includes_singular = function(t) {
   html("master.html", function(err, weld, $, window) {
     weld('#page-content', '/../test/files/singular.html', function() {
+      
       t.ok($(".key").length > 0);
       t.done();
     });
   });
-};*/
+};
 
 tests.template_form_elements = function(t) {
   html("form.html", function(err, weld, $, window) {
