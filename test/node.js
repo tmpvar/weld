@@ -1,7 +1,7 @@
 var tests      = module.exports = {};
     jsdom      = require("jsdom"),
     fs         = require("fs"),
-    weld       = require("../lib/weld").weld,
+    setupWeld  = require("../lib/weld").setupWeld,
     html       = function(file, cb) {
       fs.readFile(file, function(err, data) {
         if (err) {
@@ -10,6 +10,8 @@ var tests      = module.exports = {};
 
         var window = jsdom.html(data.toString()).createWindow();
         jsdom.jQueryify(window, __dirname + "/jquery.js", function() {
+          // TODO: this is nasty, but quick.
+          setupWeld(window);
           cb(null, window);
         });
       })
@@ -26,7 +28,8 @@ var tests      = module.exports = {};
 tests.template_singular_instance = function(t) {
   html(__dirname + "/files/singular.html", function(err, window) {
     
-    var dummyData1 = [{ "key": "someKey", "value": "someValue" }];
+    var weld       = window.weld,
+        dummyData1 = [{ "key": "someKey", "value": "someValue" }];
     
     weld('#singular', dummyData1);    
     
