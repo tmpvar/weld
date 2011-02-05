@@ -1,0 +1,20 @@
+{
+  "name": "weld",
+  "version": "0.0.1",
+  "description": "Template antimatter for javascript",
+  "keywords": ["templating"],
+  "author" : "Paulo Fra <hij1nx@gmail.com>",
+  "contributers" : [
+    "Elijah Insua <tmpvar@gmail.com> http://tmpvar.com"
+  ],
+  "licenses": [{"type": "MIT"}],
+  "repositories": [{
+      "type": "git",
+      "url": "git://github.com/tmpvar/unobtrusive.jsdom.org.git" 
+  }],
+  "dependencies": {
+     "jsdom"   : ">= 0.1.23"
+  },
+  "engines": ["node"],
+  "main" : "./lib/"
+}
