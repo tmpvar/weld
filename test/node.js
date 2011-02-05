@@ -28,11 +28,8 @@ var tests      = module.exports = {};
 
 tests.template_singular_instance = function(t) {
   html(__dirname + "/files/singular.html", function(err, weld, $, window) {
-    
     var data = { "key": "someKey", "value": "someValue" };
-    
     weld('#singular', data);
-    console.log($(".key").html())
     t.ok($(".key").html() === data.key);
     t.done();
   });
@@ -54,6 +51,8 @@ tests.template_array_of_instances = function(t) {
     ];
 
     weld('.contact', data);
+console.log(window.document.body.innerHTML)
+
     t.ok($(".name:first").html() === data[0].name);
     t.done();
   });
