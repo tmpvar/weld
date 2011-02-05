@@ -77,3 +77,20 @@ tests.template_masster_includes_singular = function(t) {
     
   });
 };
+
+tests.template_contacts_with_callback  = function(t) {
+  html(__dirname + "/files/contacts.html", function(err, weld, $, window) {
+    var data = [{
+        name  : "Paulo",
+        title : "code exploder"
+    }];
+    
+    $(".contacts").weld(data, function(el, k, v) {
+      console.log(typeof el, k, v);
+      $(el).attr("attr-" + k, v);
+    });
+    
+    console.log(window.document.body.innerHTML);
+    
+  });
+};
