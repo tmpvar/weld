@@ -13,9 +13,9 @@ templates + instructions + data = html
 
 ## Usage
 
-weld takes three arguments.
+the weld function looks like a jquery plugin.
 <pre>
-  weld(<i>selector, data, [callback]</i>);
+  $(selector).weld(data, [callback]);
 </pre>
 
 1) selector - just like jquery!
@@ -27,7 +27,16 @@ weld takes three arguments.
 - an object literal<br/>
 - an array of object literals<br/>
 
-3) callback (optional) - if the data parameter is a file, the callback will get called after the file loads. if the data parameter is an array, the callback will behave as a map function.
+3) callback (optional) 
+
+- if the data parameter is a file, the callback will get called after the file loads.
+- if the data parameter is an array of objects, the callback will behave as a map function and it will be passed (in order) the element, key and value. For example...
+
+<pre>
+  $(".contacts").weld(data, function(element, key, value) {
+    $(element).append("<" + key + ">" + value + "</" + key + ">");
+  });  
+</pre>
 
 ## Credits
 developed by tmpvar and hij1nx!!
