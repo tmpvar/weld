@@ -36,7 +36,7 @@ tests.template_singular_instance = function(t) {
     t.ok($(".key").html() === data.key);
     t.done();
   });
-}
+};
 
 
 tests.template_array_of_instances = function(t) {
@@ -57,9 +57,13 @@ tests.template_array_of_instances = function(t) {
     t.ok($(".name:first").html() === data[0].name);
     t.done();
   });
-}
+};
 
-
-
-
-
+tests.template_masster_includes_singular = function(t) {
+  html(__dirname + "/files/master.html", function(err, weld, $, window) {
+    
+    weld('#page-content', '/files/singular.html');
+    t.ok($(".key").length > 0);
+    t.done();
+  });
+};
