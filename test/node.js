@@ -29,16 +29,35 @@ var tests      = module.exports = {};
 tests.template_singular_instance = function(t) {
   html(__dirname + "/files/singular.html", function(err, weld, $, window) {
     
-    var dummyData1 = [{ "key": "someKey", "value": "someValue" }];
+    var data = { "key": "someKey", "value": "someValue" };
     
-    weld('#singular', dummyData1);    
+    weld('#singular', data);
     console.log($(".key").html())
-    t.ok($(".key").html() === dummyData1[0].key);
-    
+    t.ok($(".key").html() === data.key);
     t.done();
   });
 }
 
+
+tests.template_array_of_instances = function(t) {
+  html(__dirname + "/files/contacts.html", function(err, weld, $, window) {
+    
+    var data = [
+      {
+        name  : "Paulo",
+        title : "code warrior"
+      },
+      {
+        name  : "Elijah",
+        title : "code monkey"
+      }
+    ];
+
+    weld('.contact', data);
+    t.ok($(".name:first").html() === data[0].name);
+    t.done();
+  });
+}
 
 
 
