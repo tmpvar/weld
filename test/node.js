@@ -21,13 +21,6 @@ var tests      = module.exports = {}
       })
     };
 
-/*
-  file
-  selector
-  map
-  data
-*/
-
 tests.template_singular_instance = function(t) {
   html("singular.html", function(err, weld, $, window) {
 
@@ -50,6 +43,28 @@ tests.template_array_of_instances = function(t) {
     t.done();
   });
 };
+
+tests.template_nested_objects = function(t) {
+  html("array-of-arrays.html", function(err, weld, $, window) {
+    $('.people').weld({
+      person : [{
+        name : "John",
+        job  : [
+          "guru", "monkey", "tester"
+        ]
+      },
+      {
+        name : "Bob",
+        job  : [
+          "supervise", "yell"
+        ]
+      }]
+    });
+
+    t.ok($('.person').length === 2);
+    t.done()
+  });
+}
 
 tests.template_form_elements = function(t) {
   html("form.html", function(err, weld, $, window) {
