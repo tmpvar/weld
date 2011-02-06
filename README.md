@@ -1,6 +1,6 @@
 
 
-![Alt text](https://github.com/hij1nx/Weld/raw/master/doc/weld.png)
+![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)
 
 weld is template antimatter for javascript. 
 
