@@ -4,6 +4,7 @@
 
 weld is template antimatter for javascript. 
 
+- Works in the browser and on the server!
 - Promotes code portability & separation of concerns.
 - More readable and maintainable.
 
