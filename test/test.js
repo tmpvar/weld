@@ -67,6 +67,9 @@ tests.template_nested_objects = function(t) {
           "supervise", "yell"
         ]
       }]
+    },
+    function(el) {
+      return el.css("border", "1px solid red");
     });
 
     t.ok($('.person').length === 2);
