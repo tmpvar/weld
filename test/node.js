@@ -11,7 +11,7 @@ var tests      = module.exports = {}
         }
 
         var window = jsdom.html(data.toString()).createWindow();
-        jsdom.jQueryify(window, __dirname + "/jquery.js", function() {
+        jsdom.jQueryify(window, __dirname + "/../lib/jquery.js", function() {
           // remove the jQuery script tag
           window.$("script:last").remove();
           
