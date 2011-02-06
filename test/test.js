@@ -69,11 +69,16 @@ tests.template_nested_objects = function(t) {
       }]
     },
     function(el) {
-      return el.css('border', '1px solid red');
+      return el.addClass('pre-processed');
     });
 
     t.ok($('.person').length === 2);
-    t.done()
+    /*
+      Every node that gets iterated over should have a pre-processed class
+      (7 in total)
+    */
+    t.ok($('.pre-processed').length === 7);
+    t.done();
   });
 }
 
