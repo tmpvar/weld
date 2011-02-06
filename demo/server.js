@@ -10,7 +10,7 @@ var sys = require('sys'),
 
   var router
       ,server
-      ,files = new (static.Server)('./..')
+      ,files = new (static.Server)('./public')
       ctypes = {
         json: { 'Content-Type': 'application/json' },
         html: { 'Content-Type': 'text/html' }
