@@ -1,27 +1,27 @@
 
 var tests      = module.exports = {}
     ,assert     = require('assert')
-    ,jsdom      = require("jsdom")
-    ,fs         = require("fs")
+    ,jsdom      = require('jsdom')
+    ,fs         = require('fs')
     ,html       = function(file, cb) {
-      file = __dirname + "/files/" + file;
+      file = __dirname + '/files/' + file;
       fs.readFile(file, function(err, data) {
         if (err) {
           return cb(err);
         }
 
         var window = jsdom.html(data.toString()).createWindow();
-        jsdom.jQueryify(window, __dirname + "/../lib/jquery.js", function() {
+        jsdom.jQueryify(window, __dirname + '/../lib/jquery.js', function() {
           // remove the jQuery script tag
-          window.$("script:last").remove();
+          window.$('script:last').remove();
           
           // TODO: this is nasty, but quick.
-          var weldTag = window.document.createElement("script");
+          var weldTag = window.document.createElement('script');
           
-          weldTag.src = "file://" + __dirname + "/../lib/weld.js";
+          weldTag.src = 'file://' + __dirname + '/../lib/weld.js';
           weldTag.onload = function() {
             // remove the weld scripttag
-            window.$("script:last").remove();
+            window.$('script:last').remove();
             cb(null, window.weld, window.$, window);
           };
           window.document.body.appendChild(weldTag);
@@ -30,46 +30,46 @@ var tests      = module.exports = {}
     };
 
 tests.template_singular_instance = function(t) {
-  html("singular.html", function(err, weld, $, window) {
+  html('singular.html', function(err, weld, $, window) {
 
-    var data = { key: "someKey", value: "someValue", icon : "/path/to/image.png" }; // some dummy data that could come from
+    var data = { key: 'someKey', value: 'someValue', icon : '/path/to/image.png' }; // some dummy data that could come from
     weld('#singular', data);
-    t.ok($(".key").html() === data.key);
-    t.ok($(".icon").attr('src') === data.icon);
+    t.ok($('.key').html() === data.key);
+    t.ok($('.icon').attr('src') === data.icon);
     t.done();
   });
 };
 
 tests.template_array_of_instances = function(t) {
-  html("contacts.html", function(err, weld, $, window) {
+  html('contacts.html', function(err, weld, $, window) {
     
-    var data = [{ name: "Paulo",  title : "code exploder" },
-                { name: "Elijah", title : "code pimp" }];
+    var data = [{ name: 'Paulo',  title : 'code exploder' },
+                { name: 'Elijah', title : 'code pimp' }];
 
     weld('.contact', data);
-    t.ok($(".name:first").html() === data[0].name);
+    t.ok($('.name:first').html() === data[0].name);
     t.done();
   });
 };
 
 tests.template_nested_objects = function(t) {
-  html("array-of-arrays.html", function(err, weld, $, window) {
+  html('array-of-arrays.html', function(err, weld, $, window) {
     $('.people').weld({
       person : [{
-        name : "John",
+        name : 'John',
         job  : [
-          "guru", "monkey", "tester"
+          'guru', 'monkey', 'tester'
         ]
       },
       {
-        name : "Bob",
+        name : 'Bob',
         job  : [
-          "supervise", "yell"
+          'supervise', 'yell'
         ]
       }]
     },
     function(el) {
-      return el.css("border", "1px solid red");
+      return el.css('border', '1px solid red');
     });
 
     t.ok($('.person').length === 2);
@@ -78,14 +78,14 @@ tests.template_nested_objects = function(t) {
 }
 
 tests.template_form_elements = function(t) {
-  html("form.html", function(err, weld, $, window) {
+  html('form.html', function(err, weld, $, window) {
     var data = {
       'email' : 'tmpvar@gmail.com'
     }
 
-    $("form").weld(data);
+    $('form').weld(data);
 
-    t.ok($(":input[name=email]").val() === data.email);
+    t.ok($(':input[name=email]').val() === data.email);
     t.done();
 
   });
