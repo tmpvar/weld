@@ -1,7 +1,5 @@
 
-<center>
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)
-</center>
 
 weld is template antimatter for Javascript+JSON. It is the antithesis of most templating technology.
 There is no special sugar required to add data into your markup. And best of all it works in the 
