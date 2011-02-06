@@ -5,22 +5,22 @@
 
 weld is template antimatter for Javascript+JSON. It is the antithesis of most templating technology.
 There is no special sugar required to add data into your markup. And best of all it works in the 
-browser and on the server!
+browser and your node.js server!
 
 ## How does this work?
 
-templates + instructions + data = html
+markup + instructions + data = html
 
 ## Motivation
 
 - Promote portable code/markup.
 - Standards compliant. No workarounds such as <%=foo%> or {foo}.
-- More readable.
+- More readable code/markup.
 - Increase maintainability by decoupling desperate technologies. 
 
 ## Usage
 
-weld is a jQuery plugin.
+weld is a jQuery plugin. Why jQuery? A lot of people know how to use it. But don't worry, this is a very light-weight plugin.
 <pre>
   $(selector).weld(data, [callback]);
 </pre>
@@ -41,10 +41,8 @@ The callback will behave as a map function and it will be passed (in order) the 
   });  
 </pre>
 
-<center>
 ## Credits
 developed by tmpvar and hij1nx!!
 
 ## Version
 0.1.0
-</center>
