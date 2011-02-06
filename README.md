@@ -1,10 +1,11 @@
 
-
+<center>
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)
+</center>
 
 weld is template antimatter for Javascript+JSON. It is the antithesis of most templating technology.
-There is no special sugar required to add to interject data with markup. And best of all it works in 
-the browser and on the server!
+There is no special sugar required to add data into your markup. And best of all it works in the 
+browser and on the server!
 
 ## How does this work?
 
@@ -12,7 +13,7 @@ templates + instructions + data = html
 
 ## Motivation
 
-- Promote portability.
+- Promote portable code/markup.
 - Standards compliant. No workarounds such as <%=foo%> or {foo}.
 - More readable.
 - Increase maintainability by decoupling desperate technologies. 
@@ -40,8 +41,10 @@ The callback will behave as a map function and it will be passed (in order) the 
   });  
 </pre>
 
+<center>
 ## Credits
 developed by tmpvar and hij1nx!!
 
 ## Version
 0.1.0
+</center>
