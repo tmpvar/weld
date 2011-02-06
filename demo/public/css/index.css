@@ -81,7 +81,9 @@ button {  width: auto; overflow: visible; }
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
 
-
+body {
+	background-color: #f8f8f8;
+}
 
 @media all and (orientation:portrait) { 
   

@@ -4,6 +4,7 @@ var sys = require('sys'),
     http = require('http'),
     url = require('url'),
     static = require('node-static'),
+    weld = require('../../lib/weld').weld,
     journey = require('journey');
 
 (function (port) {
