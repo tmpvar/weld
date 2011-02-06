@@ -3,7 +3,6 @@ var tests      = module.exports = {}
     ,assert     = require('assert')
     ,jsdom      = require("jsdom")
     ,fs         = require("fs")
-    ,setupWeld  = require("../lib/weld").setupWeld
     ,html       = function(file, cb) {
       file = __dirname + "/files/" + file;
       fs.readFile(file, function(err, data) {
@@ -13,10 +12,19 @@ var tests      = module.exports = {}
 
         var window = jsdom.html(data.toString()).createWindow();
         jsdom.jQueryify(window, __dirname + "/jquery.js", function() {
-          // TODO: this is nasty, but quick.
-          setupWeld(window);
+          // remove the jQuery script tag
           window.$("script:last").remove();
-          cb(null, window.weld, window.$, window);
+          
+          // TODO: this is nasty, but quick.
+          var weldTag = window.document.createElement("script");
+          
+          weldTag.src = "file://" + __dirname + "/../lib/weld.js";
+          weldTag.onload = function() {
+            // remove the weld scripttag
+            window.$("script:last").remove();
+            cb(null, window.weld, window.$, window);
+          };
+          window.document.body.appendChild(weldTag);
         });
       })
     };
