@@ -5,7 +5,34 @@ var sys = require('sys'),
     url = require('url'),
     static = require('node-static'),
     weld = require('../../lib/weld').weld,
-    journey = require('journey');
+    journey = require('journey'),
+    jsdom      = require('jsdom'),
+    fs         = require('fs'),
+    html       = function(file, cb) {
+      file = __dirname + '/files/' + file;
+      fs.readFile(file, function(err, data) {
+        if (err) {
+          return cb(err);
+        }
+
+        var window = jsdom.html(data.toString()).createWindow();
+        jsdom.jQueryify(window, __dirname + '/../lib/jquery.js', function() {
+          // remove the jQuery script tag
+          window.$('script:last').remove();
+          
+          // TODO: this is nasty, but quick.
+          var weldTag = window.document.createElement('script');
+          
+          weldTag.src = 'file://' + __dirname + '/../lib/weld.js';
+          weldTag.onload = function() {
+            // remove the weld scripttag
+            window.$('script:last').remove();
+            cb(null, window.weld, window.$, window);
+          };
+          window.document.body.appendChild(weldTag);
+        });
+      })
+    };
 
 (function (port) {
 
@@ -15,6 +42,22 @@ var sys = require('sys'),
       ctypes = {
         json: { 'Content-Type': 'application/json' },
         html: { 'Content-Type': 'text/html' }
+      },
+      data: {
+        person : [
+          {
+            name : 'John',
+            job  : [
+              'guru', 'monkey', 'tester'
+            ]
+          },
+          {
+            name : 'Bob',
+            job  : [
+              'supervise', 'yell'
+            ]
+          }
+        ]
       };
         
   router = function () {
@@ -25,18 +68,24 @@ var sys = require('sys'),
         response.send(200, ctypes.json, { message: 'No resource.' }); 
       });
 
-      map.path('/api', function () { // some fake data base calls...
+      map.path('/people', function () { // some fake data base calls...
 
-        this.get('search').bind(function (response, data) {
-          fs.readFile('./data/foo.json', function (err, file) {
-            response.send(200, ctypes.json, file.toString());
+        this.get('all').bind(function (response) {
+          
+          html('people.html', function(err, weld, $, window) {
+          
+            response.send(200, ctypes.json, $('.people').weld(data));
           });
+          
         });
 
-        this.post('search').bind(function (response, data) {
-          fs.readFile('./data/bar.json', function (err, file) {
-            response.send(200, ctypes.json, file.toString());
+        this.get('first').bind(function (response) {
+          
+          html('person.html', function(err, weld, $, window) {
+          
+            response.send(200, ctypes.json, $('.feature').weld(data.person[0]));
           });
+          
         });
 
       });
@@ -54,7 +103,7 @@ var sys = require('sys'),
 
     req.addListener('end', function () {
       var uri = url.parse(req.url);
-      if (uri.pathname.slice(1).split('/')[0] !== 'api') {
+      if (uri.pathname.slice(1).split('/')[0] !== 'people') {
         sys.puts(uri.pathname)
         files.serve(req, res);
       }

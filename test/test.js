@@ -55,18 +55,20 @@ tests.template_array_of_instances = function(t) {
 tests.template_nested_objects = function(t) {
   html('array-of-arrays.html', function(err, weld, $, window) {
     $('.people').weld({
-      person : [{
-        name : 'John',
-        job  : [
-          'guru', 'monkey', 'tester'
-        ]
-      },
-      {
-        name : 'Bob',
-        job  : [
-          'supervise', 'yell'
-        ]
-      }]
+      person : [
+        {
+          name : 'John',
+          job  : [
+            'guru', 'monkey', 'tester'
+          ]
+        },
+        {
+          name : 'Bob',
+          job  : [
+            'supervise', 'yell'
+          ]
+        }
+      ]
     },
     function(el) {
       return el.addClass('pre-processed');

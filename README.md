@@ -10,7 +10,8 @@ works in the *browser* and on your *node.js* server!
 ## Why?
 
 Everyone has their own idea of how micro templating should work. Most templating requires you to pepper your markup 
-with 'stubs' or 'placeholders'. It's non-standard and the community remains divided. The motivation...
+with 'stubs' or 'placeholders'. It's non-standard and the community is divided on the best way to pollute the markup. 
+The motivation...
 
 - Standards compliant. No workarounds such as <%=foo%> or {foo}.
 - Promote portable code/markup by decoupling desperate technologies.
