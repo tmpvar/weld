@@ -54,6 +54,20 @@ tests.template_alternate_insertion_method = function(t) {
   });
 };
 
+tests.template_append = function(t) {
+  html('contacts.html', function(err, weld, $, window) {
+
+    var data = [{ name: 'Paulo',  title : 'code exploder' },
+                { name: 'Elijah', title : 'code pimp' }];
+    
+    weld('.contact', data);
+    weld('.contact', data);
+    
+    t.ok($('.contact .name').length > 2);
+    t.done();
+  });
+};
+
 
 tests.template_array_of_instances = function(t) {
   html('contacts.html', function(err, weld, $, window) {
