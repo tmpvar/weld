@@ -26,7 +26,7 @@ var tests      = module.exports = {}
           };
           window.document.body.appendChild(weldTag);
         });
-      })
+      });
     };
 
 tests.template_singular_instance = function(t) {
@@ -39,6 +39,21 @@ tests.template_singular_instance = function(t) {
     t.done();
   });
 };
+
+tests.template_alternate_insertion_method = function(t) {
+  html('contacts.html', function(err, weld, $, window) {
+
+    var data = [{ name: 'Paulo',  title : 'code exploder' },
+                { name: 'Elijah', title : 'code pimp' }];
+    
+    weld('.contact', data);
+    weld('.contact', data, { method: "prepend" });
+    
+    t.ok($('.contact:first .name').text() == "Elijah");
+    t.done();
+  });
+};
+
 
 tests.template_array_of_instances = function(t) {
   html('contacts.html', function(err, weld, $, window) {
@@ -70,8 +85,10 @@ tests.template_nested_objects = function(t) {
         }
       ]
     },
-    function(el) {
-      return el.addClass('pre-processed');
+    {
+      map: function(el) {
+        return el.addClass('pre-processed');
+      }
     });
 
     t.ok($('.person').length === 2);
