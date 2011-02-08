@@ -45,10 +45,11 @@ The callback is a map function, it's passed the element, key and value. For exam
 
 Here is some logic to create a DOM, load jQuery, read a file and Weld something...
 <pre>
-var fs = require('fs')
-    ,jsdom = require('jsdom')
-    ,html       = function(file, cb) {
-      file = __dirname + '/files/' + file;
+var fs = require(&#x27;fs&#x27;),
+    jsdom = require(&#x27;jsdom&#x27;),
+    html = function(file, cb) {
+      
+      file = __dirname + &#x27;/files/&#x27; + file;
       fs.readFile(file, function(err, data) {
         
         if (err) {
@@ -56,16 +57,16 @@ var fs = require('fs')
         }
 
         var window = jsdom.html(data.toString()).createWindow();
-        jsdom.jQueryify(window, __dirname + '/../lib/jquery.js', function() {
+        jsdom.jQueryify(window, __dirname + &#x27;/../lib/jquery.js&#x27;, function() {
 
-          window.$('script:last').remove();
+          window.$(&#x27;script:last&#x27;).remove();
           
-          var weldTag = window.document.createElement('script');
+          var weldTag = window.document.createElement(&#x27;script&#x27;);
           
-          weldTag.src = 'file://' + __dirname + '/../lib/weld.js';
+          weldTag.src = &#x27;file://&#x27; + __dirname + &#x27;/../lib/weld.js&#x27;;
           weldTag.onload = function() {
             // remove the weld scripttag
-            window.$('script:last').remove();
+            window.$(&#x27;script:last&#x27;).remove();
             cb(null, window.weld, window.$, window);
           };
           window.document.body.appendChild(weldTag);
