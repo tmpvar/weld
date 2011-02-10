@@ -37,8 +37,8 @@ The <b>config</b> parameter, an object literal (optional).
 - overwrite: true || false // append or not to the list that has already had a weld.
 
 <pre>
-  $(".contacts").weld(data, function(element, key, value) {
-    $(element).append("<" + key + ">" + value + "</" + key + ">");
+  $(&quot;.contacts&quot;).weld(data, function(element, key, value) {
+    $(element).append(&quot;&lt;&quot; + key + &quot;&gt;&quot; + value + &quot;&lt;/&quot; + key + &quot;&gt;&quot;);
   });
 </pre>
 
@@ -108,7 +108,31 @@ And here are the results that it will produce...
 &lt;/ul&gt;
 </pre>
 
-By default, Weld uses a heuristic that assumes the key of each key of the data's key/value pairs is an 'id', a 'class' or 'name'. This addresses the 80/20 of cases. If you want, you can supply more explicit instructions by providing a selectors parameter which maps a key with selectors.
+By default, Weld uses a heuristic that assumes each of the keys in the data's `key: value` pairs is an '#id', a '.class' or 'name'. This addresses the 80/20 of cases. If you want, you can supply more explicit instructions by providing a selectors parameter which maps a key with selectors.
+
+To be more explicit during binding, let's say you have html where a span has the class 'name', but you don't want the data with the key 'name' to map to that, you want it to map to something else...
+
+<pre>
+  &lt;ul class=&quot;contacts&quot;&gt;
+    &lt;li class=&quot;contact&quot;&gt;
+      &lt;span class=&quot;name&quot;&gt;Hello my name is &lt;span class=&quot;firstAndLast&quot;&gt;My Name&lt;/span&gt;&lt;/span&gt;
+      &lt;p class=&quot;title&quot;&gt;Leet Developer&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+</pre>
+
+Let's say this is the data to bind...
+
+<pre>
+var data = [{ name: &#x27;Paulo&#x27;,  title: &#x27;code exploder&#x27; },
+            { name: &#x27;Elijah&#x27;, title: &#x27;code pimp&#x27; }];  
+</pre>
+
+Just add explicit assignments with the bind parameter.
+
+<pre>
+  weld(&#x27;.contact&#x27;, data, { bind: { &#x27;name&#x27;: &#x27;.firstAndLast&#x27;, &#x27;title&#x27;: &#x27;.title&#x27; } });
+</pre>
 
 ## Credits
 developed by tmpvar and hij1nx!!
