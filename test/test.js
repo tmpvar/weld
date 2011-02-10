@@ -11,7 +11,7 @@ var tests      = module.exports = {}
         }
 
         var window = jsdom.html(data.toString()).createWindow();
-        jsdom.jQueryify(window, __dirname + '/../lib/jquery.js', function() {
+        jsdom.jQueryify(window, __dirname + '/../demo/public/js/jquery.js', function() {
           // remove the jQuery script tag
           window.$('script:last').remove();
           
@@ -40,6 +40,18 @@ tests.template_singular_instance = function(t) {
   });
 };
 
+tests.template_alternate_insertion_with_bind = function(t) {
+  html('contacts.html', function(err, weld, $, window) {
+
+    var data = [{ name: 'Paulo',  title: 'code exploder' },
+                { name: 'Elijah', title: 'code pimp' }];
+    
+    weld('.contact', data, { bindings: { 'name': '.foo', 'title': '.title' } });
+    t.ok($('.contact .foo:first').text().length > 1);
+    t.done();
+  });
+};
+
 tests.template_alternate_insertion_method = function(t) {
   html('contacts.html', function(err, weld, $, window) {
 
@@ -53,6 +65,8 @@ tests.template_alternate_insertion_method = function(t) {
     t.done();
   });
 };
+
+
 
 tests.template_append = function(t) {
   html('contacts.html', function(err, weld, $, window) {
