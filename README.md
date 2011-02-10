@@ -3,14 +3,12 @@
 
 ## What is it?
 
-Weld is like template antimatter for Javascript. It is the antithesis of most templating technology. There is no voodoo or special sugar required to add data into your markup. Simply, markup + instructions + data = html. And best of all it works in the *browser* and on your *node.js* server!
+Weld is like template antimatter for Javascript. It is the antithesis of most templating technology. There is no voodoo or special sugar required to add data into your markup. Simply, markup + instructions + data = html. And best of all it works in the *browser* and on your *node.js* server! Oh, and did I mention, IT'S LESS THAN 1K uncompressed?!
 
 ## Motivation
 
-Most micro templating solutions require you to pepper your markup with 'stubs' or 'placeholders', which is non-standard.
-
-- Standards compliant. No workarounds such as <%=foo%> or {foo}.
-- Promote portable code/markup by decoupling desperate technologies.
+- Standards compliant. No foreign concepts such as <%=foo%> or {foo}.
+- Promote portable code/markup by decoupling decision making from presentation.
 - More readable code/markup.
 - Increase maintainability by developers with various skill sets.
 
@@ -34,12 +32,13 @@ It's the data that you will use to populate the element collection.<br/>
 The <b>config</b> parameter, an object literal (optional).
 
 - map: function(el, key, val) { return el; } // Specify a map function to manipulate the current element.
+- bind: object // an object that maps the data's keys to css selectors.
 - overwrite: true || false // append or not to the list that has already had a weld.
 
 <pre>
-  $(&quot;.contacts&quot;).weld(data, function(element, key, value) {
-    $(element).append(&quot;&lt;&quot; + key + &quot;&gt;&quot; + value + &quot;&lt;/&quot; + key + &quot;&gt;&quot;);
-  });
+$(&quot;.contacts&quot;).weld(data, function(element, key, value) {
+  $(element).append(&quot;&lt;&quot; + key + &quot;&gt;&quot; + value + &quot;&lt;/&quot; + key + &quot;&gt;&quot;);
+});
 </pre>
 
 <b>Examples</b>
@@ -81,7 +80,6 @@ html('contacts.html', function(err, weld, $, window) {
 
   $(&#x27;.contact&#x27;).weld(data);
 });
-
 </pre>
 
 Here is the corresponding markup that our script above will load...
@@ -131,7 +129,7 @@ var data = [{ name: &#x27;Paulo&#x27;,  title: &#x27;code exploder&#x27; },
 Just add explicit assignments with the bind parameter.
 
 <pre>
-  weld(&#x27;.contact&#x27;, data, { bind: { &#x27;name&#x27;: &#x27;.firstAndLast&#x27;, &#x27;title&#x27;: &#x27;.title&#x27; } });
+weld(&#x27;.contact&#x27;, data, { bind: { &#x27;name&#x27;: &#x27;.firstAndLast&#x27;, &#x27;title&#x27;: &#x27;.title&#x27; } });
 </pre>
 
 ## Credits
