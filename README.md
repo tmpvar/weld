@@ -133,7 +133,7 @@ weld(&#x27;.contact&#x27;, data, { bind: { &#x27;name&#x27;: &#x27;.firstAndLast
 </pre>
 
 ## Credits
-developed by tmpvar and hij1nx!!
+developed by tmpvar and hij1nx
 
 If you want to learn more about JSDOM, go [here][1] it's an awesome project.
 
