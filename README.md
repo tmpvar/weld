@@ -3,9 +3,7 @@
 
 ## What is it?
 
-Weld is like template antimatter for Javascript. It is the antithesis of most templating technology. There is no voodoo 
-or special sugar required to add data into your markup. Simply, markup + instructions + data = html. And best of all it 
-works in the *browser* and on your *node.js* server!
+Weld is like template antimatter for Javascript. It is the antithesis of most templating technology. There is no voodoo or special sugar required to add data into your markup. Simply, markup + instructions + data = html. And best of all it works in the *browser* and on your *node.js* server!
 
 ## Motivation
 
@@ -20,8 +18,7 @@ Most micro templating solutions require you to pepper your markup with 'stubs' o
 
 <b>Usage</b>
 
-weld can be used as a function or as a jQuery plugin. Why jQuery? A lot of people know how to use it, but mostly for the selector 
-engine. But don't fret, it's a very light-weight plugin.
+weld can be used as a function or as a jQuery plugin. Why jQuery? A lot of people know how to use it, but mostly for the selector  engine. But don't fret, it's a very light-weight plugin.
 
 <pre>
   $(selector).weld(data, [config]);
@@ -111,8 +108,14 @@ And here are the results that it will produce...
 &lt;/ul&gt;
 </pre>
 
+By default, Weld uses a heuristic that assumes the key of each key of the data's key/value pairs is an 'id', a 'class' or 'name'. This addresses the 80/20 of cases. If you want, you can supply more explicit instructions by providing a selectors parameter which maps a key with selectors.
+
 ## Credits
 developed by tmpvar and hij1nx!!
 
+If you want to learn more about JSDOM, go [here][1] it's an awesome project.
+
 ## Version
 0.1.0
+
+[1]: https://github.com/tmpvar/jsdom
