@@ -46,7 +46,7 @@ tests.template_alternate_insertion_with_bind = function(t) {
     var data = [{ name: 'Paulo',  title: 'code exploder' },
                 { name: 'Elijah', title: 'code pimp' }];
     
-    weld('.contact', data, { bindings: { 'name': '.foo', 'title': '.title' } });
+    weld('.contact', data, { bind: { 'name': '.foo', 'title': '.title' } });
     t.ok($('.contact .foo:first').text().length > 1);
     t.done();
   });
