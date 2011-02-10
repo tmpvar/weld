@@ -37,7 +37,7 @@ The <b>config</b> parameter, an object literal (optional).
 
 <pre>
 $(&quot;.contacts&quot;).weld(data, function(element, key, value) {
-  $(element).append(&quot;&lt;&quot; + key + &quot;&gt;&quot; + value + &quot;&lt;/&quot; + key + &quot;&gt;&quot;);
+  element.style.border = &#x27;1px solid red&#x27;;
 });
 </pre>
 
@@ -133,7 +133,7 @@ weld(&#x27;.contact&#x27;, data, { bind: { &#x27;name&#x27;: &#x27;.firstAndLast
 </pre>
 
 ## Credits
-developed by tmpvar and hij1nx
+developed by <b>tmpvar</b> and <b>hij1nx</b>
 
 If you want to learn more about JSDOM, go [here][1] it's an awesome project.
 
