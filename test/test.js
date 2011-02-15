@@ -1,6 +1,5 @@
 
-var tests      = module.exports = {}
-    ,assert     = require('assert')
+var assert     = require('assert')
     ,jsdom      = require('jsdom')
     ,fs         = require('fs')
     ,path       = require("path")
@@ -8,257 +7,234 @@ var tests      = module.exports = {}
     ,wpath      = path.join(__dirname, '..', 'lib', 'weld.js')
     ;
 
-/*     ,html       = function(file, cb) {
-      file = __dirname + '/files/' + file;
-      fs.readFile(file, function(err, data) {
-        if (err) {
-          return cb(err);
-        }
-
-        var window = jsdom.html(data.toString()).createWindow();
-        jsdom.jQueryify(window, __dirname + '/../demo/public/js/jquery.js', function() {
-          // remove the jQuery script tag
-          window.$('script:last').remove();
-
-          // TODO: this is nasty, but quick.
-          var weldTag = window.document.createElement('script');
-
-          weldTag.src = 'file://' + __dirname + '/../lib/weld.js';
-          weldTag.onload = function() {
-            // remove the weld scripttag
-            window.$('script:last').remove();
-            cb(null, window.weld, window.$, window);
-          };
-          window.document.body.appendChild(weldTag);
-        });
-      });
-    };
-*/
-
-
-tests.template_singular_instance = function(t) {
-
-  jsdom.env({
-
-    scripts: [jqpath, wpath],
-    html: path.join(__dirname, 'files', 'singular.html')
-
-  }, 
-  function(window) {
-
-    var $ = window.jQuery;
-
-    // some dummy data
-    var data = {
-      key   : 'someKey',
-      value : 'someValue',
-      icon  : '/path/to/image.png'
-    };
-
-    $('#singular').weld(data);
-    
-    t.ok($('.key').html() === data.key);
-    t.ok($('.icon').attr('src') === data.icon);
-    t.done();
-
-  });
-
-};
-
-tests.template_alternate_insertion_with_bind = function(t) {
+module.exports = {
   
-  jsdom.env({
+  "Create markup from a template using an object literal that has one dimension": function(test) {
 
-    scripts: [jqpath, wpath],
-    html: path.join(__dirname, 'files', 'contacts.html')
+    jsdom.env({
 
-  },
-  function(window) {
-    
-    var $ = window.jQuery;    
+      scripts: [jqpath, wpath],
+      html: path.join(__dirname, 'files', 'singular.html')
 
-    var data = [{ name: 'hij1nx',  title: 'code exploder' },
-                { name: 'tmpvar', title: 'code pimp' }];
+    }, 
+    function(window) {
 
-    $('.contact').weld(data, { bind: { 'name': '.foo', 'title': '.title' } });
-    t.ok($('.contact .foo:first').text().length > 1);
-    t.done();
-    
-  });
+      var $ = window.jQuery;
+
+      // some dummy data
+      var data = {
+        key   : 'someKey',
+        value : 'someValue',
+        icon  : '/path/to/image.png'
+      };
+
+      $('#singular').weld(data);
   
-};
+      test.ok($('.key').html() === data.key);
+      test.ok($('.icon').attr('src') === data.icon);
+      test.done();
 
-tests.template_alternate_insertion_method = function(t) {
-  
-  jsdom.env({
-
-    scripts: [jqpath, wpath],
-    html: path.join(__dirname, 'files', 'contacts.html')
-
-  },
-  function(window) {
-    
-    var $ = window.jQuery;    
-
-    var data = [{ name: 'hij1nx',  title : 'code exploder' },
-                { name: 'tmpvar', title : 'code pimp' }];
-
-    $('.contact').weld(data);
-    $('.contact').weld(data, { method: "prepend" });
-    
-    t.ok($('.contact:first .name').text() == "tmpvar");
-    t.done();
-  });
-  
-};
-
-tests.template_custom_insertion_method = function(t) {
-  
-  jsdom.env({
-
-    scripts: [jqpath, wpath],
-    html: path.join(__dirname, 'files', 'contacts.html')
-
-  },
-  function(window) {  
-    
-    var $ = window.jQuery;    
-
-    var times = 1;
-    var data = [{ name: 'hij1nx',  title : 'code master' },
-                { name: 'tmpvar', title : 'code pimp' }];
-
-    $('.contact').weld(data, {
-      
-      method: function(parent, newElement) {
-        times++;
-        parent.prepend(newElement);
-      }
-      
     });
-
-    t.ok($('.contact').length == 2);
-    t.ok($('.contact:nth(0) .name').text() == "tmpvar");
-    t.done();
     
-  });
-
-};
-
-tests.template_append = function(t) {
-  
-  jsdom.env({
-
-    scripts: [jqpath, wpath],
-    html: path.join(__dirname, 'files', 'contacts.html')
-
   },
-  function(window) {  
-    
-    var $ = window.jQuery;    
-
-    var data = [{ name: 'hij1nx',  title : 'manhatton' },
-                { name: 'tmpvar', title : 'brooklyn' }];
-
-    $('.contact').weld(data);
-    $('.contact').weld(data);
-
-    t.ok($('.contact .name').length > 2);
-    t.done();
-  });
-};
-
-
-tests.template_array_of_instances = function(t) {
-
-  jsdom.env({
-
-    scripts: [jqpath, wpath],
-    html: path.join(__dirname, 'files', 'contacts.html')
-
-  },
-  function(window) {  
-    
-    var $ = window.jQuery;    
-
-    var data = [{ name: 'hij1nx',  title : 'code exploder' },
-                { name: 'tmpvar', title : 'code wrangler' }];
-
-    $('.contact').weld(data);
-    
-    t.ok($('.name:first').html() === data[0].name);
-    t.done();
-    
-  });
   
-};
-
-tests.template_nested_objects = function(t) {
-  
-  jsdom.env({
-
-    scripts: [jqpath, wpath],
-    html: path.join(__dirname, 'files', 'array-of-arrays.html')
-
-  },
-  function(window) {  
+  "Create markup from a template using a bind parameter to explicitly map data to selectors": function(test) {
     
-    var $ = window.jQuery;    
+    jsdom.env({
 
-    $('.people').weld({
-      person : [
-        {
-          name : 'John',
-          job  : [
-            'guru', 'monkey', 'tester'
-          ]
-        },
-        {
-          name : 'Bob',
-          job  : [
-            'supervise', 'yell'
-          ]
-        }
-      ]
+      scripts: [jqpath, wpath],
+      html: path.join(__dirname, 'files', 'contacts.html')
+
     },
-    {
-      map: function(el) {
-        return el.addClass('pre-processed');
-      }
+    function(window) {
+  
+      var $ = window.jQuery;    
+
+      var data = [{ name: 'hij1nx',  title: 'code exploder' },
+                  { name: 'tmpvar', title: 'code pimp' }];
+
+      $('.contact').weld(data, { bind: { 'name': '.foo', 'title': '.title' } });
+
+      test.ok($('.contact .foo:first').text().length > 1);
+      test.done();
+  
     });
 
-    t.ok($('.person').length === 2);
+  },
+  
+  "Create markup from a template with an alternate method of insertion": function(test) {
+  
+    jsdom.env({
 
-    //  Every node that gets iterated over should have a pre-processed class
-    // (7 in total)
+      scripts: [jqpath, wpath],
+      html: path.join(__dirname, 'files', 'contacts.html')
 
-    t.ok($('.pre-processed').length === 7);
-    t.done();
-  });
+    },
+    function(window) {
+    
+      var $ = window.jQuery;    
 
-};
+      var data = [{ name: 'hij1nx',  title : 'code exploder' },
+                  { name: 'tmpvar', title : 'code pimp' }];
 
-tests.template_form_elements = function(t) {
+      $('.contact').weld(data);
+      $('.contact').weld(data, { method: "prepend" });
+    
+      test.ok($('.contact:first .name').text() == "tmpvar");
+      test.done();
 
-  jsdom.env({
+    });
+  
+  },
+  
+  "Create html from a template using a custom data mapping method": function(test) {
+  
+    jsdom.env({
 
-    scripts: [jqpath, wpath],
-    html: path.join(__dirname, 'files', 'form.html')
+      scripts: [jqpath, wpath],
+      html: path.join(__dirname, 'files', 'contacts.html')
+
+    },
+    function(window) {  
+    
+      var $ = window.jQuery;    
+
+      var times = 1;
+      var data = [{ name: 'hij1nx',  title : 'code master' },
+                  { name: 'tmpvar', title : 'code pimp' }];
+
+      $('.contact').weld(data, {
+      
+        method: function(parent, newElement) {
+          times++;
+          parent.prepend(newElement);
+        }
+      
+      });
+
+      test.ok($('.contact').length == 2);
+      test.ok($('.contact:nth(0) .name').text() == "tmpvar");
+      test.done();
+    
+    });
+
+  },  
+  
+  "Append to a node that has already been the subject of a weld": function(test) {
+  
+    jsdom.env({
+
+      scripts: [jqpath, wpath],
+      html: path.join(__dirname, 'files', 'contacts.html')
+
+    },
+    function(window) {  
+    
+      var $ = window.jQuery;    
+
+      var data = [{ name: 'hij1nx',  title : 'manhatton' },
+                  { name: 'tmpvar', title : 'brooklyn' }];
+
+      $('.contact').weld(data);
+      $('.contact').weld(data);
+
+      test.ok($('.contact .name').length > 2);
+      test.done();
+    });
+  
+  },
+  
+  "Create markup from an array of objects that have one dimention": function(test) {
+
+    jsdom.env({
+
+      scripts: [jqpath, wpath],
+      html: path.join(__dirname, 'files', 'contacts.html')
+
+    },
+    function(window) {  
+
+      var $ = window.jQuery;    
+
+      var data = [{ name: 'hij1nx',  title : 'code exploder' },
+                  { name: 'tmpvar', title : 'code wrangler' }];
+
+      $('.contact').weld(data);
+
+      test.ok($('.name:first').html() === data[0].name);
+      test.done();
+    
+    });
 
   },
-  function(window) {
-    
-    var $ = window.jQuery;    
+  
+  "Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
 
-    var data = {
-      'email' : 'tmpvar@gmail.com'
+     jsdom.env({
+
+       scripts: [jqpath, wpath],
+       html: path.join(__dirname, 'files', 'array-of-arrays.html')
+
+     },
+     function(window) {  
+
+       var $ = window.jQuery;    
+
+       $('.people').weld({
+         person : [
+           {
+             name : 'John',
+             job  : [
+               'guru', 'monkey', 'tester'
+             ]
+           },
+           {
+             name : 'Bob',
+             job  : [
+               'supervise', 'yell'
+             ]
+           }
+         ]
+       },
+       {
+         map: function(el) {
+           return el.addClass('pre-processed');
+         }
+       });
+
+       test.ok($('.person').length === 2);
+
+       //  Every node that gets iterated over should have a pre-processed class
+       // (7 in total)
+
+       test.ok($('.pre-processed').length === 7);
+       test.done();
+     });
+
+   },
+   
+   "Create markup using form elements as the template": function(test) {
+
+      jsdom.env({
+
+        scripts: [jqpath, wpath],
+        html: path.join(__dirname, 'files', 'form.html')
+
+      },
+      function(window) {
+
+        var $ = window.jQuery;    
+
+        var data = {
+          'email' : 'tmpvar@gmail.com'
+        }
+
+        $('form').weld(data);
+
+        test.ok($(':input[name=email]').val() === data.email);
+        test.done();
+
+      });
     }
-
-    $('form').weld(data);
-
-    t.ok($(':input[name=email]').val() === data.email);
-    t.done();
-
-  });
 
 };
