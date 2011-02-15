@@ -3,7 +3,12 @@ var tests      = module.exports = {}
     ,assert     = require('assert')
     ,jsdom      = require('jsdom')
     ,fs         = require('fs')
-    ,html       = function(file, cb) {
+    ,path       = require("path")
+    ,jqpath     = path.join(__dirname, '..', 'demo', 'public', 'js', 'jquery.js')
+    ,wpath      = path.join(__dirname, '..', 'lib', 'weld.js')
+    ;
+
+/*     ,html       = function(file, cb) {
       file = __dirname + '/files/' + file;
       fs.readFile(file, function(err, data) {
         if (err) {
@@ -28,77 +33,135 @@ var tests      = module.exports = {}
         });
       });
     };
+*/
+
 
 tests.template_singular_instance = function(t) {
-  html('singular.html', function(err, weld, $, window) {
 
-     // some dummy data
+  jsdom.env({
+
+    scripts: [jqpath, wpath],
+    html: path.join(__dirname, 'files', 'singular.html')
+
+  }, 
+  function(window) {
+
+    var $ = window.jQuery;
+
+    // some dummy data
     var data = {
       key   : 'someKey',
       value : 'someValue',
       icon  : '/path/to/image.png'
     };
 
-    weld('#singular', data);
+    $('#singular').weld(data);
+    
     t.ok($('.key').html() === data.key);
     t.ok($('.icon').attr('src') === data.icon);
     t.done();
+
   });
+
 };
 
 tests.template_alternate_insertion_with_bind = function(t) {
-  html('contacts.html', function(err, weld, $, window) {
+  
+  jsdom.env({
 
-    var data = [{ name: 'Paulo',  title: 'code exploder' },
-                { name: 'Elijah', title: 'code pimp' }];
+    scripts: [jqpath, wpath],
+    html: path.join(__dirname, 'files', 'contacts.html')
 
-    weld('.contact', data, { bind: { 'name': '.foo', 'title': '.title' } });
+  },
+  function(window) {
+    
+    var $ = window.jQuery;    
+
+    var data = [{ name: 'hij1nx',  title: 'code exploder' },
+                { name: 'tmpvar', title: 'code pimp' }];
+
+    $('.contact').weld(data, { bind: { 'name': '.foo', 'title': '.title' } });
     t.ok($('.contact .foo:first').text().length > 1);
     t.done();
+    
   });
+  
 };
 
 tests.template_alternate_insertion_method = function(t) {
-  html('contacts.html', function(err, weld, $, window) {
+  
+  jsdom.env({
 
-    var data = [{ name: 'Paulo',  title : 'code exploder' },
-                { name: 'Elijah', title : 'code pimp' }];
+    scripts: [jqpath, wpath],
+    html: path.join(__dirname, 'files', 'contacts.html')
 
-    weld('.contact', data);
-    weld('.contact', data, { method: "prepend" });
-    t.ok($('.contact:first .name').text() == "Elijah");
+  },
+  function(window) {
+    
+    var $ = window.jQuery;    
+
+    var data = [{ name: 'hij1nx',  title : 'code exploder' },
+                { name: 'tmpvar', title : 'code pimp' }];
+
+    $('.contact').weld(data);
+    $('.contact').weld(data, { method: "prepend" });
+    
+    t.ok($('.contact:first .name').text() == "tmpvar");
     t.done();
   });
+  
 };
 
 tests.template_custom_insertion_method = function(t) {
-  html('contacts.html', function(err, weld, $, window) {
+  
+  jsdom.env({
 
-    var data = [{ name: 'Paulo',  title : 'code master' },
-                { name: 'Elijah', title : 'code pimp' }];
+    scripts: [jqpath, wpath],
+    html: path.join(__dirname, 'files', 'contacts.html')
 
-var times = 1;
-    weld('.contact', data, {
-     method: function(parent, newElement) {
-     times++;
-       parent.prepend(newElement);
-     }
+  },
+  function(window) {  
+    
+    var $ = window.jQuery;    
+
+    var times = 1;
+    var data = [{ name: 'hij1nx',  title : 'code master' },
+                { name: 'tmpvar', title : 'code pimp' }];
+
+    $('.contact').weld(data, {
+      
+      method: function(parent, newElement) {
+        times++;
+        parent.prepend(newElement);
+      }
+      
     });
 
     t.ok($('.contact').length == 2);
-    t.ok($('.contact:nth(0) .name').text() == "Elijah");
+    t.ok($('.contact:nth(0) .name').text() == "tmpvar");
     t.done();
+    
   });
+
 };
 
 tests.template_append = function(t) {
-  html('contacts.html', function(err, weld, $, window) {
+  
+  jsdom.env({
 
-    var data = [{ name: 'Paulo',  title : 'code master' },
-                { name: 'Elijah', title : 'code pimp' }];
+    scripts: [jqpath, wpath],
+    html: path.join(__dirname, 'files', 'contacts.html')
 
-    weld('.contact', data);
-    weld('.contact', data);
+  },
+  function(window) {  
+    
+    var $ = window.jQuery;    
+
+    var data = [{ name: 'hij1nx',  title : 'manhatton' },
+                { name: 'tmpvar', title : 'brooklyn' }];
+
+    $('.contact').weld(data);
+    $('.contact').weld(data);
 
     t.ok($('.contact .name').length > 2);
     t.done();
@@ -107,19 +170,41 @@ tests.template_append = function(t) {
 
 
 tests.template_array_of_instances = function(t) {
-  html('contacts.html', function(err, weld, $, window) {
 
-    var data = [{ name: 'Paulo',  title : 'code exploder' },
-                { name: 'Elijah', title : 'code pimp' }];
+  jsdom.env({
 
-    weld('.contact', data);
+    scripts: [jqpath, wpath],
+    html: path.join(__dirname, 'files', 'contacts.html')
+
+  },
+  function(window) {  
+    
+    var $ = window.jQuery;    
+
+    var data = [{ name: 'hij1nx',  title : 'code exploder' },
+                { name: 'tmpvar', title : 'code wrangler' }];
+
+    $('.contact').weld(data);
+    
     t.ok($('.name:first').html() === data[0].name);
     t.done();
+    
   });
+  
 };
 
 tests.template_nested_objects = function(t) {
-  html('array-of-arrays.html', function(err, weld, $, window) {
+  
+  jsdom.env({
+
+    scripts: [jqpath, wpath],
+    html: path.join(__dirname, 'files', 'array-of-arrays.html')
+
+  },
+  function(window) {  
+    
+    var $ = window.jQuery;    
+
     $('.people').weld({
       person : [
         {
@@ -150,10 +235,21 @@ tests.template_nested_objects = function(t) {
     t.ok($('.pre-processed').length === 7);
     t.done();
   });
+
 };
 
 tests.template_form_elements = function(t) {
-  html('form.html', function(err, weld, $, window) {
+
+  jsdom.env({
+
+    scripts: [jqpath, wpath],
+    html: path.join(__dirname, 'files', 'form.html')
+
+  },
+  function(window) {
+    
+    var $ = window.jQuery;    
+
     var data = {
       'email' : 'tmpvar@gmail.com'
     }
@@ -164,4 +260,5 @@ tests.template_form_elements = function(t) {
     t.done();
 
   });
+
 };

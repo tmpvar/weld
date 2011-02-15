@@ -133,7 +133,7 @@ weld(&#x27;.contact&#x27;, data, { bind: { &#x27;name&#x27;: &#x27;.firstAndLast
 </pre>
 
 ## Credits
-developed by <b>tmpvar</b> and <b>hij1nx</b>
+developed by [hij1nx][2] and [tmpvar][3]
 
 If you want to learn more about JSDOM, go [here][1] it's an awesome project.
 
@@ -141,3 +141,5 @@ If you want to learn more about JSDOM, go [here][1] it's an awesome project.
 0.1.0
 
 [1]: https://github.com/tmpvar/jsdom
+[2]: http://twitter.com/hij1nx
+[3]: http://twitter.com/tmpvar
