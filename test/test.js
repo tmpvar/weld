@@ -170,48 +170,49 @@ module.exports = {
   
   "Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
 
-     jsdom.env({
+    jsdom.env({
 
-       scripts: [jqpath, wpath],
-       html: path.join(__dirname, 'files', 'array-of-arrays.html')
+      scripts: [jqpath, wpath],
+      html: path.join(__dirname, 'files', 'array-of-arrays.html')
 
-     },
-     function(window) {  
+    },
+    function(window) {  
 
-       var $ = window.jQuery;    
+      var $ = window.jQuery;    
 
-       $('.people').weld({
-         person : [
-           {
-             name : 'John',
-             job  : [
-               'guru', 'monkey', 'tester'
-             ]
-           },
-           {
-             name : 'Bob',
-             job  : [
-               'supervise', 'yell'
-             ]
-           }
-         ]
-       },
-       {
-         map: function(el) {
-           return el.addClass('pre-processed');
-         }
-       });
+      $('.people').weld({
+        person : [
+          {
+            name : 'John',
+            job  : [
+              'guru', 'monkey', 'tester'
+            ]
+          },
+          {
+            name : 'Bob',
+            job  : [
+              'supervise', 'yell'
+            ]
+          }
+        ]
+      },
+      {
+        map: function(el) {
+          return el.addClass('pre-processed');
+        }
+      });
 
-       test.ok($('.person').length === 2);
+      test.ok($('.person').length === 2);
 
-       //  Every node that gets iterated over should have a pre-processed class
-       // (7 in total)
+      //  Every node that gets iterated over should have a pre-processed class
+      // (7 in total)
 
-       test.ok($('.pre-processed').length === 7);
-       test.done();
-     });
+      test.ok($('.pre-processed').length === 7);
+      test.done();
+      
+    });
 
-   },
+  },
    
    "Create markup using form elements as the template": function(test) {
 
@@ -227,7 +228,7 @@ module.exports = {
 
         var data = {
           'email' : 'tmpvar@gmail.com'
-        }
+        };
 
         $('form').weld(data);
 
