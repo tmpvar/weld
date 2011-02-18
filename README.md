@@ -1,9 +1,8 @@
-
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
 
 ## What is it?
 
-Weld is like template antimatter for Javascript. It is the antithesis of most templating technology. There is no voodoo or special sugar required to add data into your markup. Simply, markup + instructions + data = html. And best of all it works in the *browser* and on your *node.js* server! Oh, and did I mention, IT'S LESS THAN 1K uncompressed?!
+Weld is like template antimatter for Javascript. It is the antithesis of most templating technology. There is no voodoo or special sugar required to add data into your markup. Simply, markup + instructions + data = html. And best of all it works in the *browser* and on your *node.js* server! Oh, and did I mention, IT'S LESS THAN 1K compressed?!
 
 ## Motivation
 
