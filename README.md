@@ -49,13 +49,16 @@ var fs = require(&#x27;fs&#x27;),
 
     jsdom.env({
       code: &#x27;/../lib/jquery.js&#x27;,
-      html: &#x27;http://www.google.com&#x27;
+      html: &#x27;/../files/contexts.html&#x27;
     },
     function(window) {
 
       window.jQuery = $;
       
-      $(&#x27;body&#x27;).append($(&#x27;input&#x27;).clone(true));
+      var data = [{ name: &quot;Paolo&quot;,  title : &quot;Code Slayer&quot; },
+                { name: &quot;Elijah&quot;, title : &quot;Code Pimp&quot; }];
+
+      $(&#x27;.contact&#x27;).weld(data);
 
     });
 
