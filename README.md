@@ -47,39 +47,19 @@ Here is some logic to create a DOM, load jQuery, read a file and Weld something.
 <pre>
 var fs = require(&#x27;fs&#x27;),
     jsdom = require(&#x27;jsdom&#x27;),
-    html = function(file, cb) {
+
+    jsdom.env({
+      code: &#x27;/../lib/jquery.js&#x27;,
+      html: &#x27;http://www.google.com&#x27;
+    },
+    function(window) {
+
+      window.jQuery = $;
       
-      file = __dirname + &#x27;/files/&#x27; + file;
-      fs.readFile(file, function(err, data) {
-        
-        if (err) {
-          return cb(err);
-        }
+      $(&#x27;body&#x27;).append($(&#x27;input&#x27;).clone(true));
 
-        var window = jsdom.html(data.toString()).createWindow();
-        jsdom.jQueryify(window, __dirname + &#x27;/../lib/jquery.js&#x27;, function() {
+    });
 
-          window.$(&#x27;script:last&#x27;).remove();
-          
-          var weldTag = window.document.createElement(&#x27;script&#x27;);
-          
-          weldTag.src = &#x27;file://&#x27; + __dirname + &#x27;/../lib/weld.js&#x27;;
-          weldTag.onload = function() {
-            // remove the weld scripttag
-            window.$(&#x27;script:last&#x27;).remove();
-            cb(null, window.weld, window.$, window);
-          };
-          window.document.body.appendChild(weldTag);
-        });
-      })
-    };
-  
-html('contacts.html', function(err, weld, $, window) {
-  var data = [{ name: &quot;Paolo&quot;,  title : &quot;Code Slayer&quot; },
-            { name: &quot;Elijah&quot;, title : &quot;Code Pimp&quot; }];
-
-  $(&#x27;.contact&#x27;).weld(data);
-});
 </pre>
 
 Here is the corresponding markup that our script above will load...
