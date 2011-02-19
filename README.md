@@ -121,6 +121,20 @@ Just add the bind parameter.
 weld(&#x27;.contact&#x27;, data, { bind: { &#x27;name&#x27;: &#x27;.firstAndLast&#x27;, &#x27;title&#x27;: &#x27;.title&#x27; } });
 </pre>
 
+This will produce...
+<pre>
+&lt;ul class=&quot;contacts&quot;&gt;
+  &lt;li class=&quot;contact&quot;&gt;
+    &lt;span class=&quot;name&quot;&gt;Hello my name is &lt;span class=&quot;firstAndLast&quot;&gt;hij1nx&lt;/span&gt;&lt;/span&gt;  
+    &lt;p class=&quot;title&quot;&gt;code slayer&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li class=&quot;contact&quot;&gt;
+    &lt;span class=&quot;name&quot;&gt;Hello my name is &lt;span class=&quot;firstAndLast&quot;&gt;tmpvar&lt;/span&gt;&lt;/span&gt;  
+    &lt;p class=&quot;title&quot;&gt;code pimp&lt;/p&gt;
+  &lt;/li&gt;  
+&lt;/ul&gt;
+</pre>
+
 ## Credits
 developed by [hij1nx][2] and [tmpvar][3]
 
