@@ -2,7 +2,7 @@
 
 ## What is it?
 
-Weld is like template antimatter for Javascript. It is the antithesis of most templating technology. There is no voodoo or special sugar required to add data into your markup. Simply, markup + instructions + data = html. And best of all it works in the *browser* and on your *node.js* server! Oh, and did I mention, IT'S LESS THAN 1K compressed?!
+Weld turns data into markup. There's NO sugar required. It works in the *browser* and in node.js! It's less than 1K compressed. It was co-developed with the developer of JSDOM.
 
 ## Motivation
 
@@ -13,36 +13,44 @@ Weld is like template antimatter for Javascript. It is the antithesis of most te
 
 ## How does it work?
 
-<b>Usage</b>
-
-weld can be used as a function or as a jQuery plugin. Why jQuery? A lot of people know how to use it, but mostly for the selector  engine. But don't fret, it's a very light-weight plugin.
-
+Get a collection of elements, provide your data, optionally provide configuration details.
 <pre>
-  $(selector).weld(data, [config]);
-</pre>
-or
-<pre>
-  weld('.selector', data, [config]);
+weld('.selector', data, [config]);
 </pre>
 
-The <b>data</b> parameter, an object or an array.
-It's the data that you will use to populate the element collection.<br/>
-
-The <b>config</b> parameter, an object literal (optional).
-
-- map: function(el, key, val) { return el; } // Specify a map function to manipulate the current element.
-- bind: object // an object that maps the data's keys to css selectors.
-- overwrite: true || false // append or not to the list that has already had a weld.
-
+Use with whatever library you want, jQuery for example.
 <pre>
-$(&quot;.contacts&quot;).weld(data, function(element, key, value) {
-  element.style.border = &#x27;1px solid red&#x27;;
-});
+$('.selector').weld(data, [config]);
 </pre>
 
-<b>Examples</b>
+### data parameter
+Could be any data, an object an array, an array of objects, etc.
 
-Here is some logic to create a DOM, load jQuery, read a file and Weld something...
+### config parameter
+An object literal (it's optional).
+
+<br/>
+'map' - A map function will supply the current HTML element that will created for the data that's being iterated as well as the key (if the data is an object literal) and the data's value.
+
+<pre>map: function(el, key, val) { 
+  return el; 
+}
+</pre>
+
+'bind' - An object that explicitly maps the data's keys to css selectors.
+<pre>bind: { 
+  'myDataValueKey': '.someClassSelector',
+  'otherKey': '#someId'
+}
+</pre> 
+
+'overwrite' - Should we overwrite the old HTML? (true by default)
+<pre>overwrite: true
+</pre>
+
+## Examples
+
+Create a DOM, load a library, read a file and bind the data to it...
 <pre>
 var fs = require(&#x27;fs&#x27;),
     jsdom = require(&#x27;jsdom&#x27;),
@@ -55,8 +63,8 @@ function(window) {
 
   window.jQuery = $;
   
-  var data = [{ name: &quot;Paolo&quot;,  title : &quot;Code Slayer&quot; },
-            { name: &quot;Elijah&quot;, title : &quot;Code Pimp&quot; }];
+  var data = [{ name: &quot;hij1nx&quot;,  title : &quot;code slayer&quot; },
+            { name: &quot;tmpvar&quot;, title : &quot;code pimp&quot; }];
 
   $(&#x27;.contact&#x27;).weld(data);
 
@@ -78,19 +86,21 @@ And here are the results that it will produce...
 <pre>
 &lt;ul class=&quot;contacts&quot;&gt;
   &lt;li class=&quot;contact&quot;&gt;
-    &lt;span class=&quot;name&quot;&gt;Paolo&lt;/span&gt;
-    &lt;p class=&quot;title&quot;&gt;Code Slayer&lt;/p&gt;
+    &lt;span class=&quot;name&quot;&gt;hij1nx&lt;/span&gt;
+    &lt;p class=&quot;title&quot;&gt;code slayer&lt;/p&gt;
   &lt;/li&gt;
   &lt;li class=&quot;contact&quot;&gt;
-    &lt;span class=&quot;name&quot;&gt;Elijah&lt;/span&gt;
-    &lt;p class=&quot;title&quot;&gt;Code Pimp&lt;/p&gt;
+    &lt;span class=&quot;name&quot;&gt;tmpvar&lt;/span&gt;
+    &lt;p class=&quot;title&quot;&gt;code pimp&lt;/p&gt;
   &lt;/li&gt;  
 &lt;/ul&gt;
 </pre>
 
-By default, Weld uses a heuristic that assumes each of the keys in the data's `key: value` pairs is an '#id', a '.class' or 'name'. This addresses the 80/20 of cases. If you want, you can supply more explicit instructions by providing a selectors parameter which maps a key with selectors.
+### how data actually maps to the html
 
-To be more explicit during binding, let's say you have html where a span has the class 'name', but you don't want the data with the key 'name' to map to that, you want it to map to something else...
+By default, weld uses a heuristic that assumes each of the keys in the data's `key: value` pairs is an '#id', a '.class' or 'name'. This addresses the 80/20 of cases. 
+
+There are cases where you need to be more <b>explicit</b> and map a data key to an element or collection of elements. To do this, you can add a mapping of data keys to selectors. So, for the following HTML...
 
 <pre>
   &lt;ul class=&quot;contacts&quot;&gt;
@@ -101,15 +111,13 @@ To be more explicit during binding, let's say you have html where a span has the
   &lt;/ul&gt;
 </pre>
 
-Let's say this is the data to bind...
-
+Using this data...
 <pre>
 var data = [{ name: &#x27;Paulo&#x27;,  title: &#x27;code exploder&#x27; },
             { name: &#x27;Elijah&#x27;, title: &#x27;code pimp&#x27; }];  
 </pre>
 
-Just add explicit assignments with the bind parameter.
-
+Just add the bind parameter.
 <pre>
 weld(&#x27;.contact&#x27;, data, { bind: { &#x27;name&#x27;: &#x27;.firstAndLast&#x27;, &#x27;title&#x27;: &#x27;.title&#x27; } });
 </pre>
