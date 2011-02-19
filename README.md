@@ -47,6 +47,11 @@ An object literal (optional), can include any of the following...
 <pre>overwrite: true
 </pre>
 
+## NPM
+<pre>
+npm install weld
+</pre>
+
 ## Examples
 
 Create a DOM, load a library, read a file and bind the data to it...
