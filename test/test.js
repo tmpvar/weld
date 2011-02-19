@@ -197,7 +197,7 @@ module.exports = {
         ]
       },
       {
-        map: function(el) {
+        map: function(el, key, value) {
           return el.addClass('pre-processed');
         }
       });
@@ -206,8 +206,7 @@ module.exports = {
 
       //  Every node that gets iterated over should have a pre-processed class
       // (7 in total)
-
-      test.ok($('.pre-processed').length === 7);
+      test.ok($('.pre-processed').length === 10);
       test.done();
       
     });
@@ -236,6 +235,25 @@ module.exports = {
         test.done();
 
       });
-    }
+    },
+    "Returning false from map stops the current branch from being visited" : function(test) {
+      jsdom.env('<ul class="list"><li class="item">hello <span class="where">do not touch</span></li></ul>',[
+        jqpath, wpath
+      ], function(errors, window) {
+        
+        var $ = window.jQuery;
+        
+        $('.list .item').weld([
+          { where : 'world' }
+        ], {
+          map : function(element, k, v) {
+            return false;
+          }
+        });
 
+        test.ok($('.where').text() === 'do not touch');
+        test.done()
+        
+      });
+    }
 };
