@@ -60,7 +60,10 @@ var fs = require(&#x27;fs&#x27;),
     jsdom = require(&#x27;jsdom&#x27;),
 
 jsdom.env({
-  code: &#x27;/../lib/jquery.js&#x27;,
+  code: [
+    &#x27;/../lib/jquery.js&#x27;,
+    'path/to/weld.js'
+  ],
   html: &#x27;/../files/contexts.html&#x27;
 },
 function(window) {
