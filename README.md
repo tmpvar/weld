@@ -27,9 +27,8 @@ $('.selector').weld(data, [config]);
 Could be any data, an object an array, an array of objects, etc.
 
 ### config parameter
-An object literal (it's optional).
+An object literal (optional), can include any of the following...
 
-<br/>
 'map' - A map function will supply the current HTML element that will created for the data that's being iterated as well as the key (if the data is an object literal) and the data's value.
 
 <pre>map: function(el, key, val) { 
