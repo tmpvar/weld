@@ -117,8 +117,8 @@ There are cases where you need to be more <b>explicit</b> and map a data key to 
 
 Using this data...
 <pre>
-var data = [{ name: &#x27;Paulo&#x27;,  title: &#x27;code exploder&#x27; },
-            { name: &#x27;Elijah&#x27;, title: &#x27;code pimp&#x27; }];  
+var data = [{ name: &#x27;hij1nx&#x27;,  title: &#x27;code exploder&#x27; },
+            { name: &#x27;tmpvar&#x27;, title: &#x27;code pimp&#x27; }];  
 </pre>
 
 Just add the bind parameter.
