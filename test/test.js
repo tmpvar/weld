@@ -17,7 +17,7 @@ module.exports = {
       html: path.join(__dirname, 'files', 'singular.html')
 
     }, 
-    function(window) {
+    function(errors, window) {
 
       var $ = window.jQuery;
 
@@ -46,7 +46,7 @@ module.exports = {
       html: path.join(__dirname, 'files', 'contacts.html')
 
     },
-    function(window) {
+    function(errors, window) {
   
       var $ = window.jQuery;    
 
@@ -70,7 +70,7 @@ module.exports = {
       html: path.join(__dirname, 'files', 'contacts.html')
 
     },
-    function(window) {
+    function(errors, window) {
     
       var $ = window.jQuery;    
 
@@ -95,7 +95,7 @@ module.exports = {
       html: path.join(__dirname, 'files', 'contacts.html')
 
     },
-    function(window) {  
+    function(errors, window) {  
     
       var $ = window.jQuery;    
 
@@ -128,7 +128,7 @@ module.exports = {
       html: path.join(__dirname, 'files', 'contacts.html')
 
     },
-    function(window) {  
+    function(errors, window) {  
     
       var $ = window.jQuery;    
 
@@ -152,7 +152,7 @@ module.exports = {
       html: path.join(__dirname, 'files', 'contacts.html')
 
     },
-    function(window) {  
+    function(errors, window) {  
 
       var $ = window.jQuery;    
 
@@ -176,7 +176,7 @@ module.exports = {
       html: path.join(__dirname, 'files', 'array-of-arrays.html')
 
     },
-    function(window) {  
+    function(errors, window) {  
 
       var $ = window.jQuery;    
 
@@ -222,7 +222,7 @@ module.exports = {
         html: path.join(__dirname, 'files', 'form.html')
 
       },
-      function(window) {
+      function(errors, window) {
 
         var $ = window.jQuery;    
 
