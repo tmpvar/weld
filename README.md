@@ -1,3 +1,4 @@
+
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
 
 ## What is it?
@@ -29,21 +30,23 @@ Could be any data, an object an array, an array of objects, etc.
 ### config parameter
 An object literal (optional), can include any of the following...
 
-'map' - A map function will supply the current HTML element that will created for the data that's being iterated as well as the key (if the data is an object literal) and the data's value.
+`map` - A map function will supply the current HTML element that will created for the data that's being iterated as well as the key and the data's value.
+
+Returning false from `map` will cause the traversal of the current branch to stop.
 
 <pre>map: function(el, key, val) { 
   return el; 
 }
 </pre>
 
-'bind' - An object that explicitly maps the data's keys to css selectors.
+`bind` - An object that explicitly maps the data's keys to css selectors.
 <pre>bind: { 
   'myDataValueKey': '.someClassSelector',
   'otherKey': '#someId'
 }
 </pre> 
 
-'overwrite' - Should we overwrite the old HTML? (true by default)
+`overwrite` - Should we overwrite the old HTML? (true by default)
 <pre>overwrite: true
 </pre>
 
