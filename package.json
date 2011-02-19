@@ -13,7 +13,7 @@
       "url": "git://github.com/tmpvar/unobtrusive.jsdom.org.git" 
   }],
   "dependencies": {
-     "jsdom" : ">= 0.1.23"
+     "jsdom" : ">= 0.2.0"
   },
   "devDependencies" : {
     "nodeunit" : "*"
