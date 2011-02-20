@@ -3,11 +3,11 @@
 
 ## What is it?
 
-Weld turns data into markup. There's NO sugar required. It works in the *browser* and in node.js! It's less than 1K compressed. It was co-developed with the developer of JSDOM.
+Weld turns data into markup. There's NO sugar required. It works in the *browser* and in node.js! It was co-developed with the developer of JSDOM. *The next version will not require jQuery*.
 
 ## Motivation
 
-- Standards compliant. No foreign concepts such as <%=foo%> or {foo}.
+- Standards compliant. No foreign concepts such as <%=foo%> or {{foo}}.
 - Promote portable code/markup by decoupling decision making from presentation.
 - More readable code/markup.
 - Increase maintainability by developers with various skill sets.
