@@ -192,7 +192,6 @@ module.exports = {
 
       $('.contact').weld(data);
       
-      
       console.log('\r\n--- start debug on test #7 ---'.yellow)
       console.log($('body').html());
       console.log('--- end debug ---\r\n'.yellow);      
