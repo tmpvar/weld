@@ -3,13 +3,14 @@ var assert     = require('assert')
     ,jsdom      = require('jsdom')
     ,fs         = require('fs')
     ,path       = require("path")
+    ,colors     = require("colors")
     ,jqpath     = path.join(__dirname, '..', 'demo', 'public', 'js', 'jquery.js')
     ,wpath      = path.join(__dirname, '..', 'lib', 'weld.js')
     ;
 
 module.exports = {
   
-  "Create markup from a template using an object literal that has one dimension": function(test) {
+  "Test 1: Create markup from a template using an object literal that has one dimension": function(test) {
 
     jsdom.env({
 
@@ -38,7 +39,7 @@ module.exports = {
     
   },
   
-  "Create markup from a template using a bind parameter to explicitly map data to selectors": function(test) {
+  "Test 2: Create markup from a template using a bind parameter to explicitly map data to selectors": function(test) {
     
     jsdom.env({
 
@@ -62,7 +63,7 @@ module.exports = {
 
   },
   
-  "Create markup from a template with an alternate method of insertion": function(test) {
+  "Test 3: Create markup from a template with an alternate method of insertion": function(test) {
   
     jsdom.env({
 
@@ -74,10 +75,9 @@ module.exports = {
     
       var $ = window.jQuery;    
 
-      var data = [{ name: 'hij1nx',  title : 'code exploder' },
-                  { name: 'tmpvar', title : 'code pimp' }];
+      var data = [{ name: 'hij1nx',  title: 'code exploder' },
+                  { name: 'tmpvar', title: 'code pimp' }];
 
-      $('.contact').weld(data);
       $('.contact').weld(data, { method: "prepend" });
     
       test.ok($('.contact:first .name').text() == "tmpvar");
@@ -87,7 +87,7 @@ module.exports = {
   
   },
   
-  "Create html from a template using a custom data mapping method": function(test) {
+  "Test 4: Create html from a template using a custom data mapping method": function(test) {
   
     jsdom.env({
 
@@ -120,7 +120,7 @@ module.exports = {
 
   },  
   
-  "Append to a node that has already been the subject of a weld": function(test) {
+  "Test 5: Append to a node that has already been the subject of a weld": function(test) {
   
     jsdom.env({
 
@@ -138,13 +138,19 @@ module.exports = {
       $('.contact').weld(data);
       $('.contact').weld(data);
 
+      // Bug Found: this is not returning the correct data, see console output.
+      
+      console.log('\r\n--- start debug on test #5 ---'.yellow)
+      console.log($('body').html());
+      console.log('--- end debug ---\r\n'.yellow);
+
       test.ok($('.contact .name').length > 2);
       test.done();
     });
   
   },
   
-  "Create markup from an array of objects that have one dimention": function(test) {
+  "Test 6: Create markup from an array of objects that have one dimention": function(test) {
 
     jsdom.env({
 
@@ -168,7 +174,37 @@ module.exports = {
 
   },
   
-  "Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
+  
+  "Test 7: Try to pair data with selectors that yield no matching elements": function(test) {
+
+    jsdom.env({
+
+      scripts: [jqpath, wpath],
+      html: path.join(__dirname, 'files', 'contacts.html')
+
+    },
+    function(errors, window) {  
+
+      var $ = window.jQuery;    
+
+      var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
+                  { name: 'tmpvar', x0x1h: 'code wrangler' }];
+
+      $('.contact').weld(data);
+      
+      
+      console.log('\r\n--- start debug on test #7 ---'.yellow)
+      console.log($('body').html());
+      console.log('--- end debug ---\r\n'.yellow);      
+
+      test.ok($('.name:first').html() === 'My Name');
+      test.done();
+
+    });
+
+  },  
+  
+  "Test 8: Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
 
     jsdom.env({
 
@@ -213,7 +249,7 @@ module.exports = {
 
   },
    
-   "Create markup using form elements as the template": function(test) {
+   "Test 9: Create markup using form elements as the template": function(test) {
 
       jsdom.env({
 
@@ -236,7 +272,7 @@ module.exports = {
 
       });
     },
-    "Returning false from map stops the current branch from being visited" : function(test) {
+    "Test 10: Returning false from map stops the current branch from being visited" : function(test) {
       jsdom.env('<ul class="list"><li class="item">hello <span class="where">do not touch</span></li></ul>',[
         jqpath, wpath
       ], function(errors, window) {
