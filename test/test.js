@@ -196,7 +196,17 @@ module.exports = {
       console.log($('body').html());
       console.log('--- end debug ---\r\n'.yellow);      
 
-      test.ok($('.name:first').html() === 'My Name');
+      test.ok($('.contact:nth(0) .name').text() === "hij1nx");
+      test.ok($('.contact:nth(1) .name').text() === "tmpvar");
+      test.ok($('.contact:nth(2) .name').text() === "hij1nx");
+      test.ok($('.contact:nth(3) .name').text() === "tmpvar");
+
+      test.ok($('.contact:nth(0) .title').text() === "manhatton");
+      test.ok($('.contact:nth(1) .title').text() === "brooklyn");
+      test.ok($('.contact:nth(2) .title').text() === "manhatton");
+      test.ok($('.contact:nth(3) .title').text() === "brooklyn");
+
+      test.ok($('.contact .name').length === 4);
       test.done();
 
     });
