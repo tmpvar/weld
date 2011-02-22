@@ -139,12 +139,21 @@ module.exports = {
       $('.contact').weld(data);
 
       // Bug Found: this is not returning the correct data, see console output.
-      
-      console.log('\r\n--- start debug on test #5 ---'.yellow)
-      console.log($('body').html());
-      console.log('--- end debug ---\r\n'.yellow);
 
-      test.ok($('.contact .name').length > 2);
+      test.ok($('.contact:nth(0) .name').text() === "hij1nx");
+      test.ok($('.contact:nth(1) .name').text() === "tmpvar");
+      test.ok($('.contact:nth(2) .name').text() === "hij1nx");
+      test.ok($('.contact:nth(3) .name').text() === "tmpvar");
+
+      test.ok($('.contact:nth(0) .title').text() === "manhatton");
+      test.ok($('.contact:nth(1) .title').text() === "brooklyn");
+      test.ok($('.contact:nth(2) .title').text() === "manhatton");
+      test.ok($('.contact:nth(3) .title').text() === "brooklyn");
+
+      test.ok($('.contact').length == 4);
+      test.ok($('.contact .name').length == 4);
+      test.ok($('.contact .title').length == 4);
+
       test.done();
     });
   
@@ -194,18 +203,7 @@ module.exports = {
       
       console.log('\r\n--- start debug on test #7 ---'.yellow)
       console.log($('body').html());
-      console.log('--- end debug ---\r\n'.yellow);      
-
-      test.ok($('.contact:nth(0) .name').text() === "hij1nx");
-      test.ok($('.contact:nth(1) .name').text() === "tmpvar");
-      test.ok($('.contact:nth(2) .name').text() === "hij1nx");
-      test.ok($('.contact:nth(3) .name').text() === "tmpvar");
-
-      test.ok($('.contact:nth(0) .title').text() === "manhatton");
-      test.ok($('.contact:nth(1) .title').text() === "brooklyn");
-      test.ok($('.contact:nth(2) .title').text() === "manhatton");
-      test.ok($('.contact:nth(3) .title').text() === "brooklyn");
-
+      console.log('--- end debug ---\r\n'.yellow);
       test.ok($('.contact .name').length === 4);
       test.done();
 
