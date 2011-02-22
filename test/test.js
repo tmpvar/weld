@@ -78,7 +78,7 @@ module.exports = {
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
 
-      $('.contact').weld(data, { method: "prepend" });
+      $('.contact').weld(data, { method: "prepend"});
     
       test.ok($('.contact:first .name').text() == "tmpvar");
       test.done();
@@ -128,9 +128,9 @@ module.exports = {
       html: path.join(__dirname, 'files', 'contacts.html')
 
     },
-    function(errors, window) {  
+    function(errors, window) {
     
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
 
       var data = [{ name: 'hij1nx',  title : 'manhatton' },
                   { name: 'tmpvar', title : 'brooklyn' }];
@@ -138,13 +138,17 @@ module.exports = {
       $('.contact').weld(data);
       $('.contact').weld(data);
 
-      // Bug Found: this is not returning the correct data, see console output.
-      
-      console.log('\r\n--- start debug on test #5 ---'.yellow)
-      console.log($('body').html());
-      console.log('--- end debug ---\r\n'.yellow);
+      test.ok($('.contact:nth(0) .name').text() === "hij1nx");
+      test.ok($('.contact:nth(1) .name').text() === "tmpvar");
+      test.ok($('.contact:nth(2) .name').text() === "hij1nx");
+      test.ok($('.contact:nth(3) .name').text() === "tmpvar");
 
-      test.ok($('.contact .name').length > 2);
+      test.ok($('.contact:nth(0) .title').text() === "manhatton");
+      test.ok($('.contact:nth(1) .title').text() === "brooklyn");
+      test.ok($('.contact:nth(2) .title').text() === "manhatton");
+      test.ok($('.contact:nth(3) .title').text() === "brooklyn");
+
+      test.ok($('.contact .name').length === 4);
       test.done();
     });
   
@@ -190,12 +194,8 @@ module.exports = {
       var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                   { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
-      $('.contact').weld(data);
-      
-      console.log('\r\n--- start debug on test #7 ---'.yellow)
-      console.log($('body').html());
-      console.log('--- end debug ---\r\n'.yellow);      
-
+      $('.contact').weld(data, { debug: true });
+      console.log(window.document.outerHTML);
       test.ok($('.name:first').html() === 'My Name');
       test.done();
 
