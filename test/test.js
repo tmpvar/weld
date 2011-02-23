@@ -9,7 +9,6 @@ var assert     = require('assert')
     ;
 
 module.exports = {
-  
   "Test 1: Create markup from a template using an object literal that has one dimension": function(test) {
 
     jsdom.env({
@@ -179,7 +178,6 @@ module.exports = {
 
   },
   
-  
   "Test 7: Try to pair data with selectors that yield no matching elements": function(test) {
 
     jsdom.env({
@@ -195,15 +193,22 @@ module.exports = {
       var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                   { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
-      $('.contact').weld(data, { debug: true });
-      console.log(window.document.outerHTML);
-      test.ok($('.name:first').html() === 'My Name');
+      $('.contact').weld(data);
+
+      test.ok($('.name:nth(0)').html() === 'My Name');
+      test.ok($('.title:nth(0)').html() === 'Leet Developer');
+
+      test.ok($('.name:nth(1)').html() === 'tmpvar');
+      test.ok($('.title:nth(1)').html() === 'Leet Developer');
+
+      test.ok($('.contact').length === 2);
+
       test.done();
 
     });
 
-  },  
-  
+  },
+
   "Test 8: Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
 
     jsdom.env({
@@ -234,7 +239,7 @@ module.exports = {
       },
       {
         map: function(el, key, value) {
-          return el.addClass('pre-processed');
+          return $(el).addClass('pre-processed');
         }
       });
 
