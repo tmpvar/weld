@@ -147,8 +147,9 @@ module.exports = {
       test.ok($('.contact:nth(1) .title').text() === "brooklyn");
       test.ok($('.contact:nth(2) .title').text() === "manhatton");
       test.ok($('.contact:nth(3) .title').text() === "brooklyn");
-
-      test.ok($('.contact .name').length === 4);
+      test.ok($('.contact').length == 4);
+      test.ok($('.contact .name').length == 4);
+      test.ok($('.contact .title').length == 4);
       test.done();
     });
   
