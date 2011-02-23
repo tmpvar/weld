@@ -9,7 +9,6 @@ var assert     = require('assert')
     ;
 
 module.exports = {
-  
   "Test 1: Create markup from a template using an object literal that has one dimension": function(test) {
 
     jsdom.env({
@@ -78,7 +77,7 @@ module.exports = {
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
 
-      $('.contact').weld(data, { method: "prepend" });
+      $('.contact').weld(data, { method: "prepend"});
     
       test.ok($('.contact:first .name').text() == "tmpvar");
       test.done();
@@ -128,17 +127,15 @@ module.exports = {
       html: path.join(__dirname, 'files', 'contacts.html')
 
     },
-    function(errors, window) {  
+    function(errors, window) {
     
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
 
       var data = [{ name: 'hij1nx',  title : 'manhatton' },
                   { name: 'tmpvar', title : 'brooklyn' }];
 
       $('.contact').weld(data);
       $('.contact').weld(data);
-
-      // Bug Found: this is not returning the correct data, see console output.
 
       test.ok($('.contact:nth(0) .name').text() === "hij1nx");
       test.ok($('.contact:nth(1) .name').text() === "tmpvar");
@@ -149,7 +146,6 @@ module.exports = {
       test.ok($('.contact:nth(1) .title').text() === "brooklyn");
       test.ok($('.contact:nth(2) .title').text() === "manhatton");
       test.ok($('.contact:nth(3) .title').text() === "brooklyn");
-
       test.ok($('.contact').length == 4);
       test.ok($('.contact .name').length == 4);
       test.ok($('.contact .title').length == 4);
@@ -175,14 +171,13 @@ module.exports = {
                   { name: 'tmpvar', title : 'code wrangler' }];
 
       $('.contact').weld(data);
-
+      test.ok($('.contact').length === 2);
       test.ok($('.name:first').html() === data[0].name);
       test.done();
     
     });
 
   },
-  
   
   "Test 7: Try to pair data with selectors that yield no matching elements": function(test) {
 
@@ -192,25 +187,29 @@ module.exports = {
       html: path.join(__dirname, 'files', 'contacts.html')
 
     },
-    function(errors, window) {  
+    function(errors, window) {
 
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
 
       var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                   { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
       $('.contact').weld(data);
-      
-      console.log('\r\n--- start debug on test #7 ---'.yellow)
-      console.log($('body').html());
-      console.log('--- end debug ---\r\n'.yellow);
-      test.ok($('.contact .name').length === 4);
+
+      test.ok($('.name:nth(0)').html() === 'My Name');
+      test.ok($('.title:nth(0)').html() === 'Leet Developer');
+
+      test.ok($('.name:nth(1)').html() === 'tmpvar');
+      test.ok($('.title:nth(1)').html() === 'Leet Developer');
+
+      test.ok($('.contact').length === 2);
+
       test.done();
 
     });
 
-  },  
-  
+  },
+
   "Test 8: Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
 
     jsdom.env({
@@ -241,7 +240,7 @@ module.exports = {
       },
       {
         map: function(el, key, value) {
-          return el.addClass('pre-processed');
+          return $(el).addClass('pre-processed');
         }
       });
 
