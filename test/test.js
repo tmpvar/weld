@@ -170,7 +170,7 @@ module.exports = {
                   { name: 'tmpvar', title : 'code wrangler' }];
 
       $('.contact').weld(data);
-
+      test.ok($('.contact').length === 2);
       test.ok($('.name:first').html() === data[0].name);
       test.done();
     
@@ -186,9 +186,9 @@ module.exports = {
       html: path.join(__dirname, 'files', 'contacts.html')
 
     },
-    function(errors, window) {  
+    function(errors, window) {
 
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
 
       var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                   { name: 'tmpvar', x0x1h: 'code wrangler' }];
