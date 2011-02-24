@@ -36,7 +36,7 @@ module.exports = {
     });
     
   },
-/*
+
   "Test 2: Create markup from a template using a bind parameter to explicitly map data to selectors": function(test) {
     
     jsdom.env({
@@ -81,17 +81,18 @@ module.exports = {
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
 
-      weld($('.contact'), data, { 
-        method: 'prepend'
-      });
+      weld($('.contact'), data);
+      
+      console.log($("html").html())
     
       test.ok($('.contact:first .name').text() == "tmpvar");
+      test.ok($('.contact').length === 2)
       test.done();
 
     });
   
   },
-  
+/*  
   "Test 4: Create html from a template using a custom data mapping method": function(test) {
   
     jsdom.env({
