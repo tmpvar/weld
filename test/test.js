@@ -18,8 +18,7 @@ module.exports = {
 
     }, 
     function(errors, window) {
-
-      var $ = window.jQuery;
+      var $ = window.jQuery, weld = window.weld;
 
       // some dummy data
       var data = {
@@ -28,8 +27,8 @@ module.exports = {
         icon  : '/path/to/image.png'
       };
 
-      weld('#singular', data);
-  
+      weld($('#singular'), data);
+    console.log(window.document.outerHTML);
       test.ok($('.key').html() === data.key);
       test.ok($('.icon').attr('src') === data.icon);
       test.done();
@@ -37,7 +36,7 @@ module.exports = {
     });
     
   },
-  
+/*
   "Test 2: Create markup from a template using a bind parameter to explicitly map data to selectors": function(test) {
     
     jsdom.env({
@@ -48,15 +47,15 @@ module.exports = {
     },
     function(errors, window) {
       
-      var $ = window.jQuery;             
+      var $ = window.jQuery, weld = window.weld;
 
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
 
-      weld('.contact', data, { 
+      weld($('.contact'), data, { 
         alias: { 
-          'name': '.foo', 
-          'title': '.title' 
+          'name' : 'foo', 
+          'title': 'title' 
         } 
       });
 
@@ -77,12 +76,12 @@ module.exports = {
     },
     function(errors, window) {
     
-      var $ = window.jQuery;        
+      var $ = window.jQuery, weld = window.weld;        
 
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
 
-      weld('.contact', data, { 
+      weld($('.contact'), data, { 
         method: 'prepend'
       });
     
@@ -103,13 +102,13 @@ module.exports = {
     },
     function(errors, window) {  
     
-      var $ = window.jQuery;
+      var $ = window.jQuery, weld = window.weld;
 
       var times = 1;
       var data = [{ name: 'hij1nx',  title : 'code master' },
                   { name: 'tmpvar', title : 'code pimp' }];
 
-      weld('.contact', data, {
+      weld($('.contact'), data, {
       
         method: function(parent, newElement) {
           times++;
@@ -136,13 +135,13 @@ module.exports = {
     },
     function(errors, window) {
     
-      var $ = window.jQuery;
+      var $ = window.jQuery, weld = window.weld;
 
       var data = [{ name: 'hij1nx',  title : 'manhatton' },
                   { name: 'tmpvar', title : 'brooklyn' }];
 
-      weld('.contact', data);
-      weld('.contact', data);
+      weld($('.contact'), data);
+      weld($('.contact'), data);
 
       test.ok($('.contact:nth(0) .name').text() === "hij1nx");
       test.ok($('.contact:nth(1) .name').text() === "tmpvar");
@@ -172,12 +171,12 @@ module.exports = {
     },
     function(errors, window) {  
 
-      var $ = window.jQuery;         
+      var $ = window.jQuery, weld = window.weld;         
 
       var data = [{ name: 'hij1nx',  title : 'code exploder' },
                   { name: 'tmpvar', title : 'code wrangler' }];
 
-      weld('.contact', data);
+      weld($('.contact'), data);
       
       test.ok($('.contact').length === 2);
       test.ok($('.name:first').html() === data[0].name);
@@ -198,12 +197,12 @@ module.exports = {
     },
     function(errors, window) {
 
-      var $ = window.jQuery;
+      var $ = window.jQuery, weld = window.weld;
 
       var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                   { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
-      weld('.contact', data);
+      weld($('.contact'), data);
 
       test.ok($('.name:nth(0)').html() === 'My Name');
       test.ok($('.title:nth(0)').html() === 'Leet Developer');
@@ -229,9 +228,9 @@ module.exports = {
     },
     function(errors, window) {  
 
-      var $ = window.jQuery;         
+      var $ = window.jQuery, weld = window.weld;         
 
-      weld('.people', {
+      weld($('.people'), {
         person : [
           {
             name : 'John',
@@ -274,13 +273,13 @@ module.exports = {
     },
     function(errors, window) {
 
-      var $ = window.jQuery;
+      var $ = window.jQuery, weld = window.weld;
 
       var data = {
         'email' : 'tmpvar@gmail.com'
       };
 
-      weld('form', data);
+      weld($('form'), data);
 
       test.ok($(':input[name=email]').val() === data.email);
       test.done();
@@ -293,9 +292,9 @@ module.exports = {
       jqpath, wpath
     ], function(errors, window) {
       
-      var $ = window.jQuery;
+      var $ = window.jQuery, weld = window.weld;
       
-      weld('.list .item', [
+      weld($('.list .item'), [
         { where : 'world' }
       ], {
         map : function(element, k, v) {
@@ -307,5 +306,5 @@ module.exports = {
       test.done()
       
     });
-  }
+  }*/
 };
