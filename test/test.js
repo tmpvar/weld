@@ -20,6 +20,7 @@ module.exports = {
     function(errors, window) {
 
       var $ = window.jQuery;
+      window.weld.engine = $;
 
       // some dummy data
       var data = {
@@ -48,7 +49,8 @@ module.exports = {
     },
     function(errors, window) {
   
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
+      window.weld.engine = $;          
 
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
@@ -72,7 +74,8 @@ module.exports = {
     },
     function(errors, window) {
     
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
+      window.weld.engine = $;          
 
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
@@ -96,7 +99,8 @@ module.exports = {
     },
     function(errors, window) {  
     
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
+      window.weld.engine = $;          
 
       var times = 1;
       var data = [{ name: 'hij1nx',  title : 'code master' },
@@ -130,6 +134,7 @@ module.exports = {
     function(errors, window) {
     
       var $ = window.jQuery;
+      window.weld.engine = $;      
 
       var data = [{ name: 'hij1nx',  title : 'manhatton' },
                   { name: 'tmpvar', title : 'brooklyn' }];
@@ -165,7 +170,8 @@ module.exports = {
     },
     function(errors, window) {  
 
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
+      window.weld.engine = $;          
 
       var data = [{ name: 'hij1nx',  title : 'code exploder' },
                   { name: 'tmpvar', title : 'code wrangler' }];
@@ -190,6 +196,7 @@ module.exports = {
     function(errors, window) {
 
       var $ = window.jQuery;
+      window.weld.engine = $;      
 
       var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                   { name: 'tmpvar', x0x1h: 'code wrangler' }];
@@ -220,7 +227,8 @@ module.exports = {
     },
     function(errors, window) {  
 
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
+      window.weld.engine = $;          
 
       $('.people').weld({
         person : [
@@ -266,6 +274,7 @@ module.exports = {
       function(errors, window) {
 
         var $ = window.jQuery;    
+        window.weld.engine = $;        
 
         var data = {
           'email' : 'tmpvar@gmail.com'
@@ -284,6 +293,7 @@ module.exports = {
       ], function(errors, window) {
         
         var $ = window.jQuery;
+        window.weld.engine = $;        
         
         $('.list .item').weld([
           { where : 'world' }

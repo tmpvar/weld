@@ -54,6 +54,26 @@ Returning false from `map` will cause the traversal of the current branch to sto
 ## NPM
     npm install weld
 
+## Using weld a jQuery plug-in.
+<pre>
+/*
+  @function {jQuery object}
+    Turn weld into a very simple jQuery plugin.
+
+  @param {object} data
+    The data which will be used for the weld.
+  @param {object} config
+    A configuration object.
+*/
+
+if(jquery) {  
+  $.fn.weld = function(data, config) {
+    weld(this, data, config);
+    return this;
+  };
+}  
+</pre>
+
 ## Examples
 
 Create a DOM, load a library, read a file and bind the data to it...
