@@ -58,7 +58,7 @@ Returning false from `map` will cause the traversal of the current branch to sto
 <pre>
 /*
   @function {jQuery object}
-    Turn weld into a very simple jQuery plugin.
+    Turn weld into a jQuery plugin.
 
   @param {object} data
     The data which will be used for the weld.
