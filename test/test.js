@@ -20,7 +20,6 @@ module.exports = {
     function(errors, window) {
 
       var $ = window.jQuery;
-      window.weld.engine = $;
 
       // some dummy data
       var data = {
@@ -29,7 +28,7 @@ module.exports = {
         icon  : '/path/to/image.png'
       };
 
-      $('#singular').weld(data);
+      weld('#singular', data);
   
       test.ok($('.key').html() === data.key);
       test.ok($('.icon').attr('src') === data.icon);
@@ -48,14 +47,18 @@ module.exports = {
 
     },
     function(errors, window) {
-  
-      var $ = window.jQuery;
-      window.weld.engine = $;          
+      
+      var $ = window.jQuery;             
 
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
 
-      $('.contact').weld(data, { bind: { 'name': '.foo', 'title': '.title' } });
+      weld('.contact', data, { 
+        alias: { 
+          'name': '.foo', 
+          'title': '.title' 
+        } 
+      });
 
       test.ok($('.contact .foo:first').text().length > 1);
       test.done();
@@ -74,13 +77,14 @@ module.exports = {
     },
     function(errors, window) {
     
-      var $ = window.jQuery;
-      window.weld.engine = $;          
+      var $ = window.jQuery;        
 
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
 
-      $('.contact').weld(data, { method: "prepend"});
+      weld('.contact', data, { 
+        method: 'prepend'
+      });
     
       test.ok($('.contact:first .name').text() == "tmpvar");
       test.done();
@@ -100,13 +104,12 @@ module.exports = {
     function(errors, window) {  
     
       var $ = window.jQuery;
-      window.weld.engine = $;          
 
       var times = 1;
       var data = [{ name: 'hij1nx',  title : 'code master' },
                   { name: 'tmpvar', title : 'code pimp' }];
 
-      $('.contact').weld(data, {
+      weld('.contact', data, {
       
         method: function(parent, newElement) {
           times++;
@@ -134,13 +137,12 @@ module.exports = {
     function(errors, window) {
     
       var $ = window.jQuery;
-      window.weld.engine = $;      
 
       var data = [{ name: 'hij1nx',  title : 'manhatton' },
                   { name: 'tmpvar', title : 'brooklyn' }];
 
-      $('.contact').weld(data);
-      $('.contact').weld(data);
+      weld('.contact', data);
+      weld('.contact', data);
 
       test.ok($('.contact:nth(0) .name').text() === "hij1nx");
       test.ok($('.contact:nth(1) .name').text() === "tmpvar");
@@ -170,15 +172,16 @@ module.exports = {
     },
     function(errors, window) {  
 
-      var $ = window.jQuery;
-      window.weld.engine = $;          
+      var $ = window.jQuery;         
 
       var data = [{ name: 'hij1nx',  title : 'code exploder' },
                   { name: 'tmpvar', title : 'code wrangler' }];
 
-      $('.contact').weld(data);
+      weld('.contact', data);
+      
       test.ok($('.contact').length === 2);
       test.ok($('.name:first').html() === data[0].name);
+      
       test.done();
     
     });
@@ -196,12 +199,11 @@ module.exports = {
     function(errors, window) {
 
       var $ = window.jQuery;
-      window.weld.engine = $;      
 
       var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                   { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
-      $('.contact').weld(data);
+      weld('.contact', data);
 
       test.ok($('.name:nth(0)').html() === 'My Name');
       test.ok($('.title:nth(0)').html() === 'Leet Developer');
@@ -227,10 +229,9 @@ module.exports = {
     },
     function(errors, window) {  
 
-      var $ = window.jQuery;
-      window.weld.engine = $;          
+      var $ = window.jQuery;         
 
-      $('.people').weld({
+      weld('.people', {
         person : [
           {
             name : 'John',
@@ -263,49 +264,48 @@ module.exports = {
 
   },
    
-   "Test 9: Create markup using form elements as the template": function(test) {
+  "Test 9: Create markup using form elements as the template": function(test) {
 
-      jsdom.env({
+    jsdom.env({
 
-        scripts: [jqpath, wpath],
-        html: path.join(__dirname, 'files', 'form.html')
+      scripts: [jqpath, wpath],
+      html: path.join(__dirname, 'files', 'form.html')
 
-      },
-      function(errors, window) {
-
-        var $ = window.jQuery;    
-        window.weld.engine = $;        
-
-        var data = {
-          'email' : 'tmpvar@gmail.com'
-        };
-
-        $('form').weld(data);
-
-        test.ok($(':input[name=email]').val() === data.email);
-        test.done();
-
-      });
     },
-    "Test 10: Returning false from map stops the current branch from being visited" : function(test) {
-      jsdom.env('<ul class="list"><li class="item">hello <span class="where">do not touch</span></li></ul>',[
-        jqpath, wpath
-      ], function(errors, window) {
-        
-        var $ = window.jQuery;
-        window.weld.engine = $;        
-        
-        $('.list .item').weld([
-          { where : 'world' }
-        ], {
-          map : function(element, k, v) {
-            return false;
-          }
-        });
+    function(errors, window) {
 
-        test.ok($('.where').text() === 'do not touch');
-        test.done()
-        
+      var $ = window.jQuery;
+
+      var data = {
+        'email' : 'tmpvar@gmail.com'
+      };
+
+      weld('form', data);
+
+      test.ok($(':input[name=email]').val() === data.email);
+      test.done();
+
+    });
+  },
+
+  "Test 10: Returning false from map stops the current branch from being visited" : function(test) {
+    jsdom.env('<ul class="list"><li class="item">hello <span class="where">do not touch</span></li></ul>',[
+      jqpath, wpath
+    ], function(errors, window) {
+      
+      var $ = window.jQuery;
+      
+      weld('.list .item', [
+        { where : 'world' }
+      ], {
+        map : function(element, k, v) {
+          return false;
+        }
       });
-    }
+
+      test.ok($('.where').text() === 'do not touch');
+      test.done()
+      
+    });
+  }
 };
