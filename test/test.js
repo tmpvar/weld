@@ -28,22 +28,23 @@ module.exports = {
         icon  : '/path/to/image.png'
       };
 
-      $('#singular').weld(data);
-  
-      test.ok($('.key').html() === data.key);
+      window.weld($('#singular')[0], data);
+      console.log(window.document.outerHTML)
+      test.ok($('.key').text() === data.key);
       test.ok($('.icon').attr('src') === data.icon);
+      test.ok($(':input[name="value"]').val() === data.value);
       test.done();
-
+      
     });
     
   },
   
-  "Test 2: Create markup from a template using a bind parameter to explicitly map data to selectors": function(test) {
+  "Test 2: Create markup from a template using a alias parameter to explicitly map data to selectors": function(test) {
     
     jsdom.env({
 
       scripts: [jqpath, wpath],
-      html: path.join(__dirname, 'files', 'contacts.html')
+      html: path.join(__dirname, 'files', 'contacts-alias.html')
 
     },
     function(errors, window) {
@@ -53,11 +54,18 @@ module.exports = {
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
 
-      $('.contact').weld(data, { bind: { 'name': '.foo', 'title': '.title' } });
+      window.weld($('.contact')[0], data, { alias: { 'name': 'foo', 'title': 'title' }});
 
-      test.ok($('.contact .foo:first').text().length > 1);
+      test.ok($('.contact').length === 2);
+
+      test.ok($('.contact:nth(0) .foo').text() == "hij1nx");
+      test.ok($('.contact:nth(1) .foo').text() == "tmpvar");
+
+      test.ok($('.contact:nth(0) .title').text() == "code exploder");
+      test.ok($('.contact:nth(1) .title').text() == "code pimp");
+
       test.done();
-  
+
     });
 
   },
@@ -72,12 +80,16 @@ module.exports = {
     },
     function(errors, window) {
     
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
 
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
 
-      $('.contact').weld(data, { method: "prepend"});
+      window.weld($('.contact')[0], data, {
+         method: function(parent, element) {
+           parent.insertBefore(element, parent.firstChild);
+         }
+      });
     
       test.ok($('.contact:first .name').text() == "tmpvar");
       test.done();
@@ -102,11 +114,11 @@ module.exports = {
       var data = [{ name: 'hij1nx',  title : 'code master' },
                   { name: 'tmpvar', title : 'code pimp' }];
 
-      $('.contact').weld(data, {
+      window.weld($('.contact')[0], data, {
       
         method: function(parent, newElement) {
           times++;
-          parent.prepend(newElement);
+          $(parent).prepend(newElement);
         }
       
       });
@@ -129,13 +141,14 @@ module.exports = {
     },
     function(errors, window) {
     
-      var $ = window.jQuery;
+      var
+      $        = window.jQuery,
+      data     = [{ name: 'hij1nx',  title : 'manhatton' },
+                  { name: 'tmpvar', title : 'brooklyn' }],
+      template = $('.contact')[0];
 
-      var data = [{ name: 'hij1nx',  title : 'manhatton' },
-                  { name: 'tmpvar', title : 'brooklyn' }];
-
-      $('.contact').weld(data);
-      $('.contact').weld(data);
+      window.weld(template, data);
+      window.weld(template, data);
 
       test.ok($('.contact:nth(0) .name').text() === "hij1nx");
       test.ok($('.contact:nth(1) .name').text() === "tmpvar");
@@ -170,9 +183,14 @@ module.exports = {
       var data = [{ name: 'hij1nx',  title : 'code exploder' },
                   { name: 'tmpvar', title : 'code wrangler' }];
 
-      $('.contact').weld(data);
+      window.weld($('.contact')[0], data);
       test.ok($('.contact').length === 2);
-      test.ok($('.name:first').html() === data[0].name);
+
+      test.ok($('.contact:nth(0) .name').text() == "hij1nx");
+      test.ok($('.contact:nth(1) .name').text() == "tmpvar");
+
+      test.ok($('.contact:nth(0) .title').text() == "code exploder");
+      test.ok($('.contact:nth(1) .title').text() == "code wrangler");
       test.done();
     
     });
@@ -194,7 +212,7 @@ module.exports = {
       var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                   { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
-      $('.contact').weld(data);
+      window.weld($('.contact')[0], data);
 
       test.ok($('.name:nth(0)').html() === 'My Name');
       test.ok($('.title:nth(0)').html() === 'Leet Developer');
@@ -222,7 +240,7 @@ module.exports = {
 
       var $ = window.jQuery;    
 
-      $('.people').weld({
+      window.weld($('.people')[0], {
         person : [
           {
             name : 'John',
@@ -239,6 +257,7 @@ module.exports = {
         ]
       },
       {
+        debug : true,
         map: function(el, key, value) {
           return $(el).addClass('pre-processed');
         }
