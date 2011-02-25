@@ -267,8 +267,6 @@ module.exports = {
         }
       });
 
-      console.log($('html').html())
-
       test.ok($('.person').length === 2);
 
       //  Every node that gets iterated over should have a pre-processed class
