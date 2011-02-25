@@ -19,7 +19,6 @@ module.exports = {
     function(errors, window) {
 
       var $ = window.jQuery;
-
       // some dummy data
       var data = {
         key   : 'someKey',
