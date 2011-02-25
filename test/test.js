@@ -28,7 +28,7 @@ module.exports = {
       };
 
       window.weld($('#singular')[0], data);
-      console.log(window.document.outerHTML)
+
       test.ok($('.key').text() === data.key);
       test.ok($('.icon').attr('src') === data.icon);
       test.ok($(':input[name="value"]').val() === data.value);
@@ -218,11 +218,11 @@ module.exports = {
 
       window.weld($('.contact')[0], data);
 
-      test.ok($('.name:nth(0)').html() === 'My Name');
-      test.ok($('.title:nth(0)').html() === 'Leet Developer');
+      test.ok($('.name:nth(0)').text().indexOf('My Name') > -1);
+      test.ok($('.title:nth(0)').text().indexOf('Leet Developer') > -1);
 
-      test.ok($('.name:nth(1)').html() === 'tmpvar');
-      test.ok($('.title:nth(1)').html() === 'Leet Developer');
+      test.ok($('.name:nth(1)').text().indexOf('tmpvar') > -1);
+      test.ok($('.title:nth(1)').text().indexOf('Leet Developer') > -1);
 
       test.ok($('.contact').length === 2);
 
@@ -317,8 +317,33 @@ module.exports = {
         });
 
         test.ok($('.where').text() === 'do not touch');
-        test.done()
+        test.done();
         
       });
+    },
+    "Test 11: Stress test": function(test) {
+
+      var fs = require('fs');
+      var jsdom = require('jsdom');
+
+      var html = fs.readFileSync(__dirname + "/test.html", 'utf8');
+      for (var i = 0; i < 1000; i++) {
+          jsdom.env(html, [
+          __dirname + '/jquery.js',
+          __dirname + '/weld.js'
+          ],
+          function(error, window) {
+              var $ = window.jQuery;
+
+              var data = {
+                  "name": "Test",
+                  "data": "hello"
+              };
+
+              $("#test").weld(data);
+              console.log($("#test").html());
+          });
+      }
+      test.done();      
     }
 };
