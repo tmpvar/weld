@@ -261,11 +261,13 @@ module.exports = {
         ]
       },
       {
-        //debug: true,
+        debug: true,
         map: function(el, key, value) {
           return $(el).addClass('pre-processed');
         }
       });
+
+      console.log($('html').html())
 
       test.ok($('.person').length === 2);
 
