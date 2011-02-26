@@ -21,10 +21,10 @@ Get a collection of elements, provide your data, optionally provide configuratio
 </code></pre>
 
 ### element parameter
-This is the target html which will be used as the template.
+This is the target node that will be used as the template.
 
 ### data parameter
-Could be any data, an object an array, an array of objects, etc.
+This could be any data, an object an array, an array of objects, etc.
 
 ### config parameter
 An object literal (optional), can include any of the following...
@@ -179,6 +179,12 @@ It's easy to work with multiple documents.
 
         });
       });
+
+
+## Debugging
+Debugging recursive data can be a real pain.
+
+![Alt text](https://github.com/hij1nx/Weld/raw/master/documentation-assets/debug.png)<br/>
 
 ## Credits
 developed by [hij1nx][2] and [tmpvar][3]
