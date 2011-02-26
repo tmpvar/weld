@@ -433,5 +433,37 @@ module.exports = {
         test.ok($('li.number').text() === "zeroonetwo");
         test.done();
       });
-    }    
+    },
+    "Test 15: Alias may return a dom element which is used instead of doing an explicit match": function(test) {
+
+      jsdom.env(path.join(__dirname, 'files', 'contacts-alias.html'), [jqpath, wpath],  function(errors, window) {
+
+        var $     = window.jQuery,
+            data  = [{ name: 'hij1nx',  title: 'code exploder' },
+                     { name: 'tmpvar', title: 'code pimp' }],
+                    
+            found = 0;
+
+        window.weld($('.contact')[0], data, { 
+          alias: { 
+            name : function(parent, element, key, value) { 
+              // Sanity
+              test.ok(key === 'name');
+
+              return $('.foo', element)[0];
+            }
+          }
+        });
+
+        test.ok($('.contact').length === 2);
+
+        test.ok($('.contact:nth(0) .foo').text() == "hij1nx");
+        test.ok($('.contact:nth(1) .foo').text() == "tmpvar");
+
+        test.ok($('.contact:nth(0) .title').text() == "code exploder");
+        test.ok($('.contact:nth(1) .title').text() == "code pimp");
+
+        test.done();
+      });
+    },
 };
