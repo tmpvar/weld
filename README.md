@@ -3,7 +3,7 @@
 
 ## What is it?
 
-Simple. Weld turns data into markup. There's NO special syntax required. It works in the browser and in node.js!
+Simple. Weld binds data to markup, and can generate markup based your data. There's NO special syntax or data reshaping required. It works in the browser and in node.js!
 
 ## Motivation
 
