@@ -302,8 +302,8 @@ module.exports = {
         bar : "hello"
       },
       {
-        map: function(el, key, value) {
-          $(el).addClass('pre-processed');
+        map: function(parent, element, key, value) {
+          $(element).addClass('pre-processed');
         }
       });
 
@@ -322,7 +322,8 @@ module.exports = {
       test.ok($('.person.submit').text() === "Sidecase #2: additional classes (no data equiv)");
       //  Every node that gets iterated over should have a pre-processed class
       // (7 in total)
-      //test.ok($('.pre-processed').length === 10);
+      
+      test.ok($('.pre-processed').length === 8);
       test.done();
 
     });

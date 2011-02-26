@@ -187,6 +187,15 @@ It's easy to work with multiple documents.
       });
 
 
+## How do I...
+For people coming from custom templating paradigms, you might have a lot of 'how-do-i-do-x' questions, well here are some ideas for what you might be asking.
+
+### How do I do conditionals?
+You might be used to this...
+
+
+
+
 ## Debugging
 Debugging recursive data can be a real pain. With the debug option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.
 
