@@ -184,7 +184,7 @@ It's easy to work with multiple documents.
 ## Debugging
 Debugging recursive data can be a real pain.
 
-![Alt text](https://github.com/hij1nx/Weld/raw/master/documentation-assets/debug.png)<br/>
+![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug.jpg)<br/>
 
 ## Credits
 developed by [hij1nx][2] and [tmpvar][3]
