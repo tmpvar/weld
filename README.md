@@ -1,6 +1,7 @@
 
 
 
+
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
 
 ## What is it?
@@ -22,15 +23,11 @@ Get a collection of elements, provide your data, optionally provide configuratio
       
 </code></pre>
 
-### element parameter
-This is the target node that will be used as the template.
+`element` - This is the target node that will be used as the template.
+`data` - This could be any data, an object an array, an array of objects, etc.
+`config` - An object literal (optional), can include any of the items listed in the section below
 
-### data parameter
-This could be any data, an object an array, an array of objects, etc.
-
-### config parameter
-An object literal (optional), can include any of the following...
-
+### Config options
 `map` - A map function is executed against every match of data-key/element. It gives the opportunity to manipulate the element before it is finalized. Returning false from `map` will cause the traversal of the current branch to stop.
 <pre><code>
   map: function(parent, element, key, val) { 
