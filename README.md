@@ -3,7 +3,7 @@
 
 ## What is it?
 
-Simple. Weld turns data into markup. There's NO special syntax required. It works in the browser and in node.js!
+Simple. Weld binds data to markup, and can generate markup based your data. There's NO special syntax or data reshaping required. It works in the browser and in node.js!
 
 ## Motivation
 
@@ -21,10 +21,10 @@ Get a collection of elements, provide your data, optionally provide configuratio
 </code></pre>
 
 ### element parameter
-This is the target html which will be used as the template.
+This is the target node that will be used as the template.
 
 ### data parameter
-Could be any data, an object an array, an array of objects, etc.
+This could be any data, an object an array, an array of objects, etc.
 
 ### config parameter
 An object literal (optional), can include any of the following...
@@ -44,11 +44,16 @@ An object literal (optional), can include any of the following...
   }
       
 </code></pre>
-`insert` (optional) - A function which enables some logic to be performed   
+`insert` (optional) - A function which enables some logic to be performed before the element is actually inserted into the target.
 <pre><code>
   insert: function(parent, element) {
     parent.insertBefore(element, parent.firstChild);
   }
+       
+</code></pre>
+`debug` - A boolean value that if set to true will display some useful information as the recursion process occurs. More information about this can be found later on in this document.
+<pre><code>
+  debug: true
        
 </code></pre>
 ## Installing from NPM (Node.js Package Manager)
@@ -99,12 +104,13 @@ Using JSDOM, we can easily create a DOM, load some libraries and read a file. Le
       },
       function(window) {
 
-        window.jQuery = $; // let's use the jquery object!
+        window.jQuery = $; // let's use jQuery to get our target node!
 
         var data = [{ name: 'hij1nx',  title : 'code slayer' },
                     { name: 'tmpvar', title : 'code pimp' }];
 
-        $('.contact').weld(data);
+        window.weld($('.contact')[0], data);
+
       });
 
 Here is the corresponding markup that our script above will load...
@@ -180,13 +186,19 @@ It's easy to work with multiple documents.
         });
       });
 
+
+## Debugging
+Debugging recursive data can be a real pain. With the debug option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.
+
+![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug.jpg)<br/>
+
 ## Credits
 developed by [hij1nx][2] and [tmpvar][3]
 
 If you want to learn more about JSDOM, go [here][1] it's an awesome project.
 
 ## Version
-0.1.0
+0.2.0
 
 [1]: https://github.com/tmpvar/jsdom
 [2]: http://twitter.com/hij1nx

@@ -22,7 +22,7 @@ module.exports = {
       test.done();
     });
   },
-  "Test 2: Create markup from a template using an object literal that has one dimension": function(test) {
+  "Test 2: Assign data to elements using an object literal that has one dimension": function(test) {
 
     jsdom.env({
 
@@ -51,7 +51,7 @@ module.exports = {
     
   },
   
-  "Test 3: Create markup from a template using a alias parameter to explicitly map data to selectors": function(test) {
+  "Test 3: Generate markup based on an element using the alias parameter to explicitly correlate data-keys and elements": function(test) {
     
     jsdom.env({
 
@@ -87,7 +87,7 @@ module.exports = {
 
   },
   
-  "Test 4: Create markup from a template using an (alias w/function) parameter to explicitly map data to selectors": function(test) {
+  "Test 4: Generate markup based on an element using an (alias w/function) parameter to explicitly correlate data and elements": function(test) {
     
     jsdom.env({
 
@@ -128,7 +128,7 @@ module.exports = {
 
   },  
   
-  "Test 5: Create markup from a template with an alternate method of insertion": function(test) {
+  "Test 5: Generate markup from an element with an alternate method of insertion": function(test) {
   
     jsdom.env({
 
@@ -161,7 +161,7 @@ module.exports = {
 
   },
 
-  "Test 6: Create html from a template using a custom data mapping method": function(test) {
+  "Test 6: Generate markup based on an element using a custom data mapping method": function(test) {
   
     jsdom.env({
 

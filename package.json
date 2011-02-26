@@ -1,6 +1,6 @@
 {
   "name": "weld",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Template antimatter for javascript",
   "keywords": ["templates", "templating", "jsdom", "unobtrusive"],
   "author" : "hij1nx <hij1nx@gmail.com>",
