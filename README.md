@@ -204,13 +204,25 @@ It's easy to work with multiple documents.
 
 
 ## How do I...
-For people coming from custom templating paradigms, you might have a lot of 'how-do-i-do-x' questions, well here are some ideas for what you might be asking.
+For people coming from custom templating paradigms, you might have some of 'how-do-i-do-x' questions, well here are some ideas for what you might be asking.
 
-### In mustache I do `Conditional Sections`, `Enumerable Sections`, `Higher Order Sections`, `Dereferencing Section`, etc.
-You don't need to do any of this in weld. You're logic is all in the javascript.
+### Conditionals
+You may want to only render a section of markup depending on the data.
 
+      <% if(person.description) { %>
 
+      <% } %>
 
+This can be done with the map parameter.
+
+      map: function(parent, element, key, val) { 
+        if(key==='description') {
+          return false;
+        }
+      }
+
+### I do some crazy stuff in mustache, how do i do that in weld?
+Chances are that you wont need to do anything crazy in weld, it's just javascript, markup and data.
 
 ## Debugging
 Debugging recursive data can be a real pain. With the debug option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.
