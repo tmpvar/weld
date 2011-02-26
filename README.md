@@ -198,7 +198,7 @@ developed by [hij1nx][2] and [tmpvar][3]
 If you want to learn more about JSDOM, go [here][1] it's an awesome project.
 
 ## Version
-0.1.0
+0.2.0
 
 [1]: https://github.com/tmpvar/jsdom
 [2]: http://twitter.com/hij1nx
