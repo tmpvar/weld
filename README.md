@@ -40,12 +40,14 @@ An object literal (optional), can include any of the following...
 `alias` - An object literal that provides a mapping between data key and a key that will match a class/name/id.  This is useful when you have data that doesn't explicitly correlate with the name, class or id of an HTML element. `alias` values may be any of the following:
  
  * A string
+ * A boolean
  * A function that returns a string
  * A function that returns a _single_ DOM Element
  
 <pre><code>
   alias: { 
     'user_password': false, // causes an item to not get rendered
+
     'user_email': 'email', // use email instead of user_email in the weld match process
 
     'user_name'     : function(parent, element, key, value) {
