@@ -1,4 +1,5 @@
 
+
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
 
 ## What is it?
@@ -78,32 +79,6 @@ An object literal (optional), can include any of the following...
   npm install weld
 
 </code></pre>
-## Using weld as a jQuery plug-in.
-Implementation...
-
-      /*
-        @function {jQuery object}
-          Turn weld into a jQuery plugin.
-
-        @param {object} data
-          The data which will be used for the weld.
-        @param {object} config
-          A configuration object.
-      */
-
-      if(jquery) {  
-        $.fn.weld = function(data, config) {
-          weld(this, data, config);
-          return this;
-        };
-      }  
-
-Usage...
-<pre><code>
-  $('.selector').weld(data, [config]);
-
-</code></pre>
-
 ## Examples
 
 ### The basics
@@ -168,16 +143,21 @@ ou need to be more explicit and map a data key to an element or collection of el
         </li>
       </ul>
 
-Using this data...
-      var data = [{ name: 'hij1nx',  title: 'code exploder' },
-                  { name: 'tmpvar', title: 'code pimp' }];  
+Use #contact as the template and `data` as the data...
 
-Just add the bind parameter.
-      weld('.contact', data, { bind: { 'name': '.firstAndLast', 'title': '.title' } });
+      var
+      data     = [{ name: 'hij1nx',  title: 'code exploder' },
+                  { name: 'tmpvar', title: 'code pimp' }],
+ 
+      template = document.getElementById('contacts');
+
+Just add the alias parameter.
+
+      weld(template, data, { alias: { 'name': 'firstAndLast', 'title': 'title' } });
 
 This will produce...
 
-      <ul class='contacts'>
+      <ul id='contacts'>
         <li class='contact'>
           <span class='name'>Hello my name is <span class='firstAndLast'>hij1nx</span></span>  
           <p class='title'>code slayer</p>
@@ -243,6 +223,25 @@ Chances are that you wont need to do anything crazy in weld, it's just javascrip
 Debugging recursive data can be a real pain. With the debug option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.
 
 ![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug.jpg)<br/>
+
+## Using weld as a plugin to other libraries
+
+### jQuery
+    /*
+      @function {jQuery object}
+        Turn weld into a jQuery plugin.
+      @param {object} data
+        The data which will be used for the weld.
+      @param {object} config
+        An optional configuration object.
+
+      Example: $('contacts').weld([ { name: 'John' } ])
+    */
+    $.fn.weld = function(data, config) {
+      weld(this[0], data, config);
+      return this;
+    };
+
 
 ## Credits
 developed by [hij1nx][2] and [tmpvar][3]
