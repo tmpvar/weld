@@ -190,8 +190,8 @@ It's easy to work with multiple documents.
 ## How do I...
 For people coming from custom templating paradigms, you might have a lot of 'how-do-i-do-x' questions, well here are some ideas for what you might be asking.
 
-### How do I do conditionals?
-You might be used to this...
+### In mustache I do `Conditional Sections`, `Enumerable Sections`, `Higher Order Sections`, `Dereferencing Section`, etc.
+You don't need to do any of this in weld. You're logic is all in the javascript.
 
 
 
