@@ -104,12 +104,13 @@ Using JSDOM, we can easily create a DOM, load some libraries and read a file. Le
       },
       function(window) {
 
-        window.jQuery = $; // let's use the jquery object!
+        window.jQuery = $; // let's use jQuery to get our target node!
 
         var data = [{ name: 'hij1nx',  title : 'code slayer' },
                     { name: 'tmpvar', title : 'code pimp' }];
 
-        $('.contact').weld(data);
+        window.weld($('.contact')[0], data);
+
       });
 
 Here is the corresponding markup that our script above will load...
