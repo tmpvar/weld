@@ -4,7 +4,7 @@ var assert     = require('assert')
     ,path       = require("path")
     ,colors     = require("colors")
     ,jqpath     = path.join(__dirname, '..', 'demo', 'public', 'js', 'jquery.js')
-    ,wpath      = path.join(__dirname, '..', 'lib', 'weld.js')
+    ,wpath      = require('weld').filepath
     ;
 
 module.exports = {
