@@ -394,7 +394,7 @@ module.exports = {
         jsdom.env(path.join(__dirname, 'files', 'dest.html'),[jqpath, wpath], function(errors, window) {
           var $ = window.jQuery;
 
-          window.weld($('li.number')[0], sources);
+          window.weld($('li.number')[0], sources, { debug : true });
 
           test.ok($('li.number').length === 3);
           test.ok($('li.number:nth(0) span').text() === "zero");
