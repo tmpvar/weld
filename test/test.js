@@ -307,7 +307,6 @@ module.exports = {
         bar : "hello"
       },
       {
-        debug: true,
         map: function(el, key, value) {
           $(el).addClass('pre-processed');
         }
