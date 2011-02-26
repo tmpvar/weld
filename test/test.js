@@ -293,7 +293,7 @@ module.exports = {
           'email' : 'tmpvar@gmail.com'
         };
 
-        $('form').weld(data);
+        window.weld($('form')[0], data);
 
         test.ok($(':input[name=email]').val() === data.email);
         test.done();
@@ -307,7 +307,7 @@ module.exports = {
         
         var $ = window.jQuery;
         
-        $('.list .item').weld([
+        window.weld($('.list .item')[0], [
           { where : 'world' }
         ], {
           map : function(element, k, v) {
@@ -325,12 +325,9 @@ module.exports = {
       var fs = require('fs');
       var jsdom = require('jsdom');
 
-      var html = fs.readFileSync(__dirname + "/test.html", 'utf8');
+      var html = fs.readFileSync(__dirname + "/files/test.html", 'utf8');
       for (var i = 0; i < 1000; i++) {
-          jsdom.env(html, [
-          __dirname + '/jquery.js',
-          __dirname + '/weld.js'
-          ],
+          jsdom.env(html, [jqpath, wpath],
           function(error, window) {
               var $ = window.jQuery;
 
@@ -339,7 +336,7 @@ module.exports = {
                   "data": "hello"
               };
 
-              $("#test").weld(data);
+              window.weld($("#test")[0], data);
               console.log($("#test").html());
           });
       }
