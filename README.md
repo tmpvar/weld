@@ -4,7 +4,7 @@
 
 ## What is it?
 
-Weld turns data into markup. There's NO sugar required. It works in the *browser* and in node.js! It was co-developed with the developer of JSDOM. *The next version will not require jQuery*.
+Simple. Weld turns data into markup. There's special syntax required. It works in the browser and in node.js!
 
 ## Motivation
 
@@ -16,14 +16,16 @@ Weld turns data into markup. There's NO sugar required. It works in the *browser
 ## How does it work?
 
 Get a collection of elements, provide your data, optionally provide configuration details.
-
-    weld('.selector', data, [config]);
-
-
+<pre>
+weld(element, data, [config]);
+</pre>
 Use with whatever library you want, jQuery for example.
+<pre>
+$('.selector').weld(data, [config]);
+</pre>
 
-    $('.selector').weld(data, [config]);
-
+### element parameter
+This is the target html which will be used as the template.
 
 ### data parameter
 Could be any data, an object an array, an array of objects, etc.
@@ -31,22 +33,19 @@ Could be any data, an object an array, an array of objects, etc.
 ### config parameter
 An object literal (optional), can include any of the following...
 
-`map` - A map function will supply the current HTML element that will created for the data that's being iterated as well as the key and the data's value.
-
-Returning false from `map` will cause the traversal of the current branch to stop.
-
-    map: function(el, key, val) { 
-      return true; // returning false will cancel the traversal down this branch
-    }
-
-`bind` - An object that explicitly maps the data's keys to css selectors.
- 
-    bind: { 
-      'myDataValueKey': '.someClassSelector',
-      'otherKey': '#someId'
-    }
-
-
+`map` - A map function is executed against every match of data-key/element. It gives the opportunity to manipulate the element before it is finalized. Returning false from `map` will cause the traversal of the current branch to stop.
+<pre>
+map: function(parent, element, key, val) { 
+  return true; // returning false will cancel the traversal down this branch
+}
+</pre>
+`alias` - An object literal that will point one or more data-keys at an alternative selector. This is useful when you have data that doesn't explicitly correlate with the name, class or id of an HTML element.
+<pre>
+bind: { 
+  'myDataValueKey': '.someClassSelector',
+  'otherKey': '#someId'
+}
+</pre>
 `overwrite` - Should we overwrite the old HTML? (true by default)
 
     overwrite: true
