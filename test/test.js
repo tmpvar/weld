@@ -4,8 +4,9 @@ var assert     = require('assert')
     ,path       = require("path")
     ,colors     = require("colors")
     ,jqpath     = path.join(__dirname, '..', 'demo', 'public', 'js', 'jquery.js')
-    ,wpath      = path.join(__dirname, '..', 'lib', 'weld.js'),
     ,suite      = require(__dirname + "/suite").suite;
+    ,wpath      = require('weld').filepath
+    ;
 
 suite.getTemplate = function(name, fn) {
   

@@ -1,0 +1,5 @@
+.DS_Store
+.git*
+documentation-assets/
+demo/
+test/

@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "description": "Template antimatter for javascript",
   "keywords": ["templates", "templating", "jsdom", "unobtrusive"],
-  "author" : "hij1nx <hij1nx@gmail.com>",
+  "author" : "hij1nx <hij1nx@gmail.com> http://twitter.com/hij1nx",
   "contributers" : [
     "Elijah Insua <tmpvar@gmail.com> http://tmpvar.com"
   ],
