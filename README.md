@@ -44,11 +44,16 @@ An object literal (optional), can include any of the following...
   }
       
 </code></pre>
-`insert` (optional) - A function which enables some logic to be performed   
+`insert` (optional) - A function which enables some logic to be performed before the element is actually inserted into the target.
 <pre><code>
   insert: function(parent, element) {
     parent.insertBefore(element, parent.firstChild);
   }
+       
+</code></pre>
+`debug` - A boolean value that if set to true will display some useful information as the recursion process occurs. More information about this can be found later on in this document.
+<pre><code>
+  debug: true
        
 </code></pre>
 ## Installing from NPM (Node.js Package Manager)
@@ -182,7 +187,7 @@ It's easy to work with multiple documents.
 
 
 ## Debugging
-Debugging recursive data can be a real pain.
+Debugging recursive data can be a real pain. With the debug option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.
 
 ![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug.jpg)<br/>
 
