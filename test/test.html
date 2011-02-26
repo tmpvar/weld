@@ -1,10 +1,25 @@
-<<<<<<< HEAD
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+
 <html>
   <head>
-    <title></title>
+    <title>Example Test Suite</title>
+    <link rel="stylesheet" href="nodeunit.css" type="text/css" />
+    <script src="vendor/nodeunit.js"></script>
+    <script src="vendor/jquery.js"></script>
+    <script src="../lib/weld.js"></script>
   </head>
   <body>
+    <h1 id="nodeunit-header">Weld Tests</h1>
+    <script>
+      window.require = function () {
+          return function(name, fn) {
+              fn(window, $, $('#' + name)[0]);
+          };
+      };
+    </script>
+    <script src="test.js"></script>
+    <script>
+      nodeunit.run({ 'Weld!': suite });
+    </script>
     
     <ul id="array-of-arrays" class="people">
       <li class="person">
