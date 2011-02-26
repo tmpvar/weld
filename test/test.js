@@ -130,7 +130,7 @@ module.exports = {
                   { name: 'tmpvar', title: 'code pimp' }];
 
       window.weld($('.contact')[0], data, {
-         method: function(parent, element) {
+         insert: function(parent, element) {
            parent.insertBefore(element, parent.firstChild);
          }
       });
@@ -165,7 +165,7 @@ module.exports = {
 
       window.weld($('.contact')[0], data, {
       
-        method: function(parent, newElement) {
+        insert: function(parent, newElement) {
           times++;
           $(parent).prepend(newElement);
         }
