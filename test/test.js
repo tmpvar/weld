@@ -8,7 +8,21 @@ var assert     = require('assert')
     ;
 
 module.exports = {
-  "Test 1: Create markup from a template using an object literal that has one dimension": function(test) {
+  "Test 1: Sanity" : function(test) {
+    jsdom.env("<a class='link'></a>", [jqpath, wpath], function(errors, window) {
+      var $ = window.$;
+
+      window.weld(window.document.body, { link : "text" }, {
+        set : function(parent, element, key, value) {
+          $(element).text("woo");
+        },
+      });
+
+      test.ok($('a').text() === "woo");
+      test.done();
+    });
+  },
+  "Test 2: Create markup from a template using an object literal that has one dimension": function(test) {
 
     jsdom.env({
 
@@ -37,7 +51,7 @@ module.exports = {
     
   },
   
-  "Test 2: Create markup from a template using a alias parameter to explicitly map data to selectors": function(test) {
+  "Test 3: Create markup from a template using a alias parameter to explicitly map data to selectors": function(test) {
     
     jsdom.env({
 
@@ -47,7 +61,7 @@ module.exports = {
     },
     function(errors, window) {
   
-      var $ = window.jQuery;    
+      var $ = window.jQuery;
 
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
@@ -73,7 +87,7 @@ module.exports = {
 
   },
   
-  "Test 3: Create markup from a template using an (alias w/function) parameter to explicitly map data to selectors": function(test) {
+  "Test 4: Create markup from a template using an (alias w/function) parameter to explicitly map data to selectors": function(test) {
     
     jsdom.env({
 
@@ -114,7 +128,7 @@ module.exports = {
 
   },  
   
-  "Test 4: Create markup from a template with an alternate method of insertion": function(test) {
+  "Test 5: Create markup from a template with an alternate method of insertion": function(test) {
   
     jsdom.env({
 
@@ -147,7 +161,7 @@ module.exports = {
 
   },
 
-  "Test 5: Create html from a template using a custom data mapping method": function(test) {
+  "Test 6: Create html from a template using a custom data mapping method": function(test) {
   
     jsdom.env({
 
@@ -180,7 +194,7 @@ module.exports = {
 
   },  
   
-  "Test 6: Append to a node that has already been the subject of a weld": function(test) {
+  "Test 7: Append to a node that has already been the subject of a weld": function(test) {
   
     jsdom.env({
 
@@ -217,7 +231,7 @@ module.exports = {
   
   },
   
-  "Test 7: Create markup from an array of objects that have one dimention": function(test) {
+  "Test 8: Create markup from an array of objects that have one dimention": function(test) {
 
     jsdom.env({
 
@@ -246,7 +260,7 @@ module.exports = {
 
   },
   
-  "Test 8: Try to pair data with selectors that yield no matching elements": function(test) {
+  "Test 9: Try to pair data with selectors that yield no matching elements": function(test) {
 
     jsdom.env({
 
@@ -277,7 +291,7 @@ module.exports = {
 
   },
 
-  "Test 9: Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
+  "Test 10: Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
 
     jsdom.env({
 
@@ -344,7 +358,7 @@ module.exports = {
 
   },
    
-   "Test 10: Create markup using form elements as the template": function(test) {
+   "Test 11: Create markup using form elements as the template": function(test) {
 
       jsdom.env({
 
@@ -367,7 +381,7 @@ module.exports = {
 
       });
     },
-    "Test 11: Returning false from map stops the current branch from being visited" : function(test) {
+    "Test 12: Returning false from map stops the current branch from being visited" : function(test) {
       jsdom.env('<ul class="list"><li class="item">hello <span class="where">do not touch</span></li></ul>',[
         jqpath, wpath
       ], function(errors, window) {
@@ -387,14 +401,14 @@ module.exports = {
         
       });
     },
-    "Test 12: Use a NodeList from another document and weld it into the target document" : function(test) {
+    "Test 13: Use a NodeList from another document and weld it into the target document" : function(test) {
       jsdom.env(path.join(__dirname, 'files', 'source.html'), function(serrs, sw) {
         var sources = sw.document.getElementsByTagName("span");
 
         jsdom.env(path.join(__dirname, 'files', 'dest.html'),[jqpath, wpath], function(errors, window) {
           var $ = window.jQuery;
 
-          window.weld($('li.number')[0], sources, { debug : true });
+          window.weld($('li.number')[0], sources);
 
           test.ok($('li.number').length === 3);
           test.ok($('li.number:nth(0) span').text() === "zero");
@@ -405,7 +419,7 @@ module.exports = {
         });
       });
     },
-    "Test 13: Use a NodeList from the current document and weld it to another area in the same document" : function(test) {
+    "Test 14: Use a NodeList from the current document and weld it to another area in the same document" : function(test) {
       jsdom.env(path.join(__dirname, 'files', 'source-and-dest.html'),[jqpath, wpath], function(errors, window) {
         var $       = window.jQuery,
             sources = window.document.getElementById('data').getElementsByTagName("span");
