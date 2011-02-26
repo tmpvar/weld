@@ -1,5 +1,6 @@
 
 
+
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
 
 ## What is it?
@@ -40,9 +41,8 @@ An object literal (optional), can include any of the following...
 `alias` - An object literal that provides a mapping between data key and a key that will match a class/name/id.  This is useful when you have data that doesn't explicitly correlate with the name, class or id of an HTML element. `alias` values may be any of the following:
  
  * A string
- * A boolean
- * A function that returns a string
- * A function that returns a _single_ DOM Element
+ * `false`
+ * A function that returns a string, `false`, or a _single_ DOM Element
  
 <pre><code>
   alias: { 
@@ -60,11 +60,23 @@ An object literal (optional), can include any of the following...
     'user_hometown' : function(parent, element, key, value) {
       // use an element instead of allowing weld to match based on class/id/name
       return element.getElementById('hometown');
+    },
+
+    'user_email'  : function(parent, element, key, value) {
+      if (session.authorized() === false) {
+        // The user requesting this template is not authorized to view user emails so remove the email display from the page
+        var emailDisplay = element.getElementById('user_email);
+        emailDisplay.parentNode.removeChild(emailDisplay);
+
+        // and return false, which will stop weld from traversing the current branch (user_email)
+        return false;
+      }
     }
+
   }
       
 </code></pre>
-`insert` (optional) - A function which enables some logic to be performed before the element is actually inserted into the target.
+`insert` (override) - A function which enables some logic to be performed before the element is actually inserted into the target.
 <pre><code>
   insert: function(parent, element) {
     parent.insertBefore(element, parent.firstChild);
@@ -76,6 +88,12 @@ An object literal (optional), can include any of the following...
   debug: true
        
 </code></pre>
+
+#### Advanced Options
+The following options are the core of weld but can be overridden in special circumstances.  This is for hackers and these api's are known to be a bit volitile. **you have been warned**. and now for the list: `siblings`, `traverse`, `elementType`, `set` , `match`
+
+As the weld core solidifies these methods will be properly documented, but for now you will need to look at the source.
+
 ## Installing from NPM (Node.js Package Manager)
 <pre><code>
   npm install weld
@@ -151,15 +169,15 @@ Use #contact as the template and `data` as the data...
       data     = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }],
  
-      template = document.getElementById('contacts');
+      template = document.getElementByClassName('contact')[0];
 
-Just add the alias parameter.
+Since there is no .title class in the markup, we need to alias title to something that does exist..
 
-      weld(template, data, { alias: { 'name': 'firstAndLast', 'title': 'title' } });
+      weld(template, data, { alias: { 'name': 'firstAndLast' } });
 
-This will produce...
+This produces..
 
-      <ul id='contacts'>
+      <ul class='contacts'>
         <li class='contact'>
           <span class='name'>Hello my name is <span class='firstAndLast'>hij1nx</span></span>  
           <p class='title'>code slayer</p>

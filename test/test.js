@@ -66,7 +66,7 @@ module.exports = {
       var data = [{ name: 'hij1nx',  title: 'code exploder' },
                   { name: 'tmpvar', title: 'code pimp' }];
 
-      window.weld($('.contact')[0], data, { 
+      window.weld($('.contacts')[0], data, { 
         alias: { 
           'name': 'foo', 
           'title': 'title' 
