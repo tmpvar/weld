@@ -1,6 +1,5 @@
 
-
-<center>![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)</center><br/>
+![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
 
 ## What is it?
 
