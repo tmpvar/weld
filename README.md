@@ -1,10 +1,10 @@
 
 
-![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
+<center>![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)</center><br/>
 
 ## What is it?
 
-Simple. Weld turns data into markup. There's special syntax required. It works in the browser and in node.js!
+Simple. Weld turns data into markup. There's NO special syntax required. It works in the browser and in node.js!
 
 ## Motivation
 
