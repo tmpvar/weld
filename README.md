@@ -44,6 +44,7 @@ An object literal (optional), can include any of the following...
  
 <pre><code>
   alias: { 
+    'user_password': false, // causes an item to not get rendered
     'user_email': 'email', // use email instead of user_email in the weld match process
 
     'user_name'     : function(parent, element, key, value) {
@@ -204,7 +205,7 @@ It's easy to work with multiple documents.
 
 
 ## How do I...
-For people coming from custom templating paradigms, you might have some of 'how-do-i-do-x' questions, well here are some ideas for what you might be asking.
+For people coming from custom templating paradigms, you might have some of 'how-do-i-do-x' questions.
 
 ### Conditionals
 You may want to only render a section of markup depending on the data.
@@ -213,7 +214,21 @@ You may want to only render a section of markup depending on the data.
 
       <% } %>
 
-This can be done with the map parameter.
+This can be done with the map or alias parameters.
+
+      alias: {
+        description: false // causes the descriptions to never get rendered.
+      }
+      
+which is the same as this...
+
+      alias: function(parent, element, key, value) {
+        if(key==='description') {
+          return false;
+        }
+      }
+
+but can also be done with the more general purpose `map` parameter.
 
       map: function(parent, element, key, val) { 
         if(key==='description') {
