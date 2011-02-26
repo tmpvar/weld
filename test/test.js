@@ -73,7 +73,43 @@ module.exports = {
 
   },
   
-  "Test 3: Create markup from a template with an alternate method of insertion": function(test) {
+  "Test 3: Create markup from a template using an (alias w/function) parameter to explicitly map data to selectors": function(test) {
+    
+    jsdom.env({
+
+      scripts: [jqpath, wpath],
+      html: path.join(__dirname, 'files', 'contacts-alias.html')
+
+    },
+    function(errors, window) {
+  
+      var $ = window.jQuery;    
+
+      var data = [{ name: 'hij1nx',  title: 'code exploder' },
+                  { name: 'tmpvar', title: 'code pimp' }];
+
+      window.weld($('.contact')[0], data, { 
+        alias: { 
+          'name' : function(parent, element, key, value) { return 'foo'; },
+          'title': 'title'
+        }
+      });
+
+      test.ok($('.contact').length === 2);
+
+      test.ok($('.contact:nth(0) .foo').text() == "hij1nx");
+      test.ok($('.contact:nth(1) .foo').text() == "tmpvar");
+
+      test.ok($('.contact:nth(0) .title').text() == "code exploder");
+      test.ok($('.contact:nth(1) .title').text() == "code pimp");
+
+      test.done();
+
+    });
+
+  },  
+  
+  "Test 4: Create markup from a template with an alternate method of insertion": function(test) {
   
     jsdom.env({
 
@@ -101,7 +137,7 @@ module.exports = {
 
   },
 
-  "Test 4: Create html from a template using a custom data mapping method": function(test) {
+  "Test 5: Create html from a template using a custom data mapping method": function(test) {
   
     jsdom.env({
 
@@ -134,7 +170,7 @@ module.exports = {
 
   },  
   
-  "Test 5: Append to a node that has already been the subject of a weld": function(test) {
+  "Test 6: Append to a node that has already been the subject of a weld": function(test) {
   
     jsdom.env({
 
@@ -171,7 +207,7 @@ module.exports = {
   
   },
   
-  "Test 6: Create markup from an array of objects that have one dimention": function(test) {
+  "Test 7: Create markup from an array of objects that have one dimention": function(test) {
 
     jsdom.env({
 
@@ -200,7 +236,7 @@ module.exports = {
 
   },
   
-  "Test 7: Try to pair data with selectors that yield no matching elements": function(test) {
+  "Test 8: Try to pair data with selectors that yield no matching elements": function(test) {
 
     jsdom.env({
 
@@ -231,7 +267,7 @@ module.exports = {
 
   },
 
-  "Test 8: Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
+  "Test 9: Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
 
     jsdom.env({
 
@@ -293,7 +329,7 @@ module.exports = {
 
   },
    
-   "Test 9: Create markup using form elements as the template": function(test) {
+   "Test 10: Create markup using form elements as the template": function(test) {
 
       jsdom.env({
 
@@ -316,7 +352,7 @@ module.exports = {
 
       });
     },
-    "Test 10: Returning false from map stops the current branch from being visited" : function(test) {
+    "Test 11: Returning false from map stops the current branch from being visited" : function(test) {
       jsdom.env('<ul class="list"><li class="item">hello <span class="where">do not touch</span></li></ul>',[
         jqpath, wpath
       ], function(errors, window) {
@@ -336,7 +372,7 @@ module.exports = {
         
       });
     },
-    "Test 11: Stress test": function(test) {
+    "Test 12: Stress test": function(test) {
 
       var fs = require('fs');
       var jsdom = require('jsdom');
@@ -358,7 +394,7 @@ module.exports = {
       }
       test.done();
     },
-    "Test 12: " : function(test) {
-      test.done()
+    "Test 13: " : function(test) {
+      test.done();
     }
 };
