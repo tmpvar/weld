@@ -17,12 +17,7 @@ Simple. Weld turns data into markup. There's special syntax required. It works i
 
 Get a collection of elements, provide your data, optionally provide configuration details.
 <pre><code>
-      weld(element, data, [config]);
-      
-</code></pre>
-Use with whatever library you want, jQuery for example.
-<pre><code>
-      $('.selector').weld(data, [config]);
+  weld(element, data, [config]);
       
 </code></pre>
 
@@ -37,33 +32,33 @@ An object literal (optional), can include any of the following...
 
 `map` - A map function is executed against every match of data-key/element. It gives the opportunity to manipulate the element before it is finalized. Returning false from `map` will cause the traversal of the current branch to stop.
 <pre><code>
-      map: function(parent, element, key, val) { 
-        return true; // returning false will cancel the traversal down this branch
-      }
+  map: function(parent, element, key, val) { 
+    return true; // returning false will cancel the traversal down this branch
+  }
       
 </code></pre>
 `alias` - An object literal that will point one or more data-keys at an alternative selector. This is useful when you have data that doesn't explicitly correlate with the name, class or id of an HTML element.
 <pre><code>
-      alias: { 
-        'myDataValueKey': '.someClassSelector',
-        'otherKey': '#someId'
-      }
+  alias: { 
+    'myDataValueKey': '.someClassSelector',
+    'otherKey': '#someId'
+  }
       
 </code></pre>
 `insert` (optional) - A function which enables some logic to be performed   
 <pre><code>
-      insert: function(parent, element) {
-         parent.insertBefore(element, parent.firstChild);
-       }
+  insert: function(parent, element) {
+    parent.insertBefore(element, parent.firstChild);
+  }
        
 </code></pre>
-## NPM
+## Installing from NPM (Node.js Package Manager)
 <pre><code>
-      npm install weld
+  npm install weld
 
 </code></pre>
-## Using weld a jQuery plug-in.
-
+## Using weld as a jQuery plug-in.
+Implementation...
 
       /*
         @function {jQuery object}
@@ -82,6 +77,11 @@ An object literal (optional), can include any of the following...
         };
       }  
 
+Usage...
+<pre><code>
+  $('.selector').weld(data, [config]);
+
+</code></pre>
 
 ## Examples
 
@@ -173,19 +173,13 @@ It's easy to work with multiple documents.
         var sources = sw.document.getElementsByTagName("span");
 
         jsdom.env(path.join(__dirname, 'files', 'dest.html'),[jqpath, wpath], function(errors, window) {
+
           var $ = window.jQuery;
 
           window.weld($('li.number')[0], sources);
 
-          test.ok($('li.number').length === 3);
-          test.ok($('li.number:nth(0) span').text() === "zero");
-          test.ok($('li.number:nth(1) span').text() === "one");
-          test.ok($('li.number:nth(2) span').text() === "two");
-          test.ok($('li.number').text() === "zeroonetwo");
-          test.done();
         });
       });
-
 
 ## Credits
 developed by [hij1nx][2] and [tmpvar][3]
