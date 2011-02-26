@@ -90,7 +90,12 @@ module.exports = {
 
       window.weld($('.contact')[0], data, { 
         alias: { 
-          'name' : function(parent, element, key, value) { return 'foo'; },
+          'name' : function(parent, element, key, value) { 
+            // Sanity
+            test.ok(key === 'name');
+
+            return 'foo';
+          },
           'title': 'title'
         }
       });
@@ -130,9 +135,14 @@ module.exports = {
          }
       });
 
-      test.ok($('.contact:first .name').text() == "tmpvar");
-      test.done();
+      test.ok($('.contact').length === 2);
 
+      test.ok($('.contact:nth(0) .name').text() == "tmpvar");
+      test.ok($('.contact:nth(1) .name').text() == "hij1nx");
+
+      test.ok($('.contact:nth(0) .title').text() == "code pimp");
+      test.ok($('.contact:nth(1) .title').text() == "code exploder");
+      test.done();
     });
 
   },
@@ -369,7 +379,7 @@ module.exports = {
         ], {
           map : function(element, k, v) {
             return false;
-          }
+          }, debug: true
         });
 
         test.ok($('.where').text() === 'do not touch');
@@ -377,29 +387,7 @@ module.exports = {
         
       });
     },
-    "Test 12: Stress test": function(test) {
-
-      var fs = require('fs');
-      var jsdom = require('jsdom');
-
-      var html = fs.readFileSync(__dirname + "/files/test.html", 'utf8');
-      for (var i = 0; i < 1000; i++) {
-          jsdom.env(html, [jqpath, wpath],
-          function(error, window) {
-              var $ = window.jQuery;
-
-              var data = {
-                  "name": "Test",
-                  "data": "hello"
-              };
-
-              window.weld($("#test")[0], data);
-              console.log($("#test").html());
-          });
-      }
-      test.done();
-    },
-    "Test 13: " : function(test) {
+    "Test 12: " : function(test) {
       test.done();
     }
 };
