@@ -1,48 +1,18 @@
 
 var sys = require('sys'),
-    fs = require('fs'),
     http = require('http'),
     url = require('url'),
+    journey = require('journey'),    
     static = require('node-static'),
-    weld = require('../../lib/weld').weld,
-    journey = require('journey'),
-    jsdom      = require('jsdom'),
-    fs         = require('fs'),
-    html       = function(file, cb) {
-      file = __dirname + '/files/' + file;
-      fs.readFile(file, function(err, data) {
-        if (err) {
-          return cb(err);
-        }
-
-        var window = jsdom.html(data.toString()).createWindow();
-        jsdom.jQueryify(window, __dirname + '/../lib/jquery.js', function() {
-          // remove the jQuery script tag
-          window.$('script:last').remove();
-          
-          // TODO: this is nasty, but quick.
-          var weldTag = window.document.createElement('script');
-          
-          weldTag.src = 'file://' + __dirname + '/../lib/weld.js';
-          weldTag.onload = function() {
-            // remove the weld scripttag
-            window.$('script:last').remove();
-            cb(null, window.weld, window.$, window);
-          };
-          window.document.body.appendChild(weldTag);
-        });
-      })
-    };
+    
+    weld = require('weld').weld,
+    jsdom = require('jsdom');
 
 (function (port) {
 
-  var router
-      ,server
-      ,files = new (static.Server)('./public')
-      ctypes = {
-        json: { 'Content-Type': 'application/json' },
-        html: { 'Content-Type': 'text/html' }
-      },
+  var router,
+      server,
+      files = new (static.Server)('./public'),
       data: {
         person : [
           {
@@ -59,7 +29,7 @@ var sys = require('sys'),
           }
         ]
       };
-        
+
   router = function () {
 
     return new (journey.Router)(function (map) {
@@ -72,18 +42,34 @@ var sys = require('sys'),
 
         this.get('all').bind(function (response) {
           
-          html('people.html', function(err, weld, $, window) {
-          
-            response.send(200, ctypes.json, $('.people').weld(data));
+          jsdom.env({
+
+            scripts: [jqpath, wpath],
+            html: path.join(__dirname, 'files', 'singular.html')
+
+          }, 
+          function(errors, window) {
+
+            var $ = window.jQuery;
+            window.weld($('#singular')[0], data);
+
           });
           
         });
 
         this.get('first').bind(function (response) {
           
-          html('person.html', function(err, weld, $, window) {
-          
-            response.send(200, ctypes.json, $('.feature').weld(data.person[0]));
+          jsdom.env({
+
+            scripts: [jqpath, wpath],
+            html: path.join(__dirname, 'files', 'singular.html')
+
+          }, 
+          function(errors, window) {
+
+            var $ = window.jQuery;
+            window.weld($('#singular')[0], data);
+
           });
           
         });
