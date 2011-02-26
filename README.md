@@ -16,13 +16,15 @@ Simple. Weld turns data into markup. There's special syntax required. It works i
 ## How does it work?
 
 Get a collection of elements, provide your data, optionally provide configuration details.
-<pre>
-weld(element, data, [config]);
-</pre>
+<pre><code>
+      weld(element, data, [config]);
+      
+</code></pre>
 Use with whatever library you want, jQuery for example.
-<pre>
-$('.selector').weld(data, [config]);
-</pre>
+<pre><code>
+      $('.selector').weld(data, [config]);
+      
+</code></pre>
 
 ### element parameter
 This is the target html which will be used as the template.
@@ -34,130 +36,156 @@ Could be any data, an object an array, an array of objects, etc.
 An object literal (optional), can include any of the following...
 
 `map` - A map function is executed against every match of data-key/element. It gives the opportunity to manipulate the element before it is finalized. Returning false from `map` will cause the traversal of the current branch to stop.
-<pre>
-map: function(parent, element, key, val) { 
-  return true; // returning false will cancel the traversal down this branch
-}
-</pre>
+<pre><code>
+      map: function(parent, element, key, val) { 
+        return true; // returning false will cancel the traversal down this branch
+      }
+      
+</code></pre>
 `alias` - An object literal that will point one or more data-keys at an alternative selector. This is useful when you have data that doesn't explicitly correlate with the name, class or id of an HTML element.
-<pre>
-bind: { 
-  'myDataValueKey': '.someClassSelector',
-  'otherKey': '#someId'
-}
-</pre>
-`overwrite` - Should we overwrite the old HTML? (true by default)
-
-    overwrite: true
-
+<pre><code>
+      alias: { 
+        'myDataValueKey': '.someClassSelector',
+        'otherKey': '#someId'
+      }
+      
+</code></pre>
+`insert` (optional) - A function which enables some logic to be performed   
+<pre><code>
+      insert: function(parent, element) {
+         parent.insertBefore(element, parent.firstChild);
+       }
+       
+</code></pre>
 ## NPM
-    npm install weld
+<pre><code>
+      npm install weld
 
+</code></pre>
 ## Using weld a jQuery plug-in.
-<pre>
-/*
-  @function {jQuery object}
-    Turn weld into a jQuery plugin.
 
-  @param {object} data
-    The data which will be used for the weld.
-  @param {object} config
-    A configuration object.
-*/
 
-if(jquery) {  
-  $.fn.weld = function(data, config) {
-    weld(this, data, config);
-    return this;
-  };
-}  
-</pre>
+      /*
+        @function {jQuery object}
+          Turn weld into a jQuery plugin.
+
+        @param {object} data
+          The data which will be used for the weld.
+        @param {object} config
+          A configuration object.
+      */
+
+      if(jquery) {  
+        $.fn.weld = function(data, config) {
+          weld(this, data, config);
+          return this;
+        };
+      }  
+
 
 ## Examples
 
-Create a DOM, load a library, read a file and bind the data to it...
+### The basics
+Using JSDOM, we can easily create a DOM, load some libraries and read a file. Let's bind some data!
 
-    var fs    = require('fs'),
-        jsdom = require('jsdom'),
+      var fs    = require('fs'),
+          jsdom = require('jsdom'),
 
-    jsdom.env({
-      code: [
-        '/../lib/jquery.js',
-        'path/to/weld.js'
-      ],
-      html: '/../files/contexts.html'
-    },
-    function(window) {
+      jsdom.env({
+        code: [
+          '/../lib/jquery.js',
+          'path/to/weld.js'
+        ],
+        html: '/../files/contexts.html'
+      },
+      function(window) {
 
-      window.jQuery = $;
+        window.jQuery = $; // let's use the jquery object!
 
-      var data = [{ name: &quot;hij1nx&quot;,  title : &quot;code slayer&quot; },
-                  { name: &quot;tmpvar&quot;, title : &quot;code pimp&quot; }];
+        var data = [{ name: 'hij1nx',  title : 'code slayer' },
+                    { name: 'tmpvar', title : 'code pimp' }];
 
-      $('.contact').weld(data);
-    });
-
-</pre>
+        $('.contact').weld(data);
+      });
 
 Here is the corresponding markup that our script above will load...
-<pre>
-&lt;ul class=&quot;contacts&quot;&gt;
-  &lt;li class=&quot;contact&quot;&gt;
-    &lt;span class=&quot;name&quot;&gt;My Name&lt;/span&gt;
-    &lt;p class=&quot;title&quot;&gt;Leet Developer&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</pre>
 
-And here are the results that it will produce...
-<pre>
-&lt;ul class=&quot;contacts&quot;&gt;
-  &lt;li class=&quot;contact&quot;&gt;
-    &lt;span class=&quot;name&quot;&gt;hij1nx&lt;/span&gt;
-    &lt;p class=&quot;title&quot;&gt;code slayer&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;contact&quot;&gt;
-    &lt;span class=&quot;name&quot;&gt;tmpvar&lt;/span&gt;
-    &lt;p class=&quot;title&quot;&gt;code pimp&lt;/p&gt;
-  &lt;/li&gt;  
-&lt;/ul&gt;
-</pre>
+      <ul class='contacts'>
+        <li class='contact'>
+          <span class='name'>My Name</span>
+          <p class='title'>Leet Developer</p>
+        </li>
+      </ul>
 
-### how data actually maps to the html
+Here are the results that it will produce...
+
+      <ul class='contacts'>
+        <li class='contact'>
+          <span class='name'>hij1nx</span>
+          <p class='title'>code slayer</p>
+        </li>
+        <li class='contact'>
+          <span class='name'>tmpvar</span>
+          <p class='title'>code pimp</p>
+        </li>  
+      </ul>
+
+### Being explicit about how data-keys relate to elements
 
 By default, weld uses a heuristic that assumes each of the keys in the data's `key: value` pairs is an '#id', a '.class' or 'name'. This addresses the 80/20 of cases. 
 
-There are cases where you need to be more <b>explicit</b> and map a data key to an element or collection of elements. To do this, you can add a mapping of data keys to selectors. So, for the following HTML...
+There are cases where the data is not an exact match to the element's identity. In this case, we can create 
 
-<pre>
-&lt;ul class=&quot;contacts&quot;&gt;
-  &lt;li class=&quot;contact&quot;&gt;
-    &lt;span class=&quot;name&quot;&gt;Hello my name is &lt;span class=&quot;firstAndLast&quot;&gt;My Name&lt;/span&gt;&lt;/span&gt;
-    &lt;p class=&quot;title&quot;&gt;Leet Developer&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</pre>
+
+ou need to be more explicit and map a data key to an element or collection of elements. To do this, you can add a mapping of data keys to selectors. So, for the following HTML...
+
+      <ul class='contacts'>
+        <li class='contact'>
+          <span class='name'>Hello my name is <span class='firstAndLast'>My Name</span></span>
+          <p class='title'>Leet Developer</p>
+        </li>
+      </ul>
 
 Using this data...
-    var data = [{ name: 'hij1nx',  title: 'code exploder' },
-                { name: 'tmpvar', title: 'code pimp' }];  
+      var data = [{ name: 'hij1nx',  title: 'code exploder' },
+                  { name: 'tmpvar', title: 'code pimp' }];  
 
 Just add the bind parameter.
-    weld('.contact', data, { bind: { 'name': '.firstAndLast', 'title': '.title' } });
+      weld('.contact', data, { bind: { 'name': '.firstAndLast', 'title': '.title' } });
 
 This will produce...
-<pre>
-&lt;ul class=&quot;contacts&quot;&gt;
-  &lt;li class=&quot;contact&quot;&gt;
-    &lt;span class=&quot;name&quot;&gt;Hello my name is &lt;span class=&quot;firstAndLast&quot;&gt;hij1nx&lt;/span&gt;&lt;/span&gt;  
-    &lt;p class=&quot;title&quot;&gt;code slayer&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li class=&quot;contact&quot;&gt;
-    &lt;span class=&quot;name&quot;&gt;Hello my name is &lt;span class=&quot;firstAndLast&quot;&gt;tmpvar&lt;/span&gt;&lt;/span&gt;  
-    &lt;p class=&quot;title&quot;&gt;code pimp&lt;/p&gt;
-  &lt;/li&gt;  
-&lt;/ul&gt;
-</pre>
+
+      <ul class='contacts'>
+        <li class='contact'>
+          <span class='name'>Hello my name is <span class='firstAndLast'>hij1nx</span></span>  
+          <p class='title'>code slayer</p>
+        </li>
+        <li class='contact'>
+          <span class='name'>Hello my name is <span class='firstAndLast'>tmpvar</span></span>  
+          <p class='title'>code pimp</p>
+        </li>  
+      </ul>
+
+### Working with multiple documents
+It's easy to work with multiple documents.
+
+      jsdom.env(path.join(__dirname, 'files', 'source.html'), function(serrs, sw) {
+        var sources = sw.document.getElementsByTagName("span");
+
+        jsdom.env(path.join(__dirname, 'files', 'dest.html'),[jqpath, wpath], function(errors, window) {
+          var $ = window.jQuery;
+
+          window.weld($('li.number')[0], sources);
+
+          test.ok($('li.number').length === 3);
+          test.ok($('li.number:nth(0) span').text() === "zero");
+          test.ok($('li.number:nth(1) span').text() === "one");
+          test.ok($('li.number:nth(2) span').text() === "two");
+          test.ok($('li.number').text() === "zeroonetwo");
+          test.done();
+        });
+      });
+
 
 ## Credits
 developed by [hij1nx][2] and [tmpvar][3]
