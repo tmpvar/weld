@@ -20,5 +20,5 @@
     "nodeunit" : "*"
   },
   "engines": ["node"],
-  "main" : "./lib/"
+  "main" : "./lib/index.js"
 }

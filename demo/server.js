@@ -2,10 +2,10 @@
 var sys = require('sys'),
     http = require('http'),
     url = require('url'),
-    journey = require('journey'),    
+    journey = require('journey'),
     static = require('node-static'),
-    
-    weld = require('weld').weld,
+
+    wpath = require('weld').filepath,
     jsdom = require('jsdom');
 
 (function (port) {
@@ -13,7 +13,7 @@ var sys = require('sys'),
   var router,
       server,
       files = new (static.Server)('./public'),
-      data: {
+      data = {
         person : [
           {
             name : 'John',
@@ -94,7 +94,7 @@ var sys = require('sys'),
         files.serve(req, res);
       }
       else {
-        router.route(req, body, function (result) {
+        router().handle(req, body, function (result) {
           res.writeHead(result.status, result.headers);
           res.end(result.body);
         });
