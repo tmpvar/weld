@@ -5,11 +5,17 @@
     <script src="vendor/nodeunit.js"></script>
     <script src="vendor/jquery.js"></script>
     <script src="../lib/weld.js"></script>
-    <script src="suite.js"></script>
-    <script src="getTemplate.js"></script>
   </head>
   <body>
     <h1 id="nodeunit-header">Weld Tests</h1>
+    <script>
+      window.require = function () {
+          return function(name, fn) {
+              fn(window, $, $('#' + name)[0]);
+          };
+      };
+    </script>
+    <script src="test.js"></script>
     <script>
       nodeunit.run({ 'Weld!': suite });
     </script>
