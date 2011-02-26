@@ -6,7 +6,11 @@ var jsdom    =   require('jsdom')
 module.exports = function (name, fn) {
     jsdom.env(path.join(__dirname, 'test.html'), [jqpath, wpath], function(errors, window) {
       module.exports = function(name, fn) {
-        fn(window, window.$, window.$('#' + name)[0]);
+        var template = window.$('#' + name)[0];
+        if (template) {
+          template = template.parentNode.cloneNode(true)
+        }
+        fn(window, window.weld, window.$, template);
       };
       module.exports(name, fn);
     });

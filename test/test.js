@@ -4,44 +4,33 @@
 
   exports.suite = {
     "Test 1: Sanity" : function(test) {
-      debugger;
-      getTemplate('null', function(window, weld, jquery) {
-        var $ = window.$, template = $("<div><a class='link'></a></div>")[0];
+      getTemplate('null', function(window, weld, $) {
+        var template = $("<div><a class='link'></a></div>")[0];
 
-        window.weld(template, { link : "text" }, {
+        weld(template, { link : "text" }, {
           set : function(parent, element, key, value) {
             $(element).text("woo");
-          },debug:true
+          }
         });
 
         test.ok($('a', template).text() === "woo");
         test.done();
       });
     },
-/*
+
     "Test 2: Assign data to elements using an object literal that has one dimension": function(test) {
-
-      jsdom.env({
-
-        scripts: [jqpath, wpath],
-        html: path.join(__dirname, 'files', 'singular.html')
-
-      }, 
-      function(errors, window) {
-
-        var $ = window.jQuery;
-        // some dummy data
+      getTemplate('singular', function(window, weld, $, template) {
         var data = {
           key   : 'someKey',
           value : 'someValue',
           icon  : '/path/to/image.png'
         };
 
-        window.weld($('#singular')[0], data);
+        weld(template, data);
 
-        test.ok($('.key').text() === data.key);
-        test.ok($('.icon').attr('src') === data.icon);
-        test.ok($(':input[name="value"]').val() === data.value);
+        test.ok($('.key', template).text() === data.key);
+        test.ok($('.icon', template).attr('src') === data.icon);
+        test.ok($(':input[name="value"]', template).val() === data.value);
         test.done();
       
       });
@@ -50,33 +39,25 @@
   
     "Test 3: Generate markup based on an element using the alias parameter to explicitly correlate data-keys and elements": function(test) {
     
-      jsdom.env({
-
-        scripts: [jqpath, wpath],
-        html: path.join(__dirname, 'files', 'contacts-alias.html')
-
-      },
-      function(errors, window) {
-  
-        var $ = window.jQuery;
+      getTemplate('contacts-alias .contact', function(window, weld, $, template) {
 
         var data = [{ name: 'hij1nx',  title: 'code exploder' },
                     { name: 'tmpvar', title: 'code pimp' }];
 
-        window.weld($('.contacts')[0], data, { 
+        weld(template, data, { 
           alias: { 
             'name': 'foo', 
             'title': 'title' 
           }
         });
 
-        test.ok($('.contact').length === 2);
+        test.ok($('.contact', template).length === 2);
 
-        test.ok($('.contact:nth(0) .foo').text() == "hij1nx");
-        test.ok($('.contact:nth(1) .foo').text() == "tmpvar");
+        test.ok($('.contact:nth(0) .foo', template).text() == "hij1nx");
+        test.ok($('.contact:nth(1) .foo', template).text() == "tmpvar");
 
-        test.ok($('.contact:nth(0) .title').text() == "code exploder");
-        test.ok($('.contact:nth(1) .title').text() == "code pimp");
+        test.ok($('.contact:nth(0) .title', template).text() == "code exploder");
+        test.ok($('.contact:nth(1) .title', template).text() == "code pimp");
 
         test.done();
 
@@ -85,21 +66,12 @@
     },
   
     "Test 4: Generate markup based on an element using an (alias w/function) parameter to explicitly correlate data and elements": function(test) {
-    
-      jsdom.env({
-
-        scripts: [jqpath, wpath],
-        html: path.join(__dirname, 'files', 'contacts-alias.html')
-
-      },
-      function(errors, window) {
-  
-        var $ = window.jQuery;    
+      getTemplate('contacts-alias', function(window, weld, $, template) {
 
         var data = [{ name: 'hij1nx',  title: 'code exploder' },
                     { name: 'tmpvar', title: 'code pimp' }];
 
-        window.weld($('.contact')[0], data, { 
+        weld(template, data, { 
           alias: { 
             'name' : function(parent, element, key, value) { 
               // Sanity
@@ -111,13 +83,13 @@
           }
         });
 
-        test.ok($('.contact').length === 2);
+        test.ok($('.contact', template).length === 2);
 
-        test.ok($('.contact:nth(0) .foo').text() == "hij1nx");
-        test.ok($('.contact:nth(1) .foo').text() == "tmpvar");
+        test.ok($('.contact:nth(0) .foo', template).text() == "hij1nx");
+        test.ok($('.contact:nth(1) .foo', template).text() == "tmpvar");
 
-        test.ok($('.contact:nth(0) .title').text() == "code exploder");
-        test.ok($('.contact:nth(1) .title').text() == "code pimp");
+        test.ok($('.contact:nth(0) .title', template).text() == "code exploder");
+        test.ok($('.contact:nth(1) .title', template).text() == "code pimp");
 
         test.done();
 
@@ -126,35 +98,26 @@
     },  
   
     "Test 5: Generate markup from an element with an alternate method of insertion": function(test) {
-  
-      jsdom.env({
-
-        scripts: [jqpath, wpath],
-        html: path.join(__dirname, 'files', 'contacts.html')
-
-      },
-      function(errors, window) {
-
+      getTemplate('contacts', function(window, weld, $, template) {
         var
-        $     = window.jQuery,
         data  = [{ name: 'hij1nx',  title: 'code exploder' },
                  { name: 'tmpvar', title: 'code pimp' }],
         times = 0;
 
-        window.weld($('.contact')[0], data, {
+        weld($('.contact')[0], data, {
            insert: function(parent, element) {
              times++;
              parent.insertBefore(element, parent.firstChild);
            }
         });
 
-        test.ok($('.contact').length === 2);
+        test.ok($('.contact', template).length === 2);
 
-        test.ok($('.contact:nth(0) .name').text() == "tmpvar");
-        test.ok($('.contact:nth(1) .name').text() == "hij1nx");
+        test.ok($('.contact:nth(0) .name', template).text() == "tmpvar");
+        test.ok($('.contact:nth(1) .name', template).text() == "hij1nx");
 
-        test.ok($('.contact:nth(0) .title').text() == "code pimp");
-        test.ok($('.contact:nth(1) .title').text() == "code exploder");
+        test.ok($('.contact:nth(0) .title', template).text() == "code pimp");
+        test.ok($('.contact:nth(1) .title', template).text() == "code exploder");
       
         test.ok(times === 2);
         test.done();
@@ -163,23 +126,14 @@
     },
 
     "Test 6: Append to a node that has already been the subject of a weld": function(test) {
-  
-      jsdom.env({
-
-        scripts: [jqpath, wpath],
-        html: path.join(__dirname, 'files', 'contacts.html')
-
-      },
-      function(errors, window) {
-    
+      getTemplate('contacts-alias', function(window, weld, $) {
         var
-        $        = window.jQuery,
         data     = [{ name: 'hij1nx',  title : 'manhatton' },
                     { name: 'tmpvar', title : 'brooklyn' }],
         template = $('.contact')[0];
 
-        window.weld(template, data);
-        window.weld(template, data);
+        weld(template, data);
+        weld(template, data);
 
         test.ok($('.contact:nth(0) .name').text() === "hij1nx");
         test.ok($('.contact:nth(1) .name').text() === "tmpvar");
@@ -200,21 +154,11 @@
     },
   
     "Test 7: Create markup from an array of objects that have one dimention": function(test) {
-
-      jsdom.env({
-
-        scripts: [jqpath, wpath],
-        html: path.join(__dirname, 'files', 'contacts.html')
-
-      },
-      function(errors, window) {  
-
-        var $ = window.jQuery;    
-
+      getTemplate('contacts', function(window, weld, $) {
         var data = [{ name: 'hij1nx',  title : 'code exploder' },
                     { name: 'tmpvar', title : 'code wrangler' }];
 
-        window.weld($('.contact')[0], data);
+        weld($('.contact')[0], data);
         test.ok($('.contact').length === 2);
 
         test.ok($('.contact:nth(0) .name').text() == "hij1nx");
@@ -229,21 +173,11 @@
     },
   
     "Test 8: Try to pair data with selectors that yield no matching elements": function(test) {
-
-      jsdom.env({
-
-        scripts: [jqpath, wpath],
-        html: path.join(__dirname, 'files', 'contacts.html')
-
-      },
-      function(errors, window) {
-
-        var $ = window.jQuery;
-
+      getTemplate('contacts', function(window, weld, $) {
         var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                     { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
-        window.weld($('.contact')[0], data);
+        weld($('.contact')[0], data);
 
         test.ok($('.name:nth(0)').text().indexOf('My Name') > -1);
         test.ok($('.title:nth(0)').text().indexOf('Leet Developer') > -1);
@@ -260,16 +194,8 @@
     },
 
     "Test 9: Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
+      getTemplate('array-of-arrays', function(window, weld, $) {
 
-      jsdom.env({
-
-        scripts: [jqpath, wpath],
-        html: path.join(__dirname, 'files', 'array-of-arrays.html')
-
-      },
-      function(errors, window) {
-
-        var $ = window.jQuery;
         // TODO: remove siblings who match .person
         // it is impossible to do explicit maching (even/odd)
       
@@ -280,7 +206,7 @@
         //         - remove COMPLETE matches
         //     
         
-        window.weld($('.people')[0], {
+        weld($('.people')[0], {
           person: [
             {
               name: 'John',
@@ -327,22 +253,13 @@
     },
    
    "Test 10: Create markup using form elements as the template": function(test) {
-
-      jsdom.env({
-
-        scripts: [jqpath, wpath],
-        html: path.join(__dirname, 'files', 'form.html')
-
-      },
-      function(errors, window) {
-
-        var $ = window.jQuery;
+      getTemplate('form', function(window, weld, $) {
 
         var data = {
           'email' : 'tmpvar@gmail.com'
         };
 
-        window.weld($('form')[0], data);
+        weld($('form')[0], data);
 
         test.ok($(':input[name=email]').val() === data.email);
         test.done();
@@ -350,13 +267,10 @@
       });
     },
     "Test 11: Returning false from map stops the current branch from being visited" : function(test) {
-      jsdom.env('<ul class="list"><li class="item">hello <span class="where">do not touch</span></li></ul>',[
-        jqpath, wpath
-      ], function(errors, window) {
-      
-        var $ = window.jQuery;
-      
-        window.weld($('.list .item')[0], [
+      getTemplate('null', function(window, weld, $) {
+        var template = $('<ul class="list"><li class="item">hello <span class="where">do not touch</span></li></ul>');
+
+        weld($('.list .item', template)[0], [
           { where : 'world' }
         ], {
           map : function(element, k, v) {
@@ -364,7 +278,7 @@
           }
         });
 
-        test.ok($('.where').text() === 'do not touch');
+        test.ok($('.where', template).text() === 'do not touch');
         test.done();
 
       });
@@ -376,7 +290,7 @@
         jsdom.env(path.join(__dirname, 'files', 'dest.html'),[jqpath, wpath], function(errors, window) {
           var $ = window.jQuery;
 
-          window.weld($('li.number')[0], sources);
+          weld($('li.number')[0], sources);
 
           test.ok($('li.number').length === 3);
           test.ok($('li.number:nth(0) span').text() === "zero");
@@ -393,7 +307,7 @@
         var $       = window.jQuery,
             sources = window.document.getElementById('data').getElementsByTagName("span");
 
-        window.weld($('li.number')[0], sources);
+        weld($('li.number')[0], sources);
 
         test.ok($('li.number').length === 3);
         test.ok($('li.number:nth(0) span').text() === "zero");
@@ -414,7 +328,7 @@
                   
             found = 0;
 
-        window.weld($('.contact')[0], data, { 
+        weld($('.contact')[0], data, { 
           alias: { 
             name : function(parent, element, key, value) { 
               // Sanity
@@ -447,7 +361,7 @@
                   
             found = 0;
 
-        window.weld($('.contact')[0], data, { 
+        weld($('.contact')[0], data, { 
           alias: { 
             name : false
           }
@@ -461,6 +375,5 @@
         test.done();
       });
     }
-  */
   };
 }((typeof module === "undefined") ? window : module.exports));
