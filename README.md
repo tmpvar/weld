@@ -101,7 +101,7 @@ As the weld core solidifies these methods will be properly documented, but for n
 </code></pre>
 ## Examples
 
-### The basics
+### In Node.js
 Using JSDOM, we can easily create a DOM, load some libraries and read a file. Let's bind some data!
 
       var fs    = require('fs'),
@@ -146,6 +146,33 @@ Here are the results that it will produce...
           <p class='title'>code pimp</p>
         </li>  
       </ul>
+
+### In the browser
+
+index.html
+
+      <!DOCTYPE html>
+      <html>
+        <head>
+        </head>
+        <body>
+          <ul class='contacts'>
+            <li class='contact'>
+              <span class='name'>My Name</span>
+              <p class='title'>Leet Developer</p>
+            </li>
+          </ul>
+          <script src="lib/weld.js" type="text/javascript" charset="utf-8"></script>
+          <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+        </body>
+      </html>
+
+index.js
+
+      var data = [{ name: 'hij1nx',  title : 'code slayer' },
+                  { name: 'tmpvar', title : 'code pimp' }];
+
+      window.weld(document.querySelector('.contact'), data);
 
 ### Being explicit about how data-keys relate to elements
 
