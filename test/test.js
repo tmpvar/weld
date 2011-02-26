@@ -279,6 +279,14 @@ module.exports = {
 
       test.ok($('.person').length === 4);
 
+      test.ok($('.person:nth(0) .name').text() === 'John');
+      test.ok($('.person:nth(0) .job').length === 3);
+      
+      
+      test.ok($('.person:nth(1) .name').text() === 'Bob');
+      test.ok($('.person:nth(1) .job').length === 2);
+
+
       test.ok($('.person.bar').text() === "hello");
       test.ok($('.person.bar').length === 1);
       
