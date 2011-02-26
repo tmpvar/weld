@@ -242,7 +242,17 @@ module.exports = {
     function(errors, window) {  
 
       var $ = window.jQuery;
-
+      // TODO: remove siblings who match .person
+      /*
+        * it is impossible to do explicit maching (even/odd)
+      
+        SIDECASE FIX0r
+        - when matching arrays
+        - capture the className
+        - compare with siblings[*].className (be aware of ordering!)
+        - remove COMPLETE matches
+      
+      */
       window.weld($('.people')[0], {
         person: [
           {
@@ -257,17 +267,23 @@ module.exports = {
               'supervise', 'yell'
             ]
           }
-        ]
+        ],
+        bar : "hello"
       },
       {
         debug: true,
         map: function(el, key, value) {
-          return $(el).addClass('pre-processed');
+          $(el).addClass('pre-processed');
         }
       });
 
-      test.ok($('.person').length === 2);
+      test.ok($('.person').length === 4);
 
+      test.ok($('.person.bar').text() === "hello");
+      test.ok($('.person.bar').length === 1);
+      
+      test.ok($('.person.submit').length === 1);
+      test.ok($('.person.submit').text() === "Sidecase #2: additional classes (no data equiv)");
       //  Every node that gets iterated over should have a pre-processed class
       // (7 in total)
       //test.ok($('.pre-processed').length === 10);
@@ -340,6 +356,9 @@ module.exports = {
               console.log($("#test").html());
           });
       }
-      test.done();      
+      test.done();
+    },
+    "Test 12: " : function(test) {
+      test.done()
     }
 };
