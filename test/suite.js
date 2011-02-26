@@ -2,19 +2,21 @@
 
   exports.suite = {
     "Test 1: Sanity" : function(test) {
-      jsdom.env("<a class='link'></a>", [jqpath, wpath], function(errors, window) {
-        var $ = window.$;
+      debugger;
+      exports.suite.getTemplate('null', function(window, weld, jquery) {
+        var $ = window.$, template = $("<div><a class='link'></a></div>")[0];
 
-        window.weld(window.document.body, { link : "text" }, {
+        window.weld(template, { link : "text" }, {
           set : function(parent, element, key, value) {
             $(element).text("woo");
-          },
+          },debug:true
         });
 
-        test.ok($('a').text() === "woo");
+        test.ok($('a', template).text() === "woo");
         test.done();
       });
     },
+/*
     "Test 2: Assign data to elements using an object literal that has one dimension": function(test) {
 
       jsdom.env({
@@ -267,16 +269,15 @@
 
         var $ = window.jQuery;
         // TODO: remove siblings who match .person
-        /*
-          * it is impossible to do explicit maching (even/odd)
+        // it is impossible to do explicit maching (even/odd)
       
-          SIDECASE FIX0r
-          - when matching arrays
-          - capture the className
-          - compare with siblings[*].className (be aware of ordering!)
-          - remove COMPLETE matches
-      
-        */
+        // SIDECASE FIX0r
+        //         - when matching arrays
+        //         - capture the className
+        //         - compare with siblings[*].className (be aware of ordering!)
+        //         - remove COMPLETE matches
+        //     
+        
         window.weld($('.people')[0], {
           person: [
             {
@@ -458,6 +459,6 @@
         test.done();
       });
     }
-  
+  */
   };
-}((typeof exports === "undefined") ? window : exports));
+}((typeof module === "undefined") ? window : module.exports));

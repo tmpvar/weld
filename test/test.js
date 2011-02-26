@@ -1,13 +1,23 @@
-var assert     = require('assert')
-    ,jsdom      = require('jsdom')
-    ,fs         = require('fs')
-    ,path       = require("path")
-    ,colors     = require("colors")
-    ,jqpath     = path.join(__dirname, '..', 'demo', 'public', 'js', 'jquery.js')
-    ,suite      = require(__dirname + "/suite").suite;
+var jsdom    =   require('jsdom')
+    ,path     =   require("path")
+    ,jqpath   =   path.join(__dirname, 'vendor', 'jquery.js')
     ,wpath      = require('weld').filepath
-    ;
+    ,suites   =   require(__dirname + "/suite")
+    ,TestCase = require('nodeunit').testCase;
 
-suite.getTemplate = function(name, fn) {
-  
-}
+suites.suite.setUp = function(cb) {
+  this.hello = "world"
+  if (!suites.suite.getTemplate) {
+
+    jsdom.env(path.join(__dirname, 'test.html'), [jqpath, wpath], function(errors, window) {
+      suites.suite.getTemplate = function(name, fn) {
+        fn(window, window.$, window.$('#' + name)[0]);
+      };
+      cb();
+    });
+  } else {
+    cb()
+  }
+};
+
+module.exports = TestCase(suites.suite);

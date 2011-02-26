@@ -3,7 +3,10 @@
     <title>Example Test Suite</title>
     <link rel="stylesheet" href="nodeunit.css" type="text/css" />
     <script src="vendor/nodeunit.js"></script>
+    <script src="vendor/jquery.js"></script>
+    <script src="../lib/weld.js"></script>
     <script src="suite.js"></script>
+    <script src="getTemplate.js"></script>
   </head>
   <body>
     <h1 id="nodeunit-header">Weld Tests</h1>
@@ -13,7 +16,7 @@
 
 
     <!-- Templates -->
-    <div id="weld-templates">
+    <div id="weld-templates" style="display:none">
       <ul class="people">
         <li class="person">
           <h1 class="name">Person's name</h1>
