@@ -90,7 +90,12 @@ module.exports = {
 
       window.weld($('.contact')[0], data, { 
         alias: { 
-          'name' : function(parent, element, key, value) { return 'foo'; },
+          'name' : function(parent, element, key, value) { 
+            // Sanity
+            test.ok(key === 'name');
+
+            return 'foo';
+          },
           'title': 'title'
         }
       });
@@ -130,9 +135,14 @@ module.exports = {
          }
       });
 
-      test.ok($('.contact:first .name').text() == "tmpvar");
-      test.done();
+      test.ok($('.contact').length === 2);
 
+      test.ok($('.contact:nth(0) .name').text() == "tmpvar");
+      test.ok($('.contact:nth(1) .name').text() == "hij1nx");
+
+      test.ok($('.contact:nth(0) .title').text() == "code pimp");
+      test.ok($('.contact:nth(1) .title').text() == "code exploder");
+      test.done();
     });
 
   },
@@ -307,7 +317,6 @@ module.exports = {
         bar : "hello"
       },
       {
-        debug: true,
         map: function(el, key, value) {
           $(el).addClass('pre-processed');
         }
@@ -378,29 +387,22 @@ module.exports = {
         
       });
     },
-    "Test 12: Stress test": function(test) {
+    "Test 12: Weld on a NodeList from another document" : function(test) {
+      jsdom.env(path.join(__dirname, 'files', 'source.html'), function(serrs, sw) {
+        var sources = sw.document.getElementsByTagName("span");
 
-      var fs = require('fs');
-      var jsdom = require('jsdom');
+        jsdom.env(path.join(__dirname, 'files', 'dest.html'),[jqpath, wpath], function(errors, window) {
+          var $ = window.jQuery;
 
-      var html = fs.readFileSync(__dirname + "/files/test.html", 'utf8');
-      for (var i = 0; i < 1000; i++) {
-          jsdom.env(html, [jqpath, wpath],
-          function(error, window) {
-              var $ = window.jQuery;
+          window.weld($('li.number')[0], sources);
 
-              var data = {
-                  "name": "Test",
-                  "data": "hello"
-              };
-
-              window.weld($("#test")[0], data);
-              console.log($("#test").html());
-          });
-      }
-      test.done();
-    },
-    "Test 13: " : function(test) {
-      test.done();
+          test.ok($('li.number').length === 3);
+          test.ok($('li.number:nth(0) span').text() === "zero");
+          test.ok($('li.number:nth(1) span').text() === "one");
+          test.ok($('li.number:nth(2) span').text() === "two");
+          test.ok($('li.number').text() === "zeroonetwo");
+          test.done();
+        });
+      });
     }
 };
