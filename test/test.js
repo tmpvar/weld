@@ -48,7 +48,7 @@
           alias: { 
             'name': 'foo', 
             'title': 'title' 
-          }, debug: true
+          }
         });
 
         test.ok($('.contact', template).length === 2);
