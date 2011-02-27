@@ -173,19 +173,20 @@
     },
   
     "Test 8: Try to pair data with selectors that yield no matching elements": function(test) {
-      getTemplate('contacts', function(window, weld, $, template) {
+
+      getTemplate('contacts-none', function(window, weld, $, container) {
+        
         var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                     { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
-        weld($('.contact', template)[0], data);
+        weld($('.contact', container)[0], data);
+        
+        test.ok($('.name:nth(1)', container).text().indexOf('tmpvar') > -1);
+        test.ok($('.title:nth(1)', container).text().indexOf('Leet Developer') > -1);
 
-        test.ok($('.name:nth(0)', template).text().indexOf('My Name') > -1);
-        test.ok($('.title:nth(0)', template).text().indexOf('Leet Developer') > -1);
+        test.ok($('.contact', container).length === 2);
 
-        test.ok($('.name:nth(1)', template).text().indexOf('tmpvar') > -1);
-        test.ok($('.title:nth(1)', template).text().indexOf('Leet Developer') > -1);
 
-        test.ok($('.contact', template).length === 2);
 
         test.done();
 
@@ -288,7 +289,6 @@
     "Test 12: Use a NodeList from another document and weld it into the target document" : function(test) {
       getTemplate('source-and-dest #data', function(swindow, sweld, s$, sourceTemplate) {
         getTemplate('source-and-dest #dest', function(window, weld, $, template) {
-          console.log(sourceTemplate.outerHTML  );
           var sourceDoc = window.document.implementation.createDocument(),
               importedSource = sourceDoc.importNode(sourceTemplate, true);
               sources = importedSource.getElementsByTagName("span");
@@ -325,12 +325,11 @@
 
     "Test 14: Alias may return a dom element which is used instead of doing an explicit match": function(test) {
 
-      getTemplate('contacts-alias-opt-out', function(window, weld, $) {
+      getTemplate('contacts-alias-opt-out', function(window, weld, $, container) {
 
         var $     = window.jQuery,
             data  = [{ name: 'hij1nx',  title: 'code exploder' },
                      { name: 'tmpvar', title: 'code pimp' }],
-            container = $("#contacts-alias-opt-out"),
             found = 0;
 
         weld($('.contact', container)[0], data, { 
@@ -358,12 +357,11 @@
   
     "Test 15: Alias may opt out of rendering a data-key/element match because of a false value": function(test) {
 
-      getTemplate('contacts-opt-out', function(window, weld, $) {
+      getTemplate('contacts-opt-out', function(window, weld, $, container) {
 
         var $     = window.jQuery,
             data  = [{ name: 'hij1nx',  title: 'code exploder' },
                      { name: 'tmpvar', title: 'code pimp' }],
-            container = $('#contacts-opt-out'),
             found = 0;
 
         weld($('.contact', container)[0], data, { 
