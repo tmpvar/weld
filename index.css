@@ -110,7 +110,7 @@ button {  width: auto; overflow: visible; }
 }
 
 
-#readme{font:13.34px helvetica,arial,freesans,clean,sans-serif; position: relative; top: 190px; left: 150px; width: 70%;}
+#readme{font:13.34px helvetica,arial,freesans,clean,sans-serif; position: relative; top: 190px; left: 150px; width: 75%;}
 #readme.announce{margin:1em 0;}
 #readme span.name{font-size:140%;padding:.8em 0;}
 #readme div.plain,#readme div.wikistyle{background-color: transparent;padding:.7em;}
@@ -195,6 +195,28 @@ body {
 	left: -10px;
 }
 
-h2 {
+pre { border: 1px solid #ddd; -webkit-border-radius: 4px;-moz-border-radius: 4px; }
+
+#project-link {
+	background: #f8f8f8 url('https://github.com/images/modules/header/logov3.png') no-repeat;
+	position: absolute;
+	right: 200px;
+	top: 85px;
+	width: 100px;
+	height: 45px;
+	display: block;
+}
+
+#project-link:hover {
+	background: #f8f8f8 url('https://github.com/images/modules/header/logov3-hover.png') no-repeat;
+}
+
+h2, h3 {
+	color: #3a6aac;
+	font-size: 18px;
 	margin: 8px 0 8px 0px;
+}
+
+h3 {
+	font-size: 14px;
 }
