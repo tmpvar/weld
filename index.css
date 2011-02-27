@@ -113,8 +113,8 @@ button {  width: auto; overflow: visible; }
 #readme{font:13.34px helvetica,arial,freesans,clean,sans-serif; position: relative; top: 190px; left: 150px; width: 70%;}
 #readme.announce{margin:1em 0;}
 #readme span.name{font-size:140%;padding:.8em 0;}
-#readme div.plain,#readme div.wikistyle{background-color:#f8f8f8;padding:.7em;}
-#readme.announce div.plain,#readme.announce div.wikistyle{border:1px solid #e9e9e9;}
+#readme div.plain,#readme div.wikistyle{background-color: transparent;padding:.7em;}
+#readme.announce div.plain,#readme.announce div.wikistyle{border: none;}
 #readme.blob div.plain,#readme.blob div.wikistyle{border-top:none;}
 #readme div.plain pre{font-family:'Bitstream Vera Sans Mono','Courier',monospace;font-size:85%;color:#444;white-space:pre-wrap;word-wrap:break-word;width:74em;}
 #missing-readme{font:13.34px helvetica,arial,freesans,clean,sans-serif;text-align:center;background-color:#ffc;padding:.7em;border:1px solid #ccc;}
