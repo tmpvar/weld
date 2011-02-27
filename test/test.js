@@ -278,8 +278,6 @@
           }
         });
 
-        console.log()
-
 
         test.ok($('.where', $(template)[0]).text() === 'do not touch');
         test.done();
