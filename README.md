@@ -1,10 +1,9 @@
 
 <style>
-.wikistyle img { margin-left: -8px !important; margin-top: -21px !important; }
+.wikistyle 
 </style>
 
-
-![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
+<img src='https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png' style='margin-left: -8px !important; margin-top: -21px !important;'>
 
 ## What is it?
 
