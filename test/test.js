@@ -356,24 +356,24 @@
   
     "Test 15: Alias may opt out of rendering a data-key/element match because of a false value": function(test) {
 
-      jsdom.env(path.join(__dirname, 'files', 'contacts.html'), [jqpath, wpath],  function(errors, window) {
+      getTemplate('contacts-opt-out', function(window, weld, $) {
 
         var $     = window.jQuery,
             data  = [{ name: 'hij1nx',  title: 'code exploder' },
                      { name: 'tmpvar', title: 'code pimp' }],
-                  
+            container = $('#contacts-opt-out'),
             found = 0;
 
-        weld($('.contact')[0], data, { 
+        weld($('.contact', container)[0], data, { 
           alias: { 
             name : false
           }
         });
 
-        test.ok($('.contact').length === 2);
+        test.ok($('.contact', container).length === 2);
 
-        test.ok($('.contact:nth(0) .foo').text() == "My Name");
-        test.ok($('.contact:nth(1) .foo').text() == "My Name");
+        test.ok($('.contact:nth(0) .foo', container).text() == "My Name");
+        test.ok($('.contact:nth(1) .foo', container).text() == "My Name");
 
         test.done();
       });
