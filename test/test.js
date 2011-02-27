@@ -48,7 +48,7 @@
           alias: { 
             'name': 'foo', 
             'title': 'title' 
-          }, debug : true
+          }
         });
 
         test.ok($('.contact', template).length === 2);
@@ -268,7 +268,9 @@
     },
     "Test 11: Returning false from map stops the current branch from being visited" : function(test) {
       getTemplate('null', function(window, weld, $) {
+
         var template = $('<ul class="list"><li class="item">hello <span class="where">do not touch</span></li></ul>');
+        $('#temp').append(template);
 
         weld($(template)[0], [
           { where : 'world' }
@@ -277,7 +279,6 @@
             return false;
           }
         });
-
 
         test.ok($('.where', $(template)[0]).text() === 'do not touch');
         test.done();
