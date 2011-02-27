@@ -182,10 +182,7 @@ index.js
 
 By default, weld uses a heuristic that assumes each of the keys in the data's `key: value` pairs is an '#id', a '.class' or 'name'. This addresses the 80/20 of cases. 
 
-There are cases where the data is not an exact match to the element's identity. In this case, we can create 
-
-
-ou need to be more explicit and map a data key to an element or collection of elements. To do this, you can add a mapping of data keys to selectors. So, for the following HTML...
+There are cases where the data is not an exact match to the element's identity. In this case, we can use the alias parameter to explicitly define the relationships between data-keys and an element's class/name/id. So, for the following HTML...
 
       <ul class='contacts'>
         <li class='contact'>
@@ -196,8 +193,8 @@ ou need to be more explicit and map a data key to an element or collection of el
 
 Use .contact as the template and `data` as the data...
 
-      var data     = [{ name: 'hij1nx',  title: 'code exploder' },
-                      { name: 'tmpvar', title: 'code pimp' }],
+      var data = [{ name: 'hij1nx',  title: 'code exploder' },
+                  { name: 'tmpvar', title: 'code pimp' }],
  
           template = document.getElementByClassName('contact')[0];
 
@@ -219,19 +216,19 @@ This produces..
       </ul>
 
 ### Working with multiple documents
-Weld also supports using elements from one document as a data source to another.   For example, the following markup in one document (source.html).
+Weld also supports using elements from one document as a data source to another. For example, the following markup in one document (source.html).
 
-    <span>zero</span>
-    <span>one</span>
-    <span>two</span>
+      <span>zero</span>
+      <span>one</span>
+      <span>two</span>
 
 and in another document (dest.html)..
 
-    <div id="dest">
-      <ul>
-        <li class='number'>This will be removed</li>
-      </ul>
-    </div>
+      <div id="dest">
+        <ul>
+          <li class='number'>This will be removed</li>
+        </ul>
+      </div>
  
 Weld will automatically import the nodes into the proper document (dest.html)...
 
@@ -249,19 +246,19 @@ Weld will automatically import the nodes into the proper document (dest.html)...
 
 and insert them much like you would expect..
 
-    <div id="dest">
-      <ul>
-        <li class="number">
-          <span>zero</span>
-        </li>
-        <li class="number">
-          <span>one</span>
-        </li>
-        <li class="number">
-          <span>two</span>
-        </li>
-      </ul>
-    </div>
+      <div id="dest">
+        <ul>
+          <li class="number">
+            <span>zero</span>
+          </li>
+          <li class="number">
+            <span>one</span>
+          </li>
+          <li class="number">
+            <span>two</span>
+          </li>
+        </ul>
+      </div>
 
 
 ## How do I...
@@ -296,8 +293,8 @@ but can also be done with the more general purpose `map` parameter.
         }
       }
 
-### I do some crazy stuff in mustache, how do i do that in weld?
-Chances are that you won't need to do anything crazy in weld, it's just javascript, markup and data.
+### I do some crazy stuff in mustache, how do I do that in weld?
+You won't need to do anything crazy in weld, weld is simply javascript, markup and data.
 
 ## Debugging
 Debugging recursive data can be a real pain. With the `debug` option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.
@@ -322,7 +319,6 @@ Debugging recursive data can be a real pain. With the `debug` option, you can se
       weld(this[0], data, config);
       return this;
     };
-
 
 ## Credits
 developed by [hij1nx][2] and [tmpvar][3]
