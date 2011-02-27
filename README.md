@@ -7,9 +7,7 @@
 
 ## What is it?
 
-Simple. Weld binds data to markup, and can generate markup based your data. There's NO special syntax or data reshaping required. It works in the browser and in node.js! 
-
-Weld is currently 3.66Kb uglified with no dependencies other than a valid DOM Document and Window.
+Simple. Weld binds data to markup, and can generate markup based your data. There's NO special syntax or data reshaping required. It works in the browser and in node.js! Weld is currently 3.66Kb uglified with no dependencies other than a valid DOM Document and Window.
  
 
 ## Motivation
@@ -30,9 +28,9 @@ Get a DOM Element, provide your data, and optionally provide configuration detai
       
 </code></pre>
 
-`element` - This is the target node that will be used as the template.
-`data` - This could be any data, an object an array, an array of objects, etc.
-`config` - An object literal (optional), can include any of the items listed in the section below.
+`element` - This is the target node that will be used as the template.<br/>
+`data` - This could be any data, an object an array, an array of objects, etc.<br/>
+`config` - An object literal (optional), can include any of the items listed in the section below.<br/>
 
 ### Config options
 `map` - A map function is executed against every match of data-key/element. It gives the opportunity to manipulate the element before it is finalized. Returning false from `map` will cause the traversal of the current branch to stop.
