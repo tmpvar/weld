@@ -1,6 +1,6 @@
 
 <style>
-#readme img { margin-left: -8px; margin-top: -21px; }
+.wikistyle img { margin-left: -8px !important; margin-top: -21px !important; }
 </style>
 
 
