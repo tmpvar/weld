@@ -308,17 +308,16 @@
     },
 
     "Test 13: Use a NodeList from the current document and weld it to another area in the same document" : function(test) {
-      jsdom.env(path.join(__dirname, 'files', 'source-and-dest.html'),[jqpath, wpath], function(errors, window) {
-        var $       = window.jQuery,
-            sources = window.document.getElementById('data').getElementsByTagName("span");
+      getTemplate('source-and-dest', function(window, weld, $, container) {
+        var sources = $("#data span", container);
 
-        weld($('li.number')[0], sources);
+        weld($('li.number', container)[0], sources);
 
-        test.ok($('li.number').length === 3);
-        test.ok($('li.number:nth(0) span').text() === "zero");
-        test.ok($('li.number:nth(1) span').text() === "one");
-        test.ok($('li.number:nth(2) span').text() === "two");
-        test.ok($('li.number').text() === "zeroonetwo");
+        test.ok($('li.number', container).length === 3);
+        test.ok($('li.number:nth(0) span', container).text() === "zero");
+        test.ok($('li.number:nth(1) span', container).text() === "one");
+        test.ok($('li.number:nth(2) span', container).text() === "two");
+        test.ok($('li.number', container).text() === "zeroonetwo");
         test.done();
       });
     },
