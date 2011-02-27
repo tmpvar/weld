@@ -126,27 +126,27 @@
     },
 
     "Test 6: Append to a node that has already been the subject of a weld": function(test) {
-      getTemplate('contacts-alias', function(window, weld, $) {
+      getTemplate('contacts-alias', function(window, weld, $, container) {
         var
         data     = [{ name: 'hij1nx',  title : 'manhatton' },
                     { name: 'tmpvar', title : 'brooklyn' }],
-        template = $('.contact')[0];
+        template = $('.contact', container)[0];
 
         weld(template, data);
         weld(template, data);
 
-        test.ok($('.contact:nth(0) .name').text() === "hij1nx");
-        test.ok($('.contact:nth(1) .name').text() === "tmpvar");
-        test.ok($('.contact:nth(2) .name').text() === "hij1nx");
-        test.ok($('.contact:nth(3) .name').text() === "tmpvar");
+        test.ok($('.contact:nth(0) .name', container).text() === "hij1nx");
+        test.ok($('.contact:nth(1) .name', container).text() === "tmpvar");
+        test.ok($('.contact:nth(2) .name', container).text() === "hij1nx");
+        test.ok($('.contact:nth(3) .name', container).text() === "tmpvar");
 
-        test.ok($('.contact:nth(0) .title').text() === "manhatton");
-        test.ok($('.contact:nth(1) .title').text() === "brooklyn");
-        test.ok($('.contact:nth(2) .title').text() === "manhatton");
-        test.ok($('.contact:nth(3) .title').text() === "brooklyn");
-        test.ok($('.contact').length == 4);
-        test.ok($('.contact .name').length == 4);
-        test.ok($('.contact .title').length == 4);
+        test.ok($('.contact:nth(0) .title', container).text() === "manhatton");
+        test.ok($('.contact:nth(1) .title', container).text() === "brooklyn");
+        test.ok($('.contact:nth(2) .title', container).text() === "manhatton");
+        test.ok($('.contact:nth(3) .title', container).text() === "brooklyn");
+        test.ok($('.contact', container).length == 4);
+        test.ok($('.contact .name', container).length == 4);
+        test.ok($('.contact .title', container).length == 4);
 
         test.done();
       });
@@ -154,18 +154,18 @@
     },
   
     "Test 7: Create markup from an array of objects that have one dimention": function(test) {
-      getTemplate('contacts', function(window, weld, $) {
+      getTemplate('contacts', function(window, weld, $, template) {
         var data = [{ name: 'hij1nx',  title : 'code exploder' },
                     { name: 'tmpvar', title : 'code wrangler' }];
 
-        weld($('.contact')[0], data);
-        test.ok($('.contact').length === 2);
+        weld($('.contact', template)[0], data);
+        test.ok($('.contact', template).length === 2);
 
-        test.ok($('.contact:nth(0) .name').text() == "hij1nx");
-        test.ok($('.contact:nth(1) .name').text() == "tmpvar");
+        test.ok($('.contact:nth(0) .name', template).text() == "hij1nx");
+        test.ok($('.contact:nth(1) .name', template).text() == "tmpvar");
 
-        test.ok($('.contact:nth(0) .title').text() == "code exploder");
-        test.ok($('.contact:nth(1) .title').text() == "code wrangler");
+        test.ok($('.contact:nth(0) .title', template).text() == "code exploder");
+        test.ok($('.contact:nth(1) .title', template).text() == "code wrangler");
         test.done();
     
       });
@@ -173,19 +173,19 @@
     },
   
     "Test 8: Try to pair data with selectors that yield no matching elements": function(test) {
-      getTemplate('contacts', function(window, weld, $) {
+      getTemplate('contacts', function(window, weld, $, template) {
         var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                     { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
-        weld($('.contact')[0], data);
+        weld($('.contact', template)[0], data);
 
-        test.ok($('.name:nth(0)').text().indexOf('My Name') > -1);
-        test.ok($('.title:nth(0)').text().indexOf('Leet Developer') > -1);
+        test.ok($('.name:nth(0)', template).text().indexOf('My Name') > -1);
+        test.ok($('.title:nth(0)', template).text().indexOf('Leet Developer') > -1);
 
-        test.ok($('.name:nth(1)').text().indexOf('tmpvar') > -1);
-        test.ok($('.title:nth(1)').text().indexOf('Leet Developer') > -1);
+        test.ok($('.name:nth(1)', template).text().indexOf('tmpvar') > -1);
+        test.ok($('.title:nth(1)', template).text().indexOf('Leet Developer') > -1);
 
-        test.ok($('.contact').length === 2);
+        test.ok($('.contact', template).length === 2);
 
         test.done();
 
