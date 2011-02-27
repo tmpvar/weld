@@ -3,6 +3,7 @@
 
 
 
+
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
 
 ## What is it?
@@ -16,7 +17,7 @@ Weld is currently 3.66Kb uglified with no dependencies other than a valid DOM Do
 
 - Standards compliant. No foreign concepts such as <%=foo%> or {{foo}}.
 - Promote portable code/markup by decoupling decision making from presentation.
-- Making both the code and markup more readable and maintainable.
+- Make both the code and markup more readable and maintainable.
 - Allow designers to write up sample markup and test styling without a developer.
 - Increase maintainability by developers with various skill sets.
 - Code reuse between node.js and the browser
@@ -298,7 +299,7 @@ but can also be done with the more general purpose `map` parameter.
       }
 
 ### I do some crazy stuff in mustache, how do i do that in weld?
-Chances are that you wont need to do anything crazy in weld, it's just javascript, markup and data.
+Chances are that you won't need to do anything crazy in weld, it's just javascript, markup and data.
 
 ## Debugging
 Debugging recursive data can be a real pain. With the `debug` option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.
