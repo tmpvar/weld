@@ -18,7 +18,7 @@
       });
     },
 
-    "Test 2: Assign data to elements using an object literal that has one dimension": function(test) {
+    "Test 2: Assign data to elements using an object literal that has one level of depth": function(test) {
       getTemplate('singular', function(window, weld, $, template) {
         var data = {
           key   : 'someKey',
@@ -48,7 +48,7 @@
           alias: { 
             'name': 'foo', 
             'title': 'title' 
-          }
+          }, debug: true
         });
 
         test.ok($('.contact', template).length === 2);
