@@ -7,26 +7,32 @@
 
 ## What is it?
 
-Simple. Weld binds data to markup, and can generate markup based your data. There's NO special syntax or data reshaping required. It works in the browser and in node.js!
+Simple. Weld binds data to markup, and can generate markup based your data. There's NO special syntax or data reshaping required. It works in the browser and in node.js! 
+
+Weld is currently 3.66Kb uglified with no dependencies other than a valid DOM Document and Window.
+ 
 
 ## Motivation
 
 - Standards compliant. No foreign concepts such as <%=foo%> or {{foo}}.
 - Promote portable code/markup by decoupling decision making from presentation.
-- More readable code/markup.
+- Making both the code and markup more readable and maintainable.
+- Allow designers to write up sample markup and test styling without a developer.
 - Increase maintainability by developers with various skill sets.
+- Code reuse between node.js and the browser
+
 
 ## How does it work?
 
-Get a collection of elements, provide your data, optionally provide configuration details.
+Get a DOM Element, provide your data, and optionally provide configuration details.
 <pre><code>
   weld(element, data, [config]);
       
 </code></pre>
 
-`element` - This is the target node that will be used as the template.<br/>
-`data` - This could be any data, an object an array, an array of objects, etc.<br/>
-`config` - An object literal (optional), can include any of the items listed in the section below.<br/>
+`element` - This is the target node that will be used as the template.
+`data` - This could be any data, an object an array, an array of objects, etc.
+`config` - An object literal (optional), can include any of the items listed in the section below.
 
 ### Config options
 `map` - A map function is executed against every match of data-key/element. It gives the opportunity to manipulate the element before it is finalized. Returning false from `map` will cause the traversal of the current branch to stop.
@@ -60,13 +66,13 @@ Get a collection of elements, provide your data, optionally provide configuratio
       return element.getElementById('hometown');
     },
 
-    'user_email'  : function(parent, element, key, value) {
+    'personal_info'  : function(parent, element, key, value) {
       if (session.authorized() === false) {
-        // The user requesting this template is not authorized to view user emails so remove the email display from the page
-        var emailDisplay = element.getElementById('user_email);
+        // The user requesting this template is not authorized to view other users' personal information so remove the personal info display from the page
+        var emailDisplay = element.getElementById('personal_info');
         emailDisplay.parentNode.removeChild(emailDisplay);
 
-        // and return false, which will stop weld from traversing the current branch (user_email)
+        // and return false, which will stop weld from traversing the current branch (personal_info)
         return false;
       }
     }
@@ -75,12 +81,14 @@ Get a collection of elements, provide your data, optionally provide configuratio
       
 </code></pre>
 `insert` (override) - A function which enables some logic to be performed before the element is actually inserted into the target.
+
+see: https://github.com/hij1nx/weld/blob/master/lib/weld.js#L244 for the default implementation.
 <pre><code>
   insert: function(parent, element) {
     parent.insertBefore(element, parent.firstChild);
   }
-       
 </code></pre>
+
 `debug` - A boolean value that if set to true will display some useful information as the recursion process occurs. More information about this can be found later on in this document.
 <pre><code>
   debug: true
@@ -100,7 +108,7 @@ As the weld core solidifies these methods will be properly documented, but for n
 ## Examples
 
 ### In Node.js
-Using JSDOM, we can easily create a DOM, load some libraries and read a file. Let's bind some data!
+Using JSDOM, we can easily create a DOM, load some libraries and read a file. Let's weld some data!
 
       var fs    = require('fs'),
           jsdom = require('jsdom'),
@@ -108,18 +116,16 @@ Using JSDOM, we can easily create a DOM, load some libraries and read a file. Le
       jsdom.env({
         code: [
           '/../lib/jquery.js',
-          'path/to/weld.js'
+          require('weld').filepath
         ],
         html: '/../files/contexts.html'
       },
-      function(window) {
-
-        window.jQuery = $; // let's use jQuery to get our target node!
+      function(errors, window) {
 
         var data = [{ name: 'hij1nx',  title : 'code slayer' },
                     { name: 'tmpvar', title : 'code pimp' }];
 
-        window.weld($('.contact')[0], data);
+        window.weld(window.$('.contact')[0], data);
 
       });
 
@@ -214,7 +220,21 @@ This produces..
       </ul>
 
 ### Working with multiple documents
-It's easy to work with multiple documents.
+Weld also supports using elements from one document as a data source to another.   For example, the following markup in one document (source.html).
+
+    <span>zero</span>
+    <span>one</span>
+    <span>two</span>
+
+and in another document (dest.html)..
+
+    <div id="dest">
+      <ul>
+        <li class='number'>This will be removed</li>
+      </ul>
+    </div>
+ 
+Weld will automatically import the nodes into the proper document (dest.html)...
 
       jsdom.env(path.join(__dirname, 'files', 'source.html'), function(serrs, sw) {
         var sources = sw.document.getElementsByTagName("span");
@@ -227,6 +247,22 @@ It's easy to work with multiple documents.
 
         });
       });
+
+and insert them much like you would expect..
+
+    <div id="dest">
+      <ul>
+        <li class="number">
+          <span>zero</span>
+        </li>
+        <li class="number">
+          <span>one</span>
+        </li>
+        <li class="number">
+          <span>two</span>
+        </li>
+      </ul>
+    </div>
 
 
 ## How do I...
@@ -265,10 +301,9 @@ but can also be done with the more general purpose `map` parameter.
 Chances are that you wont need to do anything crazy in weld, it's just javascript, markup and data.
 
 ## Debugging
-Debugging recursive data can be a real pain. With the debug option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc. Here's what it looks like in weld and in web inspector...
+Debugging recursive data can be a real pain. With the `debug` option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.
 
-![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug.jpg)<br/><br/>
-
+![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug.jpg)<br/>
 ![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug-browser.jpg)<br/>
 
 ## Using weld as a plugin to other libraries
