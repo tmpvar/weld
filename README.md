@@ -2,6 +2,7 @@
 
 
 
+
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
 
 ## What is it?
@@ -169,7 +170,7 @@ index.js
       var data = [{ name: 'hij1nx',  title : 'code slayer' },
                   { name: 'tmpvar', title : 'code pimp' }];
 
-      window.weld(document.querySelector('.contact'), data);
+      weld(document.querySelector('.contact')[0], data);
 
 ### Being explicit about how data-keys relate to elements
 
@@ -187,7 +188,7 @@ ou need to be more explicit and map a data key to an element or collection of el
         </li>
       </ul>
 
-Use #contact as the template and `data` as the data...
+Use .contact as the template and `data` as the data...
 
       var
       data     = [{ name: 'hij1nx',  title: 'code exploder' },
