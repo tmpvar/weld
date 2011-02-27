@@ -24,9 +24,9 @@ Get a collection of elements, provide your data, optionally provide configuratio
       
 </code></pre>
 
-`element` - This is the target node that will be used as the template.
-`data` - This could be any data, an object an array, an array of objects, etc.
-`config` - An object literal (optional), can include any of the items listed in the section below
+`element` - This is the target node that will be used as the template.<br/>
+`data` - This could be any data, an object an array, an array of objects, etc.<br/>
+`config` - An object literal (optional), can include any of the items listed in the section below.<br/>
 
 ### Config options
 `map` - A map function is executed against every match of data-key/element. It gives the opportunity to manipulate the element before it is finalized. Returning false from `map` will cause the traversal of the current branch to stop.
@@ -265,9 +265,10 @@ but can also be done with the more general purpose `map` parameter.
 Chances are that you wont need to do anything crazy in weld, it's just javascript, markup and data.
 
 ## Debugging
-Debugging recursive data can be a real pain. With the debug option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.
+Debugging recursive data can be a real pain. With the debug option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc. Here's what it looks like in weld and in web inspector...
 
-![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug.jpg)<br/>
+![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug.jpg)<br/><br/>
+
 ![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug-browser.jpg)<br/>
 
 ## Using weld as a plugin to other libraries
