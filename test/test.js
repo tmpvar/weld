@@ -48,7 +48,7 @@
           alias: { 
             'name': 'foo', 
             'title': 'title' 
-          }, debug : true
+          }
         });
 
         test.ok($('.contact', template).length === 2);
@@ -126,7 +126,7 @@
     },
 
     "Test 6: Append to a node that has already been the subject of a weld": function(test) {
-      getTemplate('contacts-alias', function(window, weld, $, container) {
+      getTemplate('contacts', function(window, weld, $, container) {
         var
         data     = [{ name: 'hij1nx',  title : 'manhatton' },
                     { name: 'tmpvar', title : 'brooklyn' }],
