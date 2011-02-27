@@ -1,9 +1,6 @@
 
-<style>
-.wikistyle 
-</style>
 
-<img src='https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png' style='margin-left: -8px !important; margin-top: -21px !important;'>
+![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/header.jpg)<br/>
 
 ## What is it?
 
