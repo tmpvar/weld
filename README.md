@@ -268,6 +268,7 @@ Chances are that you wont need to do anything crazy in weld, it's just javascrip
 Debugging recursive data can be a real pain. With the debug option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.
 
 ![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug.jpg)<br/>
+![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/debug-browser.jpg)<br/>
 
 ## Using weld as a plugin to other libraries
 
