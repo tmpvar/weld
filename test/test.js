@@ -39,16 +39,16 @@
   
     "Test 3: Generate markup based on an element using the alias parameter to explicitly correlate data-keys and elements": function(test) {
     
-      getTemplate('contacts-alias .contact', function(window, weld, $, template) {
+      getTemplate('contacts-alias', function(window, weld, $, template) {
 
         var data = [{ name: 'hij1nx',  title: 'code exploder' },
                     { name: 'tmpvar', title: 'code pimp' }];
 
-        weld(template, data, { 
+        weld($('.contact', template)[0], data, { 
           alias: { 
             'name': 'foo', 
             'title': 'title' 
-          }
+          }, debug : true
         });
 
         test.ok($('.contact', template).length === 2);
@@ -71,7 +71,7 @@
         var data = [{ name: 'hij1nx',  title: 'code exploder' },
                     { name: 'tmpvar', title: 'code pimp' }];
 
-        weld(template, data, { 
+        weld($('.contact', template)[0], data, { 
           alias: { 
             'name' : function(parent, element, key, value) { 
               // Sanity
@@ -104,7 +104,7 @@
                  { name: 'tmpvar', title: 'code pimp' }],
         times = 0;
 
-        weld($('.contact')[0], data, {
+        weld($('.contact', template)[0], data, {
            insert: function(parent, element) {
              times++;
              parent.insertBefore(element, parent.firstChild);
