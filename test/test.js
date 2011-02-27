@@ -289,7 +289,9 @@
     "Test 12: Use a NodeList from another document and weld it into the target document" : function(test) {
       getTemplate('source-and-dest #data', function(swindow, sweld, s$, sourceTemplate) {
         getTemplate('source-and-dest #dest', function(window, weld, $, template) {
-          var sourceDoc = window.document.implementation.createDocument(),
+          var impl           = window.document.implementation,
+              doctype        = impl.createDocumentType("html", "html", "html"),
+              sourceDoc      = impl.createDocument(null, "sourceDoc", doctype),
               importedSource = sourceDoc.importNode(sourceTemplate, true);
               sources = importedSource.getElementsByTagName("span");
 
