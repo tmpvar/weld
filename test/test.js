@@ -270,7 +270,7 @@
       getTemplate('null', function(window, weld, $) {
         var template = $('<ul class="list"><li class="item">hello <span class="where">do not touch</span></li></ul>');
 
-        weld($('.list .item', template)[0], [
+        weld($(template)[0], [
           { where : 'world' }
         ], {
           map : function(element, k, v) {
@@ -278,12 +278,16 @@
           }
         });
 
-        test.ok($('.where', template).text() === 'do not touch');
+        console.log()
+
+
+        test.ok($('.where', $(template)[0]).text() === 'do not touch');
         test.done();
 
       });
     },
     "Test 12: Use a NodeList from another document and weld it into the target document" : function(test) {
+
       jsdom.env(path.join(__dirname, 'files', 'source.html'), function(serrs, sw) {
         var sources = sw.document.getElementsByTagName("span");
 

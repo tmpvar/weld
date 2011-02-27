@@ -20,7 +20,7 @@
     <script>
       nodeunit.run({ 'Weld!': suite });
     </script>
-    <div id="weld-templates">
+    <div id="weld-templates" style="display: none">
       <ul id="array-of-arrays" class="people">
         <li class="person">
           <h1 class="name">Person's name</h1>
@@ -38,14 +38,14 @@
         <li class="person submit">Sidecase #2: additional classes (no data equiv)</li>
       </ul> 
 
-      <ul id="contacts-alias" class="contacts">
+      <ul id="contacts-alias" class="contacts" style="display: none">
         <li class="contact">
           <span class="foo">My Name</span>
           <p class="title">Leet Developer</p>
         </li>
       </ul>
 
-      <ul id="contacts" class="contacts">
+      <ul id="contacts" class="contacts" style="display: none">
         <li class="contact">
           <span class="name foo">My Name</span>
           <p class="title">
@@ -54,11 +54,11 @@
         </li>
       </ul>
 
-      <div id="dest">
+      <div id="dest" style="display: none">
         <ul><li class='number'>This will be removed</li></ul>
       </div>
 
-      <form id="form" action="/" method="post">
+      <form id="form" action="/" method="post" style="display: none">
         <p>
           Please enter your email address so we can spam you later <br />
           <input name="email" value="" />
@@ -68,19 +68,19 @@
         </p>
       </form>
 
-      <ul id="simple" class="contacts">
+      <ul id="simple" class="contacts" style="display: none">
         <li class="contact">
           <span class="name">My Name</span>
           <p class="title">Leet Developer</p>
         </li>
       </ul>
 
-      <div id="singular">
+      <div id="singular" style="display: none">
         <img src="" class="icon">
         <span class="key">The default key</span> : <input name="value" value="The default value" />
       </div>
 
-      <div id="source-and-dest">
+      <div id="source-and-dest" style="display: none">
         <div>
           <ul><li class='number'>This will be removed</li></ul>
         </div>
@@ -91,7 +91,7 @@
         </div>
       </div>
 
-      <div id="test" class="test">
+      <div id="test" class="test" style="display: none">
         <span class="name"></span> : <span class="data"></span>
       </div>
     </div>
