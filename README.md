@@ -1,6 +1,6 @@
 
 
-![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/header.jpg)<br/>
+![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/header.png)<br/>
 
 ## What is it?
 
