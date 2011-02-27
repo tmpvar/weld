@@ -295,7 +295,7 @@
 
           test.ok(importedSource.ownerDocument !== window.document);
 
-          weld($('li.number', template)[0], sources, {debug: true});
+          weld($('li.number', template)[0], sources);
 
           test.ok($('li.number', template).length === 3);
           test.ok($('li.number:nth(0) span', template).text() === "zero");
