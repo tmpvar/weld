@@ -1,8 +1,7 @@
 
-
-
-
-
+<style>
+#readme img { margin-left: -8px; margin-top: -21px; }
+</style>
 
 
 ![Alt text](https://github.com/hij1nx/Weld/raw/master/demo/public/img/weld.png)<br/>
