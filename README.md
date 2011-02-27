@@ -24,7 +24,7 @@ Simple. Weld binds data to markup, and can generate markup based your data. Ther
 
 ## How does it work?
 
-Get a DOM Element, provide your data, and optionally provide configuration details.
+Pass in a DOM Element, some data, and optionally some configuration details.
 <pre><code>
   weld(element, data, [config]);
       
