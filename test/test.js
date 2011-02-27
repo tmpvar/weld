@@ -286,22 +286,24 @@
       });
     },
     "Test 12: Use a NodeList from another document and weld it into the target document" : function(test) {
+      getTemplate('source-and-dest #data', function(swindow, sweld, s$, sourceTemplate) {
+        getTemplate('source-and-dest #dest', function(window, weld, $, template) {
+          console.log(sourceTemplate.outerHTML  );
+          var sourceDoc = window.document.implementation.createDocument(),
+              importedSource = sourceDoc.importNode(sourceTemplate, true);
+              sources = importedSource.getElementsByTagName("span");
 
-      jsdom.env(path.join(__dirname, 'files', 'source.html'), function(serrs, sw) {
-        var sources = sw.document.getElementsByTagName("span");
+          test.ok(importedSource.ownerDocument !== window.document);
 
-        jsdom.env(path.join(__dirname, 'files', 'dest.html'),[jqpath, wpath], function(errors, window) {
-          var $ = window.jQuery;
+          weld($('li.number', template)[0], sources, {debug: true});
 
-          weld($('li.number')[0], sources);
-
-          test.ok($('li.number').length === 3);
-          test.ok($('li.number:nth(0) span').text() === "zero");
-          test.ok($('li.number:nth(1) span').text() === "one");
-          test.ok($('li.number:nth(2) span').text() === "two");
-          test.ok($('li.number').text() === "zeroonetwo");
+          test.ok($('li.number', template).length === 3);
+          test.ok($('li.number:nth(0) span', template).text() === "zero");
+          test.ok($('li.number:nth(1) span', template).text() === "one");
+          test.ok($('li.number:nth(2) span', template).text() === "two");
+          test.ok($('li.number', template).text() === "zeroonetwo");
           test.done();
-        });
+        })
       });
     },
 
