@@ -106,7 +106,7 @@ As the weld core solidifies these methods will be properly documented, but for n
 Using JSDOM, we can easily create a DOM, load some libraries and read a file. Let's weld some data!
 
       var fs    = require('fs'),
-          jsdom = require('jsdom'),
+          jsdom = require('jsdom');
 
       jsdom.env({
         code: [
@@ -193,7 +193,7 @@ Use .contact as the template and `data` as the data...
  
           template = document.getElementByClassName('contact')[0];
 
-Since there is no .title class in the markup, we need to alias title to something that does exist..
+Since there is no .firstAndLast class in the markup, we need to alias firstAndLast to something that does exist..
 
       weld(template, data, { alias: { 'name': 'firstAndLast' } });
 
