@@ -181,7 +181,7 @@ There are cases where the data is not an exact match to the element's identity. 
 
       <ul class='contacts'>
         <li class='contact'>
-          <span class='name'>Hello my name is <span class='firstAndLast'>My Name</span></span>
+          <span>Hello my name is <span class='firstAndLast'>My Name</span></span>
           <p class='title'>Leet Developer</p>
         </li>
       </ul>
@@ -193,7 +193,7 @@ Use .contact as the template and `data` as the data...
  
           template = document.getElementByClassName('contact')[0];
 
-Since there is no .firstAndLast class in the markup, we need to alias firstAndLast to something that does exist..
+Since there is no .name class in the markup, we need to alias name to something that does exist..
 
       weld(template, data, { alias: { 'name': 'firstAndLast' } });
 
@@ -201,11 +201,11 @@ This produces..
 
       <ul class='contacts'>
         <li class='contact'>
-          <span class='name'>Hello my name is <span class='firstAndLast'>hij1nx</span></span>  
+          <span>Hello my name is <span class='firstAndLast'>hij1nx</span></span>  
           <p class='title'>code slayer</p>
         </li>
         <li class='contact'>
-          <span class='name'>Hello my name is <span class='firstAndLast'>tmpvar</span></span>  
+          <span>Hello my name is <span class='firstAndLast'>tmpvar</span></span>  
           <p class='title'>code pimp</p>
         </li>  
       </ul>
