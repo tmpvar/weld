@@ -4,8 +4,7 @@
 
 ## What is it?
 
-Simple. Weld binds data to markup, and can generate markup based on your data. There's NO special syntax or data reshaping required. It works in the browser and in node.js! Weld is currently 3.66Kb uglified with no dependencies other than a valid DOM.
- 
+Simple. Weld binds data to markup, and can generate markup based on your data. There's NO special syntax or data reshaping required. It works in the browser and in node.js! Weld is currently 3.66Kb uglified with no dependencies other than a valid DOM. Weld will apply values to elements the way that elements expect to have their values set.
 
 ## Motivation
 

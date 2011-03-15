@@ -3,6 +3,14 @@
   <head>
   </head>
   <body>
+
+    <div id="accordion">
+      <div class="templateRow">
+        <h3><a href="#" class="shortName"></a></h3>
+        <div class="content"></div>
+      </div>
+    </div>    
+    
     <ul class='contacts'>
       <li class='contact'>
         <span class='name'>My Name</span>
@@ -11,5 +19,10 @@
     </ul>
     <script src="js/weld.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+    data.games = [{shortName:'some name', content:'some content'},{shortName:'some name', content:'some content'}]
+
+    weld(document.querySelector('.templateRow'), data.games);        
+    </script>    
   </body>
 </html>
