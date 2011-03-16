@@ -18,8 +18,8 @@
 
 <!-- weld test -->
 
-<ul id="films">
-  <li><b class="Name"></b>(<span class="ReleaseYear"></span>)</li>
+<ul>
+  <li class="film"><b class="Name"></b>(<span class="ReleaseYear"></span>)</li>
 </ul>
 
 <script>
@@ -29,6 +29,8 @@ var movies = [
     { Name: "Eyes Wide Shut", ReleaseYear: "1999" },
     { Name: "The Inheritance", ReleaseYear: "1976" }
 ];
+
+var movie = { Name: "The Inheritance", ReleaseYear: "1976" };
 
 // Profile (8.375ms, 460 calls)
 // Profile (9.017ms, 460 calls)
@@ -50,7 +52,7 @@ var movies = [
 
 //
 //
-  weld(document.getElementById('films'), movies);
+  weld(document.querySelector('.film'), movies);
 //
 //
 
