@@ -1,35 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="../lib/weld3.js" type="text/javascript" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8">
-      window.onload = function() {
-        weld(document.querySelector('.weld'), {
-         header: "Header",
-         header2: "Header2",
-         header3: "Header3",
-         header4: "Header4",
-         header5: "Header5",
-         header6: "Header6",
-         item: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-        });        
-      }
-    </script>
-    <title></title>
-  </head>
-  <body>
-    
-    <div class="weld">
-        <h1 class='header'></h1>
-        <h2 class='header2'></h2>
-        <h3 class='header3'></h3>
-        <h4 class='header4'></h4>
-        <h5 class='header5'></h5>
-        <h6 class='header6'></h6>
-        <ul class='list'>
-            <li class='item'></li>
-        </ul>
-    </div>
+<head>
+  <script src="../lib/weld3.js" type="text/javascript" charset="utf-8"></script>
+  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+</head>
+<body>
 
-  </body>
+
+<!-- jquery test -->
+
+<script id="movieTemplate" type="text/x-jquery-tmpl"> 
+    <li><b>${Name}</b> (${ReleaseYear})</li>
+</script>
+
+<ul id="movieList"></ul>
+
+<!-- weld test -->
+
+<ul id="films">
+  <li><b class="Name"></b>(<span class="ReleaseYear"></span>)</li>
+</ul>
+
+<script>
+
+var movies = [
+    { Name: "The Red Violin", ReleaseYear: "1998" },
+    { Name: "Eyes Wide Shut", ReleaseYear: "1999" },
+    { Name: "The Inheritance", ReleaseYear: "1976" }
+];
+
+// Profile (8.375ms, 460 calls)
+// Profile (9.017ms, 460 calls)
+// Profile (10.289ms, 460 calls)
+// Profile (8.273ms, 460 calls)
+// Profile (8.201ms, 460 calls)
+
+//
+//
+  // $( "#movieTemplate" ).tmpl( movies ).appendTo( "#movieList" );
+// 
+// 
+
+// Profile (6.888ms, 328 calls)
+// Profile (7.583ms, 328 calls)
+// Profile (7.176ms, 328 calls)
+// Profile (6.796ms, 328 calls)
+// Profile (6.723ms, 328 calls)
+
+//
+//
+  weld(document.getElementById('films'), movies);
+//
+//
+
+</script>
+
+</body>
 </html>
