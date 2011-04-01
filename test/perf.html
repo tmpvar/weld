@@ -2,70 +2,22 @@
 <html>
 <head>
   <script src="../lib/weld3.js" type="text/javascript" charset="utf-8"></script>
-  <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-  <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
 </head>
 <body>
-
-
-<!-- jquery test -->
-
-<script id="movieTemplate" type="text/x-jquery-tmpl"> 
-    <li><b>${Name}</b> (${ReleaseYear})</li>
-</script>
-
-<ul id="movieList"></ul>
-
 <!-- weld test -->
-
 <ul>
-  <li class="film"><b class="Name"></b> (<span class="ReleaseYear"></span>)</li>
+  <li class="film"><b class="Name"></b>(<span class="ReleaseYear"></span>)</li>
 </ul>
-
-
-
-
-
-<ul>
-  <li class="film"><b class="Name"></b> (<span class="ReleaseYear"></span>)</li>
-</ul>
-
-
-
 
 <script>
 
 var movies = [
     { Name: "The Red Violin", ReleaseYear: "1998" },
-    { Name: "Eyes Wide sShut", ReleaseYear: "1999" },
+    { Name: "Eyes Wide Shut", ReleaseYear: "1999" },
     { Name: "The Inheritance", ReleaseYear: "1976" }
 ];
 
-var movie = { Name: "The Inheritance", ReleaseYear: "1976" };
-
-// Profile (8.375ms, 460 calls)
-// Profile (9.017ms, 460 calls)
-// Profile (10.289ms, 460 calls)
-// Profile (8.273ms, 460 calls)
-// Profile (8.201ms, 460 calls)
-
-//
-//
-  // $( "#movieTemplate" ).tmpl( movies ).appendTo( "#movieList" );
-// 
-// 
-
-// Profile (6.495ms, 328 calls)
-// Profile (7.089ms, 328 calls)
-// Profile (4.831ms, 278 calls)
-// Profile (6.743ms, 328 calls)
-// Profile (6.723ms, 328 calls)
-
-//
-//
-  weld(document.querySelector('.film'), movies);
-//
-//
+weld(document.querySelector('.film'), movies);
 
 </script>
 
