@@ -387,8 +387,7 @@
             data  = { name: 'bo diddly',  age: 10000, awesome: true };
 
         weld($('.contact', container)[0], data);
-        console.log($(container).html())
-        //test.ok($('.contact .age', container).text === '10000');
+        test.ok($('.contact .age', container).text() === '10000');
         test.done();
       });
     }    
