@@ -1,5 +1,3 @@
-
-
 ![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/github-header.png)<br/>
 
 ## What is it?
@@ -309,10 +307,12 @@ Debugging recursive data can be a real pain. With the `debug` option, you can se
 
       Example: $('contacts').weld([ { name: 'John' } ])
     */
-    $.fn.weld = function(data, config) {
-      weld(this[0], data, config);
-      return this;
+    $.fn.weld = function (data, config) {
+      return this.each (function () {
+        weld(this, data, config);
+      });
     };
+
 
 ## Credits
 developed by [hij1nx][2] and [tmpvar][3]
