@@ -168,7 +168,7 @@ index.js
       var data = [{ name: 'hij1nx',  title : 'code slayer' },
                   { name: 'tmpvar', title : 'code pimp' }];
 
-      weld(document.querySelector('.contact')[0], data);
+      weld(document.body, data);
 
 ### Being explicit about how data-keys relate to elements
 
