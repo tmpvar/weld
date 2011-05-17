@@ -6,21 +6,25 @@
   <script type="text/javascript" src="lib/weld.js"></script>
   <script type="text/javascript">
     window.onload = function() {
-      // We eat our own dogfood.
-      // This entire page is rendered via weld.
-      var page = {
-        pageTitle   : "Weld examples",
-        description : "Below is a list of examples",
-        dogfood     : "This page was rendered with weld",
-        example : [
-        {
-          title   : 'Render an object into some elements',
-          markup  : '<div id="example-1">\n  <h1 class="title">Bunk data</h1>\n  <p class="body">Bunk description</p>\n</div>',
-          data    : '{"title" : "My first blog post!", "body" : "Hello world!"}',
-          code    : 'weld(document.getElementById("example-1"), data)'
-        }
-      ]};
-      weld(document.body, page);
+
+     var getWeld = function(){
+
+          // We eat our own dogfood.
+          // This entire page is rendered via weld.
+          var page = {
+            pageTitle   : "Weld examples",
+            description : "Below is a list of examples",
+            dogfood     : "This page was rendered with weld",
+            example : [
+            {
+              title   : 'Render an object into some elements',
+              markup  : '<div id="example-1">\n  <h1 class="title">Bunk data</h1>\n  <p class="body">Bunk description</p>\n</div>',
+              data    : '{"title" : "My first blog post!", "body" : "Hello world!"}',
+              code    : 'weld(document.getElementById("example-1"), data)'
+            }
+          ]};
+          weld(document.body, page);
+     };
 
       var actionElements       = document.getElementsByClassName('action'),
           currentActionElement = actionElements.length;
@@ -28,8 +32,7 @@
       // setup the onclick for all of the "weld!" links
       while(currentActionElement--) {
         actionElements[currentActionElement].onclick = function(e) {
-          
-          return false;
+            getWeld();
         }
       }
     };
