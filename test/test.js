@@ -179,8 +179,8 @@
         var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                     { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
-        weld($('.contact', container)[0], data);
-        
+        weld($('.contact', container)[0], data, { debug : true });
+        console.log($('.name:nth(1)', container).text(), $('.title:nth(1)', container));
         test.ok($('.name:nth(1)', container).text().indexOf('tmpvar') > -1);
         test.ok($('.title:nth(1)', container).text().indexOf('Leet Developer') > -1);
 
@@ -405,7 +405,7 @@
         weld(container, data);
 
         test.ok($(':input[name=href]').val() === data.url.href);
-        test.ok($(':input[name=title]').val() === data.url.href);
+        test.ok($(':input[name=title]').val() === data.url.title);
 
         test.done();
       })
