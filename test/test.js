@@ -390,7 +390,25 @@
         test.ok($('.contact .age', container).text() === '10000');
         test.done();
       });
-    }    
-    
+    },
+
+    "Test 17: depth traversal shouldn't stop on a missed key" : function(test) {
+      getTemplate('depth-failure-on-miss', function(window, weld, $, container) {
+        var data = {
+          'create-date' : 'yesterday',
+          url : {
+            href : "http://www.google.com",
+            title : "Google"
+          }
+        };
+
+        weld(container, data);
+
+        test.ok($(':input[name=href]').val() === data.url.href);
+        test.ok($(':input[name=title]').val() === data.url.href);
+
+        test.done();
+      })
+    }
   };
 }((typeof module === "undefined") ? window : module.exports));
