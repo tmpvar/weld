@@ -171,27 +171,20 @@
       });
 
     },
-  
-    "Test 8: Try to pair data with selectors that yield no matching elements": function(test) {
 
+    "Test 8: Try to pair data with selectors that yield no matching elements": function(test) {
       getTemplate('contacts-none', function(window, weld, $, container) {
-        
         var data = [{ x01h: 'hij1nx',  x0x1h: 'code exploder' },
                     { name: 'tmpvar', x0x1h: 'code wrangler' }];
 
-        weld($('.contact', container)[0], data, { debug : true });
-        console.log($('.name:nth(1)', container).text(), $('.title:nth(1)', container));
+        weld($('.contact', container)[0], data);
+
         test.ok($('.name:nth(1)', container).text().indexOf('tmpvar') > -1);
         test.ok($('.title:nth(1)', container).text().indexOf('Leet Developer') > -1);
-
         test.ok($('.contact', container).length === 2);
 
-
-
         test.done();
-
       });
-
     },
 
     "Test 9: Create markup from an object literal that has one dimention that contains are array of objects with one dimention": function(test) {
@@ -406,6 +399,36 @@
 
         test.ok($(':input[name=href]').val() === data.url.href);
         test.ok($(':input[name=title]').val() === data.url.title);
+
+        test.done();
+      })
+    },
+    
+    "Test 18: depth traversal shouldn't stop on a missed key [array]" : function(test) {
+      getTemplate('depth-failure-on-miss', function(window, weld, $, container) {
+        var data = {
+          links : [{
+            'create-date' : 'yesterday',
+            url : {
+              href : "http://www.google.com",
+              title : "Google"
+            }
+          },
+          {
+            'create-date' : 'today',
+            url : {
+              href : "http://tmpvar.com",
+              title : "tmpvar"
+            }
+          }]
+        };
+        weld(container, data);
+
+        test.ok($(':input[name=href]:first').val() === data.links[0].url.href);
+        test.ok($(':input[name=title]:first').val() === data.links[0].url.title);
+
+        test.ok($(':input[name=href]:nth(1)').val() === data.links[1].url.href);
+        test.ok($(':input[name=title]:nth(1)').val() === data.links[1].url.title);
 
         test.done();
       })
