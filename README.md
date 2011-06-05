@@ -105,21 +105,18 @@ Using JSDOM, we can easily create a DOM, load some libraries and read a file. Le
       var fs    = require('fs'),
           jsdom = require('jsdom');
 
-      jsdom.env({
-        code: [
-          '/../lib/jquery.js',
-          require('weld').filepath
-        ],
-        html: '/../files/contexts.html'
-      },
-      function(errors, window) {
+      jsdom.env(
+        './test.html', 
+        ['./jquery.js', './weld.js'],
+        function(errors, window) {
 
-        var data = [{ name: 'hij1nx',  title : 'code slayer' },
-                    { name: 'tmpvar', title : 'code pimp' }];
+          var data = [{ name: 'hij1nx',  title : 'code slayer' },
+                      { name: 'tmpvar', title : 'code pimp' }];
 
-        window.weld(window.$('.contact')[0], data);
+          window.weld(window.$('.contact')[0], data);
 
-      });
+        }
+      );
 
 Here is the corresponding markup that our script above will load...
 
@@ -227,7 +224,7 @@ Weld will automatically import the nodes into the proper document (dest.html)...
       jsdom.env(path.join(__dirname, 'files', 'source.html'), function(serrs, sw) {
         var sources = sw.document.getElementsByTagName("span");
 
-        jsdom.env(path.join(__dirname, 'files', 'dest.html'),[jqpath, wpath], function(errors, window) {
+        jsdom.env(path.join(__dirname, 'files', 'dest.html'), [jqpath, wpath], function(errors, window) {
 
           var $ = window.jQuery;
 
