@@ -311,14 +311,10 @@ Debugging recursive data can be a real pain. With the `debug` option, you can se
     };
 
 
-## Credits
-developed by [hij1nx][2] and [tmpvar][3]
-
 If you want to learn more about JSDOM, go [here][1] it's an awesome project.
 
 ## Version
-0.2.0
-
+0.2.1
 
 ## Licence
 
@@ -334,5 +330,3 @@ THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
 [1]: https://github.com/tmpvar/jsdom
-[2]: http://twitter.com/hij1nx
-[3]: http://twitter.com/tmpvar
