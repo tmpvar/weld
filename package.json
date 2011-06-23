@@ -11,11 +11,10 @@
   "licenses": [{"type": "MIT"}],
   "repositories": [{
       "type": "git",
-      "url": "git://github.com/tmpvar/unobtrusive.jsdom.org.git" 
+      "url": "git@github.com:hij1nx/weld.git" 
   }],
   "dependencies": {
-     "jsdom" : ">= 0.2.0",
-     "colors" : "*"
+     "jsdom" : ">= 0.2.0"
   },
   "devDependencies" : {
     "nodeunit" : "*"

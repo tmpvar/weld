@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>weld - examples</title>
+  <script type="text/javascript" src="lib/weld.js"></script>
+  <script type="text/javascript">
+    window.onload = function() {
+
+     var getWeld = function(){
+
+          // We eat our own dogfood.
+          // This entire page is rendered via weld.
+          var page = {
+            pageTitle   : "Weld examples",
+            description : "Below is a list of examples",
+            dogfood     : "This page was rendered with weld",
+            example : [
+            {
+              title   : 'Render an object into some elements',
+              markup  : '<div id="example-1">\n  <h1 class="title">Bunk data</h1>\n  <p class="body">Bunk description</p>\n</div>',
+              data    : '{"title" : "My first blog post!", "body" : "Hello world!"}',
+              code    : 'weld(document.getElementById("example-1"), data)'
+            }
+          ]};
+          weld(document.body, page);
+     };
+
+      var actionElements       = document.getElementsByClassName('action'),
+          currentActionElement = actionElements.length;
+
+      // setup the onclick for all of the "weld!" links
+      while(currentActionElement--) {
+        actionElements[currentActionElement].onclick = function(e) {
+            getWeld();
+        }
+      }
+    };
+  </script>
+
+</head>
+<body>
+  <h1 class="pageTitle">Random title</h1>
+  <p class="description">
+    This is a description about this page..
+  </p>
+  <p class="dogfood">
+    here is some dogfood
+  </p>
+  <div class="example">
+
+    <h1 class="title">Example title</h1>
+
+    <div clas="markupContainer">
+      <p>Markup</p>
+      <pre class="markup"></pre>
+    </div>
+
+    <div class="dataContainer">
+      <p>Data</p>
+      <pre class="data"></pre>
+    </div>
+
+    <div class="codeContainer">
+      <p>Code</p>
+      <pre class="code"></pre>
+    </div>
+
+    <div class="resultContainer">
+      <p>Result (<a href="#" class="action">weld!</a>)</p>
+      <pre class="result"></pre>
+    </div>
+  </div>
+
+</body>
+</html>

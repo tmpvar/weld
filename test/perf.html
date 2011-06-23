@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="../lib/weld3.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<!-- weld test -->
+<ul>
+  <li class="film"><b class="Name"></b>(<span class="ReleaseYear"></span>)</li>
+</ul>
+
+<script>
+
+var movies = [
+    { Name: "The Red Violin", ReleaseYear: "1998" },
+    { Name: "Eyes Wide Shut", ReleaseYear: "1999" },
+    { Name: "The Inheritance", ReleaseYear: "1976" }
+];
+
+weld(document.querySelector('.film'), movies);
+
+</script>
+
+</body>
+</html>

@@ -378,6 +378,19 @@
 
         test.done();
       });
-    }
+    },
+    "Test 16: Assign values other than strings": function(test) {
+
+      getTemplate('alternate-values', function(window, weld, $, container) {
+
+        var $     = window.jQuery,
+            data  = { name: 'bo diddly',  age: 10000, awesome: true };
+
+        weld($('.contact', container)[0], data);
+        test.ok($('.contact .age', container).text() === '10000');
+        test.done();
+      });
+    }    
+    
   };
 }((typeof module === "undefined") ? window : module.exports));
