@@ -4,45 +4,25 @@
   
   <script charset="utf-8" type="text/javascript" src="index.js"></script>
   
-  <link href="/index.xml" title="app - feed" type="application/atom+xml" rel="alternate"><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"><title>Weld.io, templating antimatter</title></head>  
+  <link href="/index.xml" title="app - feed" type="application/atom+xml" rel="alternate"><meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <title>weld.js, templating antimatter</title></head>  
    
   <body> 
     <section> 
       <header id="main"> 
   <div class="content"> 
     <section id="intro"> 
-      <h1>Vows</h1> 
-      <h2><span>Asynchronous</span> behaviour driven <span>development</span> for Node.</h2> 
-      <h3> 
-        There are two reasons why we might want asynchronous testing.
-        The first, and obvious reason is that node.js is asynchronous,
-        and therefore our tests should be. The second reason is to make tests which target I/O
-        run much faster, by running them concurrently.
-      </h3> 
+      <div id="product">weld<span class="extra">js</span></div><br/>
+      <div id="flourish"></div>
     </section> 
- 
-    <section id="example"> 
-        <p>Write some vows, execute them:</p> 
-        <pre class="command">$ vows test/* --spec</pre> 
-        <p>Get the report, make sure you kept your word.</p> 
-        <pre>A non-promise return value
-  ✓ <span class="vow">should be converted to a promise</span> 
-A topic not emitting an error
-  ✓ <span class="vow">should pass null if the test is expecting an error</span> 
-  ✓ <span class="vow">should pass the result otherwise</span> 
-A topic emitting an error
-  ✓ <span class="vow">shouldn't raise an exception if the test expects it</span> 
-A context with a nested context
-  ✓ <span class="vow">has access to the environment</span> 
-  - <span class="vow pending">can make coffee</span> 
-A nested context
-  ✓ <span class="vow">should have access to the parent topics</span> 
-A nested context with no topics
-  ✓ <span class="vow">should pass the parent topics down</span> 
- 
-✓ <span id="ok">OK</span> » <strong>7</strong> honored • <strong>1</strong> pending <span id="time">(0.112s)</span></pre> 
-    </section> 
-  </div> 
+    <div id="icons">
+      <div id="icon1" class="icon">JSON</div>
+      <div id="icon2" class="icon">markup</div>
+      <div id="icon3" class="icon">instructions</div>
+    </div>
+    <div id="blabber">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    </div>
   <div style="clear: both"></div> 
 </header> 
  
@@ -73,15 +53,10 @@ A nested context with no topics
   <div class="content"> 
     <h1>Synopsis</h1> 
  
-<p>Vows is a <a href="http://en.wikipedia.org/wiki/Behavior_Driven_Development">behavior driven development</a> 
-framework for <a href="http://nodejs.org">Node.js</a>.</p> 
- 
-<p>Vows was built from the ground up to test asynchronous code. It executes your tests in parallel when it makes sense,
-and sequentially when there are dependencies.</p> 
- 
-<p>Emphasis was put on speed of execution, clarity and user experience.</p> 
- 
-<p>Here’s a simple example, describing ‘division by zero’:</p> 
+    Weld binds data to markup, and can generate markup based on your data. There's NO special syntax or 
+    data reshaping required. It works in the browser and in node.js! Weld is currently 3.66Kb uglified with
+    no dependencies other than a valid DOM. Weld will apply values to elements the way that elements expect 
+    to have their values set.
  
 <pre><code>// division-by-zero-test.js
  
@@ -119,97 +94,7 @@ vows.describe('Division by Zero').addBatch({
  
 <hr> 
  
-<p>And now, a little more involved example&mdash;let’s suppose we have a module called ‘<code>the-good-things</code>’, with some fruit constructors
-in it:</p> 
- 
-<pre><code>exports.Strawberry = function () {
-    this.color = '#ff0000';
-};
-exports.Strawberry.prototype = {
-    isTasty: function () { return true }
-};
- 
-exports.Banana = function () {
-    this.color = '#fff333';
-};
-exports.Banana.prototype = {
-    peel: function (callback) {
-        process.nextTick(function () {
-            callback(null, new(exports.PeeledBanana));
-        });
-    },
-    peelSync: function () { return new(exports.PeeledBanana) }
-};
- 
-exports.PeeledBanana = function () {};
-</code></pre> 
- 
-<p>Now write some tests in <em>the-good-things-test.js</em>:</p> 
- 
-<pre><code>var vows = require('vows'),
-    assert = require('assert');
- 
-var theGoodThings = require('the-good-things');
- 
-var Strawberry   = theGoodThings.Strawberry,
-    Banana       = theGoodThings.Banana,
-    PeeledBanana = theGoodThings.PeeledBanana;
- 
-vows.describe('The Good Things').addBatch({
-    'A strawberry': {
-        topic: new(Strawberry),
- 
-        'is red': function (strawberry) {
-            assert.equal (strawberry.color, '#ff0000');
-        },
-        'and tasty': function (strawberry) {
-            assert.isTrue (strawberry.isTasty());
-        }
-    },
-    'A banana': {
-        topic: new(Banana),
- 
-        'when peeled *synchronously*': {
-            topic: function (banana) {
-                return banana.peelSync();
-            },
-            'returns a `PeeledBanana`': function (result) {
-                assert.instanceOf (result, PeeledBanana);
-            }
-        },
-        'when peeled *asynchronously*': {
-            topic: function (banana) {
-                banana.peel(this.callback);
-            },
-            'results in a `PeeledBanana`': function (err, result) {
-                assert.instanceOf (result, PeeledBanana);
-            }
-        }
-    }
-}).export(module); // Export the Suite
-</code></pre> 
- 
-<p>And run them with the test runner:</p> 
- 
-<pre><code>$ vows the-good-things-test.js
-</code></pre> 
- 
-  </div> 
-</section> 
- 
-<section id="installing"> 
-  <div class="content"> 
-    <h1>Installing</h1> 
- 
-<p>The easiest way to install Vows, is via <a href="http://github.com/isaacs/npm">npm</a>, the node package manager, as so:</p> 
- 
-<pre><code>$ npm install vows
-</code></pre> 
- 
-<p>This will get you the latest stable version. If you want the bleeding edge, try:</p> 
- 
-<pre><code>$ npm install vows@latest
-</code></pre> 
+
  
   </div> 
 </section> 
@@ -935,9 +820,6 @@ assert.doesNotThrow(function () { 1 + 1 }, Error);
 </section> 
  
     </section> 
-    <a href="http://github.com/cloudhead/vows"> 
-      <img alt="Fork me on GitHub" src="http://s3.amazonaws.com/github/ribbons/forkme_left_orange_ff7600.png" style="position: absolute; z-index: 5; top: 0; left: 0; border: 0;"> 
-    </a> 
     <script src="/js/hijs.js"></script> 
    
  
