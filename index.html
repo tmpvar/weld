@@ -1,0 +1,389 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+  <head>
+    <title>Weld</title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="index.css" type="text/css" media="screen" title="no title" charset="utf-8">    
+
+    <a href="https://github.com/hij1nx/weld" id="project-link"></a>
+    <div id="readme" class="announce md" data-path="/"><div class="wikistyle"><p><br></p>
+
+      <h2>What is it?</h2>
+
+      <p>Simple. Weld binds data to markup, and can generate markup based on your data. There's NO special syntax or data reshaping required. It works in the browser and in node.js! Weld is currently 3.66Kb uglified with no dependencies other than a valid DOM Document and Window.</p>
+
+      <h2>Motivation</h2>
+
+      <ul>
+      <li>Standards compliant. No foreign concepts such as &lt;%=foo%&gt; or {{foo}}.</li>
+
+      <li>Promote portable code/markup by decoupling decision making from presentation.</li>
+      <li>Make both the code and markup more readable and maintainable.</li>
+      <li>Allow designers to write up sample markup and test styling without a developer.</li>
+      <li>Increase maintainability by developers with various skill sets.</li>
+      <li>Code reuse between node.js and the browser</li>
+      </ul><h2>How does it work?</h2>
+
+      <p>Pass in a parent DOM Element, some data, and optionally some configuration details.</p>
+
+      <pre><code>
+
+        weld(element, data, [config]);
+
+      </code></pre>
+
+
+      <p><code>element</code> - This is the target node that will be used as the template.<br><code>data</code> - This could be any data, an object an array, an array of objects, etc.<br><code>config</code> - An object literal (optional), can include any of the items listed in the section below.<br></p>
+
+      <h3>Config options</h3>
+
+      <p><code>map</code> - A map function is executed against every match of data-key/element. It gives the opportunity to manipulate the element before it is finalized. Returning false from <code>map</code> will cause the traversal of the current branch to stop.</p>
+
+      <pre><code>
+        map: function(parent, element, key, val) { 
+          return true; // returning false will cancel the traversal down this branch
+        }
+
+      </code></pre>
+
+
+      <p><code>alias</code> - An object literal that provides a mapping between data key and a key that will match a class/name/id.  This is useful when you have data that doesn't explicitly correlate with the name, class or id of an HTML element. <code>alias</code> values may be any of the following:</p>
+
+      <ul>
+      <li>A string</li>
+      <li><code>false</code></li>
+      <li>A function that returns a string, <code>false</code>, or a <em>single</em> DOM Element</li>
+      </ul><pre><code>
+        alias: { 
+          'user_password': false, // causes an item to not get rendered
+
+          'user_email': 'email', // use email instead of user_email in the weld match process
+
+          'user_name'     : function(parent, element, key, value) {
+            // element is a DOM Element which will be searched for the current key
+
+            // use fullName in place of user_name
+            return "fullName"
+          },
+
+          'user_hometown' : function(parent, element, key, value) {
+            // use an element instead of allowing weld to match based on class/id/name
+            return element.getElementById('hometown');
+          },
+
+          'personal_info'  : function(parent, element, key, value) {
+            if (session.authorized() === false) {
+              // The user requesting this template is not authorized to view other users' personal information so remove the personal info display from the page
+              var emailDisplay = element.getElementById('personal_info');
+              emailDisplay.parentNode.removeChild(emailDisplay);
+
+              // and return false, which will stop weld from traversing the current branch (personal_info)
+              return false;
+            }
+          }
+
+        }
+
+      </code></pre>
+
+
+      <p><code>insert</code> (override) - A function which enables some logic to be performed before the element is actually inserted into the target.</p>
+
+      <p>see: https://github.com/hij1nx/weld/blob/master/lib/weld.js#L244 for the default implementation.</p>
+
+      <pre><code>
+        insert: function(parent, element) {
+          parent.insertBefore(element, parent.firstChild);
+        }
+      </code></pre>
+
+
+      <p><code>debug</code> - A boolean value that if set to true will display some useful information as the recursion process occurs. More information about this can be found later on in this document.</p>
+
+      <pre><code>
+        debug: true
+
+      </code></pre>
+
+
+      <h4>Advanced Options</h4>
+
+      <p>The following options are the core of weld but can be overridden in special circumstances.  This is for hackers and these api's are known to be a bit volitile. <strong>you have been warned</strong>. and now for the list: <code>siblings</code>, <code>traverse</code>, <code>elementType</code>, <code>set</code> , <code>match</code></p>
+
+      <p>As the weld core solidifies these methods will be properly documented, but for now you will need to look at the source.</p>
+
+      <h2>Installing from NPM (Node.js Package Manager)</h2>
+
+      <pre><code>
+        npm install weld
+
+      </code></pre>
+
+
+      <h2>Examples</h2>
+
+      <h3>In Node.js</h3>
+
+      <p>Using JSDOM, we can easily create a DOM, load some libraries and read a file. Let's weld some data!</p>
+
+      <pre><code>  var fs    = require('fs'),
+            jsdom = require('jsdom'),
+
+        jsdom.env({
+          code: [
+            '/../lib/jquery.js',
+            require('weld').filepath
+          ],
+          html: '/../files/contexts.html'
+        },
+        function(errors, window) {
+
+          var data = [{ name: 'hij1nx',  title : 'code slayer' },
+                      { name: 'tmpvar', title : 'code pimp' }];
+
+          window.weld(window.$('.contact')[0], data);
+
+        });
+      </code></pre>
+
+      <p>Here is the corresponding markup that our script above will load...</p>
+
+      <pre><code>  &lt;ul class='contacts'&gt;
+          &lt;li class='contact'&gt;
+
+            &lt;span class='name'&gt;My Name&lt;/span&gt;
+            &lt;p class='title'&gt;Leet Developer&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      </code></pre>
+
+      <p>Here are the results that it will produce...</p>
+
+      <pre><code>  &lt;ul class='contacts'&gt;
+          &lt;li class='contact'&gt;
+            &lt;span class='name'&gt;hij1nx&lt;/span&gt;
+            &lt;p class='title'&gt;code slayer&lt;/p&gt;
+
+          &lt;/li&gt;
+          &lt;li class='contact'&gt;
+            &lt;span class='name'&gt;tmpvar&lt;/span&gt;
+            &lt;p class='title'&gt;code pimp&lt;/p&gt;
+          &lt;/li&gt;  
+        &lt;/ul&gt;
+
+      </code></pre>
+
+      <h3>In the browser</h3>
+
+      <p>index.html</p>
+
+      <pre><code>  &lt;!DOCTYPE html&gt;
+        &lt;html&gt;
+          &lt;head&gt;
+
+          &lt;/head&gt;
+          &lt;body&gt;
+            &lt;ul class='contacts'&gt;
+              &lt;li class='contact'&gt;
+                &lt;span class='name'&gt;My Name&lt;/span&gt;
+
+                &lt;p class='title'&gt;Leet Developer&lt;/p&gt;
+              &lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;script src="lib/weld.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+            &lt;script src="js/index.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+          &lt;/body&gt;
+        &lt;/html&gt;
+      </code></pre>
+
+      <p>index.js</p>
+
+      <pre><code>  var data = [{ name: 'hij1nx',  title : 'code slayer' },
+                    { name: 'tmpvar', title : 'code pimp' }];
+
+        weld(document.querySelector('.contact')[0], data);
+      </code></pre>
+
+      <h3>Being explicit about how data-keys relate to elements</h3>
+
+      <p>By default, weld uses a heuristic that assumes each of the keys in the data's <code>key: value</code> pairs is an '#id', a '.class' or 'name'. This addresses the 80/20 of cases.</p>
+
+      <p>There are cases where the data is not an exact match to the element's identity. In this case, we can use the alias parameter to explicitly define the relationships between data-keys and an element's class/name/id. So, for the following HTML...</p>
+
+      <pre><code>  &lt;ul class='contacts'&gt;
+          &lt;li class='contact'&gt;
+            &lt;span class='name'&gt;Hello my name is &lt;span class='firstAndLast'&gt;My Name&lt;/span&gt;&lt;/span&gt;
+
+            &lt;p class='title'&gt;Leet Developer&lt;/p&gt;
+          &lt;/li&gt;
+        &lt;/ul&gt;
+      </code></pre>
+
+      <p>Use .contact as the template and <code>data</code> as the data...</p>
+
+      <pre><code>  var data = [{ name: 'hij1nx',  title: 'code exploder' },
+                    { name: 'tmpvar', title: 'code pimp' }],
+
+            template = document.getElementByClassName('contact')[0];
+      </code></pre>
+
+      <p>Since there is no .title class in the markup, we need to alias title to something that does exist..</p>
+
+      <pre><code>  weld(template, data, { alias: { 'name': 'firstAndLast' } });
+      </code></pre>
+
+      <p>This produces..</p>
+
+      <pre><code>  &lt;ul class='contacts'&gt;
+
+          &lt;li class='contact'&gt;
+            &lt;span class='name'&gt;Hello my name is &lt;span class='firstAndLast'&gt;hij1nx&lt;/span&gt;&lt;/span&gt;  
+            &lt;p class='title'&gt;code slayer&lt;/p&gt;
+          &lt;/li&gt;
+
+          &lt;li class='contact'&gt;
+            &lt;span class='name'&gt;Hello my name is &lt;span class='firstAndLast'&gt;tmpvar&lt;/span&gt;&lt;/span&gt;  
+            &lt;p class='title'&gt;code pimp&lt;/p&gt;
+          &lt;/li&gt;  
+        &lt;/ul&gt;
+
+      </code></pre>
+
+      <h3>Working with multiple documents</h3>
+
+      <p>Weld also supports using elements from one document as a data source to another. For example, the following markup in one document (source.html).</p>
+
+      <pre><code>  &lt;span&gt;zero&lt;/span&gt;
+        &lt;span&gt;one&lt;/span&gt;
+
+        &lt;span&gt;two&lt;/span&gt;
+      </code></pre>
+
+      <p>and in another document (dest.html)..</p>
+
+      <pre><code>  &lt;div id="dest"&gt;
+          &lt;ul&gt;
+            &lt;li class='number'&gt;This will be removed&lt;/li&gt;
+
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      </code></pre>
+
+      <p>Weld will automatically import the nodes into the proper document (dest.html)...</p>
+
+      <pre><code>  jsdom.env(path.join(__dirname, 'files', 'source.html'), function(serrs, sw) {
+          var sources = sw.document.getElementsByTagName("span");
+
+          jsdom.env(path.join(__dirname, 'files', 'dest.html'),[jqpath, wpath], function(errors, window) {
+
+            var $ = window.jQuery;
+
+            window.weld($('li.number')[0], sources);
+
+          });
+        });
+      </code></pre>
+
+      <p>and insert them much like you would expect..</p>
+
+      <pre><code>  &lt;div id="dest"&gt;
+          &lt;ul&gt;
+            &lt;li class="number"&gt;
+              &lt;span&gt;zero&lt;/span&gt;
+            &lt;/li&gt;
+
+            &lt;li class="number"&gt;
+              &lt;span&gt;one&lt;/span&gt;
+            &lt;/li&gt;
+            &lt;li class="number"&gt;
+              &lt;span&gt;two&lt;/span&gt;
+
+            &lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      </code></pre>
+
+      <h2>How do I...</h2>
+
+      <p>For people coming from custom templating paradigms, you might have some of 'how-do-i-do-x' questions.</p>
+
+      <h3>Conditionals</h3>
+
+      <p>You may want to only render a section of markup depending on the data.</p>
+
+      <pre><code>  &lt;% if(person.description) { %&gt;
+
+        &lt;% } %&gt;
+      </code></pre>
+
+      <p>This can be done with the map or alias parameters.</p>
+
+      <pre><code>  alias: {
+          description: false // causes the descriptions to never get rendered.
+        }
+      </code></pre>
+
+      <p>which is the same as this...</p>
+
+      <pre><code>  alias: function(parent, element, key, value) {
+          if(key==='description') {
+            return false;
+          }
+        }
+      </code></pre>
+
+      <p>but can also be done with the more general purpose <code>map</code> parameter.</p>
+
+      <pre><code>  map: function(parent, element, key, val) { 
+          if(key==='description') {
+            return false;
+          }
+        }
+      </code></pre>
+
+      <h3>I do some crazy stuff in mustache, how do I do that in weld?</h3>
+
+      <p>You won't need to do anything crazy in weld, weld is simply javascript, markup and data.</p>
+
+      <h2>Debugging</h2>
+
+      <p>Debugging recursive data can be a real pain. With the <code>debug</code> option, you can see everything that happens as the data is recursed, such as elements that do or dont match, their parents, the keys and values, etc.</p>
+
+      <p><img src="https://github.com/hij1nx/weld/raw/master/documentation-assets/debug.jpg" alt="Alt text"><br><img src="https://github.com/hij1nx/weld/raw/master/documentation-assets/debug-browser.jpg" alt="Alt text"><br></p>
+
+      <h2>Using weld as a plugin to other libraries</h2>
+
+      <h3>jQuery</h3>
+
+      <pre><code>/*
+        @function {jQuery object}
+          Turn weld into a jQuery plugin.
+        @param {object} data
+          The data which will be used for the weld.
+        @param {object} config
+          An optional configuration object.
+
+        Example: $('contacts').weld([ { name: 'John' } ])
+      */
+      $.fn.weld = function(data, config) {
+        weld(this[0], data, config);
+        return this;
+      };
+      </code></pre>
+
+      <h2>Credits</h2>
+
+      <p>developed by <a href="http://twitter.com/hij1nx">hij1nx</a> and <a href="http://twitter.com/tmpvar">tmpvar</a></p>
+
+      <p>If you want to learn more about JSDOM, go <a href="https://github.com/tmpvar/jsdom">here</a> it's an awesome project.</p>
+
+      <h2>Version</h2>
+
+      <p>0.2.0</p></div></div>
+      </div>
+    
+    
+  </body>
+</html>
