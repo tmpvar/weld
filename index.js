@@ -1,5 +1,4 @@
 !function () {
-  
   if (document.querySelectorAll) {
     window.onload = function () {
       var menu = document.getElementById('menu');
