@@ -199,7 +199,7 @@ nav a:hover, #dropdown li:hover {
 #flourish {
 	position: absolute;
 	left: 35%;
-	background: url('/demo/img/flourish.png') no-repeat scroll top left;
+	background: url('/weld/demo/img/flourish.png') no-repeat scroll top left;
 	width: 136px;
 	height: 55px;
 	bottom: 0px;
@@ -300,15 +300,15 @@ hr {
 }
 
 #icon1 {
-	background: url('demo/img/json.png') no-repeat scroll top left;
+	background: url('/weld/demo/img/json.png') no-repeat scroll top left;
 }
 
 #icon2 {
-	background: url('demo/img/html.png') no-repeat scroll top left;
+	background: url('/weld/demo/img/html.png') no-repeat scroll top left;
 }
 
 #icon3 {
-	background: url('demo/img/instructions.png') no-repeat scroll top left;
+	background: url('/weld/demo/img/instructions.png') no-repeat scroll top left;
 }
 
 .featureText, .icon {
