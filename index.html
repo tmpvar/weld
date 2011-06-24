@@ -7,91 +7,58 @@
   <body> 
     <section> 
       <header id="main"> 
-  <div class="content"> 
-    <section id="intro"> 
-      <div id="product">weld<span class="extra">js</span></div><br/>
-      <div id="flourish"></div>
-    </section> 
-    <div id="icons">
-      <div id="icon1" class="icon">JSON</div>
-      <div id="icon2" class="icon">markup</div>
-      <div id="icon3" class="icon">instructions</div>
-    </div>
-    <div id="blabber">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-    </div>
-  <div style="clear: both"></div> 
-</header> 
+      <div class="content"> 
+        <section id="intro"> 
+          <div id="product">weld<span class="extra">js</span></div><br/>
+          <div id="flourish"></div>
+        </section> 
+        <div id="icons">
+          <div id="icon1" class="icon">JSON</div>
+          <div id="icon2" class="icon">markup</div>
+          <div id="icon3" class="icon">instructions</div>
+        </div>
+        <div id="blabber">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        </div>
+      <div style="clear: both"></div> 
+    </header> 
  
-<section id="menu" style="top: 470px; position: absolute;" class=""> 
-  <div class="content"> 
-    <nav> 
-      <a href="#intro">intro</a> 
-      <a id="guide-link" href="#docs">guide</a> 
-      <a href="#installing">installing</a> 
-      <a href="#reference">reference</a> 
-      <a href="#about">about</a> 
-      <a href="http://github.com/cloudhead/vows">source <img src="/images/github.ico" id="github"></a> 
-    </nav> 
-    <div id="dropdown"> 
-      <ul> 
-        <li><a href="#-structure-of-a-test-suite">Structure of a Test Suite</a></li> 
-        <li><a href="#-how-topics-work">How topics work</a></li> 
-        <li><a href="#-running-a-suite">Running a Suite</a></li> 
-        <li><a href="#-writing-asynchronous-tests">Asynchronous Testing</a></li> 
-        <li><a href="#-assertions">Assertions</a></li> 
-        <li><a href="#-macros">Macros</a></li> 
-      </ul> 
-    </div> 
-  </div> 
-</section> 
- 
-<section id="synopsis"> 
-  <div class="content"> 
-    <h1>Synopsis</h1> 
- 
-    Weld binds data to markup, and can generate markup based on your data. There's NO special syntax or 
-    data reshaping required. It works in the browser and in node.js! Weld is currently 3.66Kb uglified with
-    no dependencies other than a valid DOM. Weld will apply values to elements the way that elements expect 
-    to have their values set.
- 
-<pre><code>// division-by-zero-test.js
- 
-var vows = require('vows'),
-    assert = require('assert');
- 
-// Create a Test Suite
-vows.describe('Division by Zero').addBatch({
-    'when dividing a number by zero': {
-        topic: function () { return 42 / 0 },
- 
-        'we get Infinity': function (topic) {
-            assert.equal (topic, Infinity);
-        }
-    },
-    'but when dividing zero by zero': {
-        topic: function () { return 0 / 0 },
- 
-        'we get a value which': {
-            'is not a number': function (topic) {
-                assert.isNaN (topic);
-            },
-            'is not equal to itself': function (topic) {
-                assert.notEqual (topic, topic);
-            }
-        }
-    }
-}).run(); // Run it
-</code></pre> 
- 
-<p>And run it:</p> 
- 
-<pre><code>$ node division-by-zero-test.js
-</code></pre> 
- 
-<hr> 
- 
+    <section id="menu" style="top: 470px; position: absolute;" class=""> 
+      <div class="content"> 
+        <nav> 
+          <a href="#intro">intro</a> 
+          <a id="guide-link" href="#docs">guide</a> 
+          <a href="#installing">installing</a> 
+          <a href="#reference">reference</a> 
+          <a href="#about">about</a> 
+          <a href="http://github.com/cloudhead/vows">source <img src="/images/github.ico" id="github"></a> 
+        </nav> 
+        <div id="dropdown"> 
+          <ul> 
+            <li><a href="#-structure-of-a-test-suite">Structure of a Test Suite</a></li> 
+            <li><a href="#-how-topics-work">How topics work</a></li> 
+            <li><a href="#-running-a-suite">Running a Suite</a></li> 
+            <li><a href="#-writing-asynchronous-tests">Asynchronous Testing</a></li> 
+            <li><a href="#-assertions">Assertions</a></li> 
+            <li><a href="#-macros">Macros</a></li> 
+          </ul>
+        </div>
+      </div>
+    </section>
 
+    <section id="synopsis">
+      <div class="content">
+        <h1>Synopsis</h1>
+        Weld binds data to markup, and can generate markup based on your data. There's NO special syntax or 
+        data reshaping required. It works in the browser and in node.js! Weld is currently 3.66Kb uglified with
+        no dependencies other than a valid DOM. Weld will apply values to elements the way that elements expect 
+        to have their values set.
+     </div>
+    </section>
+
+    <section id="demos">
+      <div class=>
+    </section>
  
   </div> 
 </section> 
