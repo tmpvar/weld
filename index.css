@@ -1,4 +1,102 @@
 
+.CodeMirror {
+  line-height: 1em;
+  font-family: monospace;
+	background-color: #fff;
+	font-size: 12px;
+}
+
+.js .CodeMirror-scroll {
+  overflow: auto;
+  height: 398px;
+  /* This is needed to prevent an IE[67] bug where the scrolled content
+     is visible outside of the scrolling box. */
+  position: relative;
+}
+
+.json .CodeMirror-scroll, .html .CodeMirror-scroll {
+  overflow: auto;
+  height: 190px;
+  /* This is needed to prevent an IE[67] bug where the scrolled content
+     is visible outside of the scrolling box. */
+  position: relative;
+}
+
+.CodeMirror-gutter {
+  position: absolute; left: 0; top: 0;
+  background-color: #f7f7f7;
+  border-right: 1px solid #eee;
+  min-width: 2em;
+  height: 100%;
+}
+.CodeMirror-gutter-text {
+  color: #aaa;
+  text-align: right;
+  padding: .4em .2em .4em .4em;
+}
+.CodeMirror-lines {
+  padding: .4em;
+}
+
+.CodeMirror pre {
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
+  border-width: 0; margin: 0; padding: 0; background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0; margin: 0;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+.CodeMirror textarea {
+  font-family: inherit !important;
+  font-size: inherit !important;
+}
+
+.CodeMirror-cursor {
+  z-index: 10;
+  position: absolute;
+  visibility: hidden;
+  border-left: 1px solid black !important;
+}
+.CodeMirror-focused .CodeMirror-cursor {
+  visibility: visible;
+}
+
+span.CodeMirror-selected {
+  background: #ccc !important;
+  color: HighlightText !important;
+}
+.CodeMirror-focused span.CodeMirror-selected {
+  background: Highlight !important;
+}
+
+.CodeMirror-matchingbracket {color: white; background-color: #6e7b84; !important;}
+.CodeMirror-nonmatchingbracket {color: red; !important;}
+
+.cm-s-default span.cm-keyword {color: #5697b3;}
+.cm-s-default span.cm-atom {color: #219;}
+.cm-s-default span.cm-number {color: #164;}
+.cm-s-default span.cm-def {color: #05a;}
+.cm-s-default span.cm-variable {color: black;}
+.cm-s-default span.cm-variable-2 {color: #05a;}
+.cm-s-default span.cm-variable-3 {color: #0a5;}
+.cm-s-default span.cm-property {color: black;}
+.cm-s-default span.cm-operator {color: black;}
+.cm-s-default span.cm-comment {color: #666;}
+.cm-s-default span.cm-string {color: #a11;}
+.cm-s-default span.cm-meta {color: #555;}
+.cm-s-default span.cm-error {color: #f00;}
+.cm-s-default span.cm-qualifier {color: #555;}
+.cm-s-default span.cm-builtin {color: #30a;}
+.cm-s-default span.cm-bracket {color: #cc7;}
+.cm-s-default span.cm-tag {color: #170;}
+.cm-s-default span.cm-attribute {color: #00c;}
+
+
 @font-face { 
 	font-family: 'Aller Light'; src: url('fonts/Aller_Lt.ttf') format('truetype'); 
 }
@@ -49,43 +147,6 @@ h4 {
 ul, li {
   list-style-type: none;
 }
-code {
-  font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace !important;
-}
-code .string, code .regexp {
-  color: #39532d;
-}
-code .keyword {
-  font-weight: bold;
-}
-code .comment {
-  color: rgba(0, 0, 0, 0.5);
-}
-code .number {
-  color: #a33d29;
-}
-code .class, code .special {
-  color: rgba(0, 50, 100, 0.8);
-}
-pre {
-  padding: 0 30px;
-  text-wrap: wrap;
-  white-space: pre-wrap;
-  /* css-3 */
-
-  white-space: -moz-pre-wrap;
-  /* Mozilla, since 1999 */
-
-  white-space: -pre-wrap;
-  /* Opera 4-6 */
-
-  white-space: -o-pre-wrap;
-  /* Opera 7 */
-
-  word-wrap: break-word;
-  /* Internet Explorer 5.5+ */
-
-}
 blockquote {
   font-style: italic;
 }
@@ -118,6 +179,7 @@ nav a:hover, #dropdown li:hover {
 .content {
   margin: 0 auto;
   width: 960px;
+	overflow: hidden;
 }
 #menu {
   position: absolute;
@@ -202,19 +264,9 @@ hr {
   color: #2a2522;
   background-color: #d6d4ca;
 }
-#main pre,
-#about pre,
-#docs pre,
-#main code,
-#about code,
-#docs code {
-  border-color: #9fc653;
-  background-color: #f4f9ec;
-}
 #main #intro, #about .content, #docs .content {
   background-color: #ebebeb;
 	font-family: 'Aller';
-	font-size: 100px;
 	color: #333;
   box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.5);
@@ -223,6 +275,7 @@ hr {
 
 #main #product {
 	margin-top: 100px;
+	font-size: 100px;
 	color: #666;
   text-shadow: 2px 2px 0 #fff;
 }
@@ -303,6 +356,53 @@ hr {
   border-top: 0;
 }
 
+.sandbox {
+	height: 400px;
+	width: 1200px;
+	position: relative;
+}
+
+.sandbox .CodeMirror {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	right: 0px;
+	left: 0px;
+}
+
+.sandbox .html, .sandbox .js, .sandbox .json, .sandbox .result {
+	position: absolute;	
+	border: 1px solid #999;
+}
+
+.sandbox .js {
+	top: 0px;
+	right: 65%;
+	left: 0px;
+	bottom: 0px;
+}
+
+.sandbox .json {
+	top: 0px;
+	left: 36%;
+	right: 36%;
+	bottom: 52%;
+}
+
+.sandbox .html {
+	top: 52%;
+	left: 36%;
+	right: 36%;
+	bottom: 0px;
+}
+
+.sandbox .result {
+	top: 0px;
+	right: 0px;
+	left: 65%;
+	bottom: 0px;
+}
+
 #synopsis,
 #docs,
 #reference,
@@ -322,42 +422,12 @@ hr {
   width: 870px;
   padding: 45px;
 }
-#synopsis code,
-#docs code,
-#reference code,
-#about code,
-#installing code {
-  font-size: 16px;
-}
 #synopsis p,
 #docs p,
 #reference p,
 #about p,
 #installing p {
   line-height: 26px;
-}
-#synopsis pre,
-#docs pre,
-#reference pre,
-#about pre,
-#installing pre,
-#synopsis p > code,
-#docs p > code,
-#reference p > code,
-#about p > code,
-#installing p > code {
-  padding: 0 3px;
-  border-width: 1px;
-  border-style: dashed;
-}
-#synopsis pre,
-#docs pre,
-#reference pre,
-#about pre,
-#installing pre {
-  padding: 15px;
-  margin: 15px 0;
-  font-size: 16px;
 }
 #synopsis h1,
 #docs h1,
@@ -381,25 +451,7 @@ hr {
 #docs p + h2,
 #reference p + h2,
 #about p + h2,
-#installing p + h2,
-#synopsis pre + h2,
-#docs pre + h2,
-#reference pre + h2,
-#about pre + h2,
-#installing pre + h2,
-#synopsis code + h2,
-#docs code + h2,
-#reference code + h2,
-#about code + h2,
-#installing code + h2 {
-  border-top: 6px solid rgba(255, 255, 255, 0.1);
-  padding-top: 30px;
-}
-#synopsis pre + h3,
-#docs pre + h3,
-#reference pre + h3,
-#about pre + h3,
-#installing pre + h3 {
+#installing p + h2 {
   margin-top: 30px;
 }
 #synopsis h3,
@@ -410,11 +462,7 @@ hr {
   margin: 15px 0;
 }
 #about p + h2,
-#docs p + h2,
-#about pre + h2,
-#docs pre + h2,
-#about code + h2,
-#docs code + h2 {
+#docs p + h2 {
   border-top: 6px solid rgba(0, 0, 0, 0.1);
 }
 #about hr, #docs hr {
@@ -432,20 +480,8 @@ hr {
   -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
 }
-#installing pre {
-  background-color: #eaf2d9;
-  border-color: #b9b90e;
-}
-#installing p + h2, #installing pre + h2, #installing code + h2 {
-  border-top-color: rgba(0, 0, 0, 0.1);
-}
 td {
   padding-right: 30px;
-}
-#synopsis pre {
-  padding: 20px;
-  line-height: 18px;
-  font-size: 14px;
 }
 
 #synopsis h1 {
@@ -462,35 +498,6 @@ td {
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
   -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
-}
-#reference pre,
-#synopsis pre,
-#reference p > code,
-#synopsis p > code {
-  background-color: #191919;
-  border-color: #f9f9b3;
-}
-#reference code .string,
-#synopsis code .string,
-#reference code .regexp,
-#synopsis code .regexp {
-  color: #b5c587;
-}
-#reference code .keyword, #synopsis code .keyword {
-  color: #c2a770;
-  font-weight: normal;
-}
-#reference code .comment, #synopsis code .comment {
-  color: rgba(255, 255, 255, 0.2);
-}
-#reference code .number, #synopsis code .number {
-  color: #a33d29;
-}
-#reference code .class,
-#synopsis code .class,
-#reference code .special,
-#synopsis code .special {
-  color: #669199;
 }
 #reference a, #synopsis a {
   color: #fbfbcb;

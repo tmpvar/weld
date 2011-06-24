@@ -1,9 +1,6 @@
 <html><head>
 
   <link charset="utf-8" title="no title" media="screen" type="text/css" href="index.css" rel="stylesheet">
-  
-  <script charset="utf-8" type="text/javascript" src="index.js"></script>
-  
   <link href="/index.xml" title="app - feed" type="application/atom+xml" rel="alternate"><meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
   <title>weld.js, templating antimatter</title></head>  
    
@@ -103,114 +100,58 @@ vows.describe('Division by Zero').addBatch({
   <div class="content"> 
       <h1>Guide</h1> 
  
-<p>To understand Vows, we’re going to start with a general overview of the different components involved in writing tests,
-and then go through some of them in more detail.</p> 
- 
-<h2 id="-structure-of-a-test-suite">Structure of a test suite</h2> 
- 
-<p>Test suites in Vows are the largest unit of tests. The convention is to have one test suite
-per file, and have the suite’s subject match the file name. Test suites are created with <code>vows.describe</code>.</p> 
- 
-<pre><code>var suite = vows.describe('subject');
-</code></pre> 
- 
-<p>Tests are added to suites in <em>batches</em>. This is done with the <code>addBatch</code> method.</p> 
- 
-<pre><code>suite.addBatch({});
-</code></pre> 
- 
-<p>You can add as many batches to a suite as you want. Batches are executed <em>sequentially</em>.</p> 
- 
-<pre><code>suite.addBatch({/* run 1st */}).addBatch({/* 2nd */}).addBatch({/* 3rd */});
-</code></pre> 
- 
-<p>Chaining batches is useful when you want to test functionality in a certain order.</p> 
- 
-<p>Batches contain <em>contexts</em>, which describe different components and states you want to test.</p> 
- 
-<pre><code>suite.addBatch({
-   'A context': {},
-   'Another context': {}
-});
-</code></pre> 
- 
-<p>Contexts are executed <em>in parallel</em>, they are fully asynchronous. The order in which they finish is therefore undefined.</p> 
- 
-<p>Contexts usually contain <em>topics</em> and <em>vows</em>, which in combination define your tests.</p> 
- 
-<pre><code>suite.addBatch({
-   'A context': {
-        topic: function () {/* Do something async */},
-        'I am a vow': function (topic) {
-            /* Test the result of the topic */
-        }
-    },
-   'Another context': {}
-});
-</code></pre> 
- 
-<p>Contexts can contain <em>sub-contexts</em> which get executed as soon as the parent context finishes:</p> 
- 
-<pre><code>suite.addBatch({
-   'A context': {
-       topic: function () {/* Do something async */},
-       'I am a vow': function (topic) {
-           /* Test the result of the topic */
-       },
-       'A sub-context': {
-           /* Executed when the tests above finish running */
-       }
-   },
-   'Another context': {
-       /* Executed in parallel to 'A context' */
+<h2 id="-structure-of-a-test-suite">Repeating data</h2> 
+
+<div class="sandbox">
+  <div class="js">
+
+<textarea id="codeSample1" name="codeSample1">
+weld($('.contact', container)[0], data, { 
+  alias: { 
+    name : function(parent, element, key, value) { 
+      // Sanity
+      test.ok(key === 'name');
+
+      return $('.foo', element)[0];
     }
+  }
 });
-</code></pre> 
- 
-<h3>Summary</h3> 
- 
-<p>» A <em>Suite</em> is an object which contains zero or more <em>batches</em>, and can be executed or exported.</p> 
- 
-<p>» A <em>batch</em> is an object literal, representing a structure of nested <em>contexts</em>.</p> 
- 
-<p>» A <em>context</em> is an object with an optional <em>topic</em>, zero or more <em>vows</em> and zero or more <em>sub-contexts</em>.</p> 
- 
-<p>» A <em>topic</em> is either a value or a function which can execute asynchronous code.</p> 
- 
-<p>» A <em>vow</em> is a function which receives the <em>topic</em> as an argument, and runs assertions on it.</p> 
- 
-<p>With that in mind, we can imagine the following grammar:</p> 
- 
-<pre><code>Suite   → Batch*
-Batch   → Context*
-Context → Topic? Vow* Context*
-</code></pre> 
- 
-<p>Here’s an annotated example:</p> 
- 
-<pre><code>vows.describe('Array').addBatch({                      // Batch
-    'An array': {                                      // Context
-        'with 3 elements': {                           // Sub-Context
-            topic: [1, 2, 3],                          // Topic
- 
-            'has a length of 3': function (topic) {    // Vow
-                assert.equal(topic.length, 3);
-            }
-        },
-        'with zero elements': {                        // Sub-Context
-            topic: [],                                 // Topic
- 
-            'has a length of 0': function (topic) {    // Vow
-                assert.equal(topic.length, 0);
-            },
-            'returns *undefined*, when `pop()`ed': function (topic) {
-                assert.isUndefined(topic.pop());
-            }
-        }
-    }
-});
-</code></pre> 
- 
+</textarea>
+
+  </div>
+  <div class="html">
+
+<textarea id="htmlSample1" name="htmlSample1">
+<ul class="contacts" style="display: none">
+  <li class="contact">
+    <span class="name">My Name</span>
+    <p class="title">Leet Developer</p>
+  </li>
+</ul>
+</textarea>
+
+  </div>
+  <div class="json">
+    
+<textarea id="jsonSample1" name="jsonSample1">
+[
+  { 
+    "name": "hij1nx",
+    "title": "code exploder"
+  },
+  { 
+    "name": "tmpvar", 
+    "title": "code pimp"
+  }
+]
+</textarea>
+
+    
+  </div>
+  <div class="result"></div>
+</div>
+
+
 <h2 id="-how-topics-work">How topics work</h2> 
  
 <p>Understanding <em>topics</em> is one of the keys to understanding Vows. Unlike other testing frameworks,
@@ -819,8 +760,12 @@ assert.doesNotThrow(function () { 1 + 1 }, Error);
   </div> 
 </section> 
  
-    </section> 
-    <script src="/js/hijs.js"></script> 
-   
+<a href="http://github.com/hij1nx/weld"> 
+  <img alt="Fork me on GitHub" src="img/forkme_left_blueish_ff7600.png" style="position: absolute; z-index: 5; top: 0; left: 0; border: 0;"> 
+</a>
  
-</body></html>
+<script src="codemirror.js" type="text/javascript" charset="utf-8"></script>
+<script charset="utf-8" type="text/javascript" src="index.js"></script> 
+
+</body>
+</html>
