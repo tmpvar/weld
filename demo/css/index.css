@@ -131,7 +131,7 @@ a {
   text-decoration: none;
 }
 h1 a {
-  color: black;
+  color: #333;
   text-decoration: none;
 }
 a:hover {
@@ -373,6 +373,8 @@ hr {
 .sandbox .html, .sandbox .js, .sandbox .json, .sandbox .result {
 	position: absolute;	
 	border: 1px solid #999;
+	border-radius: 4px 4px 4px 4px;
+	overflow: hidden;
 }
 
 .sandbox .js {
@@ -429,13 +431,11 @@ hr {
 #installing p {
   line-height: 26px;
 }
-#synopsis h1,
-#docs h1,
-#reference h1,
-#about h1,
-#installing h1 {
+h1 {
+	color: #666;
+	text-shadow: 0 1px 0px #111;
   font-size: 48px;
-  font-family: 'Lobster';
+  font-family: 'Aller';
   margin-top: 15px;
   margin-bottom: 30px;
 }
@@ -444,7 +444,7 @@ hr {
 #reference h2,
 #about h2,
 #installing h2 {
-  font-family: 'Droid Serif', 'Georgia', serif;
+  font-family: 'Aller', serif;
   margin: 30px 0;
 }
 #synopsis p + h2,
@@ -484,9 +484,6 @@ td {
   padding-right: 30px;
 }
 
-#synopsis h1 {
-	 text-shadow: 0 1px 0px #111;
-}
 #reference, #synopsis {
   color: #666;
 	font-family: 'Aller';
