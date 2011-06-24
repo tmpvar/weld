@@ -268,13 +268,17 @@ hr {
   background-color: #ebebeb;
 	font-family: 'Aller';
 	color: #333;
-  box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 0px 26px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 1px 0px 26px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 1px 0px 26px rgba(0, 0, 0, 0.5);
+}
+
+#main #intro {
+		border-radius: 4px;
 }
 
 #main #product {
-	margin-top: 100px;
+	margin-top: 115px;
 	font-size: 100px;
 	color: #666;
   text-shadow: 2px 2px 0 #fff;
@@ -347,6 +351,7 @@ hr {
   float: left;
 	text-align: center;
   margin-top: 20px;
+	margin-left: 22px;
   height: 384px;
   position: relative;
   z-index: 2;
