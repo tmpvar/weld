@@ -69,10 +69,39 @@
  
 <h2 id="-structure-of-a-test-suite">Repeating data</h2> 
 
-<div class="sandbox">
-  <div class="js">
+              <div class="panels">
+                <div class="panel json">
+                <div class="label">JSON</div>
 
-<textarea id="codeSample1" name="codeSample1">
+<textarea id="jsonSample1" name="jsonSample1">
+[
+  {
+    "name": "hij1nx",
+    "title": "code exploder"
+  },
+  {
+    "name": "tmpvar",
+    "title": "code pimp"
+  }
+]
+</textarea>
+                </div>
+                <div class="panel html">
+                <div class="label">HTML</div>
+                
+<textarea id="htmlSample1" name="htmlSample1">
+  <ul class="contacts" style="display: none">
+    <li class="contact">
+      <span class="name">My Name</span>
+      <p class="title">Leet Developer</p>
+    </li>
+  </ul>
+</textarea>        
+                </div>
+                <div class="panel js">
+                <div class="label">Javascript</div>
+                
+<textarea id="jsSample1" name="jsSample1">
 weld($('.contact', container)[0], data, { 
   alias: { 
     name : function(parent, element, key, value) { 
@@ -83,12 +112,13 @@ weld($('.contact', container)[0], data, {
     }
   }
 });
-</textarea>
-
-  </div>
-  <div class="html">
-
-<textarea id="htmlSample1" name="htmlSample1">
+</textarea>        
+                </div>
+                <div class="panel result">
+                  <div class="label">Result</div>
+                  <div class="toggle">Render</div>
+                  
+<textarea id="resultSample1" name="jsSample1">
 <ul class="contacts" style="display: none">
   <li class="contact">
     <span class="name">My Name</span>
@@ -96,27 +126,8 @@ weld($('.contact', container)[0], data, {
   </li>
 </ul>
 </textarea>
-
-  </div>
-  <div class="json">
-    
-<textarea id="jsonSample1" name="jsonSample1">
-[
-  { 
-    "name": "hij1nx",
-    "title": "code exploder"
-  },
-  { 
-    "name": "tmpvar", 
-    "title": "code pimp"
-  }
-]
-</textarea>
-
-    
-  </div>
-  <div class="result"></div>
-</div>
+                </div>
+              </div>
 
 
 <h2 id="-how-topics-work">How topics work</h2> 
@@ -731,6 +742,7 @@ assert.doesNotThrow(function () { 1 + 1 }, Error);
   <img alt="Fork me on GitHub" src="img/forkme_left_blueish_ff7600.png" style="position: absolute; z-index: 5; top: 0; left: 0; border: 0;"> 
 </a>
  
+<script src="demo/js/jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src="demo/js/codemirror.js" type="text/javascript" charset="utf-8"></script>
 <script charset="utf-8" type="text/javascript" src="demo/js/index.js"></script> 
 
