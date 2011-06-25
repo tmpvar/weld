@@ -380,7 +380,10 @@
       $('.panel.js').animate({ 'left': '80%'}, 300);
       $('.panel.result').animate({ 'left': '90%'}, 300, function() {
         $('.panel.json .CodeMirror-scroll').css('overflow', 'auto');
-      });      
+      });    
+      
+      $('.panel.result .toggle, .panel.result .render').fadeOut();
+        
     }, 10);
   });
   
@@ -392,6 +395,9 @@
       $('.panel.result').animate({ 'left': '90%'}, 300, function() {
         $('.panel.html .CodeMirror-scroll').css('overflow', 'auto');
       });
+
+      $('.panel.result .toggle, .panel.result .render').fadeOut();
+
     }, 10);      
   });
   
@@ -403,6 +409,9 @@
       $('.panel.result').animate({ 'left': '90%'}, 300, function() {
         $('.panel.js .CodeMirror-scroll').css('overflow', 'auto');
       });
+      
+      $('.panel.result .toggle, .panel.result .render').fadeOut();
+      
     }, 10);
   });  
 
@@ -414,6 +423,9 @@
       $('.panel.result').animate({ 'left': '30%'}, 300, function() {
         $('.panel.result .CodeMirror-scroll').css('overflow', 'auto');
       });
+      
+      $('.panel.result .toggle, .panel.result .render').fadeIn();
+      
     }, 10);
   });
 
@@ -424,13 +436,17 @@
   $('.toggle').toggle(
     function() {
       $('.panel.result .CodeMirror').fadeOut();
-      $('.toggle').addClass('toggleOn').text('HTML');
+      $('.toggle').addClass('depressed').text('Code');
     }, 
     function() {
       $('.panel.result .CodeMirror').fadeIn();
-      $('.toggle').removeClass('toggleOn').text('Render');
+      $('.toggle').removeClass('depressed').text('Preview');
     }
   );
+  
+  $('.render').click(function() {
+    // do the weld.
+  })
 
   if (document.querySelectorAll) {
     window.onload = function () {

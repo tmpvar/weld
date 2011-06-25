@@ -427,8 +427,10 @@
     }, 
     function() {
       $('.panel.result .CodeMirror').fadeIn();
-      $('.toggle').removeClass('toggleOn').text('Render');
+      $('.toggle').removeClass('toggleOn').text('PREVIEW');
     }
   );
+  
+  $('')
   
 }();
