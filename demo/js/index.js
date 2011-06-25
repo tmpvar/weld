@@ -436,16 +436,34 @@
   $('.toggle').toggle(
     function() {
       $('.panel.result .CodeMirror').fadeOut();
-      $('.toggle').addClass('depressed').text('Code');
+      $('.toggle').addClass('depressed');
     }, 
     function() {
       $('.panel.result .CodeMirror').fadeIn();
-      $('.toggle').removeClass('depressed').text('Preview');
+      $('.toggle').removeClass('depressed');
     }
   );
   
-  $('.render').click(function() {
-    // do the weld.
+  var bounce = null;
+  
+  $('.CodeMirror').keyup(function() {
+    clearTimeout(bounce);
+    bounce = setTimeout(function() {
+    
+      var json = $('.json .CodeMirror-lines', this).text();
+      var html = $('.html .CodeMirror-lines', this).text();
+      var js = $('.js .CodeMirror-lines', this).text();
+    
+      try {
+
+      }
+      catch(ex) {
+        
+      }
+    
+      
+    }, 200);
+    
   })
 
   if (document.querySelectorAll) {
