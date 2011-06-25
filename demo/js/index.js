@@ -639,7 +639,7 @@
     });
   }).mouseleave(function() {
     $('.panel').stop(true);
-    $('.CodeMirror-scroll', this).css('overflow', 'hidden');  
+    $('.CodeMirror-scroll', this).css('overflow', 'hidden');
   });
 
   $('.toggle').toggle(
@@ -656,22 +656,31 @@
   var bounce = null;
   
   $('.CodeMirror').keyup(function() {
+    var that = $(this);
     clearTimeout(bounce);
     bounce = setTimeout(function() {
-    
-      var json = $('.json .CodeMirror-lines', this).text();
-      var html = $('.html .CodeMirror-lines', this).text();
-      var js = $('.js .CodeMirror-lines', this).text();
-    
-      try {
+      var parent = that.parents('.panels:first');
+      var rawJson = $('.json .CodeMirror-lines', parent).text();
+      var rawHtml = $('.html .CodeMirror-lines', parent).text();
+      var rawJs = $('.js .CodeMirror-lines', parent).text();
 
+      try {
+        // Create an iframe and inject jquery/weld
+        var iframe = $('#sandbox');
+      
+        iframe.ready(function() {
+          var body = iframe.contents().find('body');
+          body.html(rawHtml);
+          body.append('<script type="text/javsacript">' + rawJs + '</script>');
+          console.log(body);
+        });
       }
       catch(ex) {
-        
+        console.log(ex.stack);
       }
     
       
-    }, 200);
+    }, 0);
     
   })
 
