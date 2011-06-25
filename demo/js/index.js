@@ -370,69 +370,42 @@
     lineNumbers: true,
     matchBrackets: true
   });
-  
-  var bounce = null;
-  
-  $('.panel.json').mouseenter(function() {
-    clearTimeout(bounce);
-    bounce = setTimeout(function() {
-      $('.panel.html').animate({ 'left': '70%'}, 300);
-      $('.panel.js').animate({ 'left': '80%'}, 300);
-      $('.panel.result').animate({ 'left': '90%'}, 300, function() {
-        $('.panel.json .CodeMirror-scroll').css('overflow', 'auto');
-      });    
-      
-      $('.panel.result .toggle, .panel.result .render').fadeOut();
-        
-    }, 10);
-  });
-  
-  $('.panel.html').mouseenter(function() {
-    clearTimeout(bounce);
-    bounce = setTimeout(function() {
-      $('.panel.html').animate({ 'left': '10%'}, 300);
-      $('.panel.js').animate({ 'left': '80%'}, 300);
-      $('.panel.result').animate({ 'left': '90%'}, 300, function() {
-        $('.panel.html .CodeMirror-scroll').css('overflow', 'auto');
-      });
 
-      $('.panel.result .toggle, .panel.result .render').fadeOut();
 
-    }, 10);      
-  });
-  
-  $('.panel.js').mouseenter(function() {
-    clearTimeout(bounce);
-    bounce = setTimeout(function() {
-      $('.panel.html').animate({ 'left': '10%'}, 300);
-      $('.panel.js').animate({ 'left': '20%'}, 300);
-      $('.panel.result').animate({ 'left': '90%'}, 300, function() {
-        $('.panel.js .CodeMirror-scroll').css('overflow', 'auto');
-      });
-      
-      $('.panel.result .toggle, .panel.result .render').fadeOut();
-      
-    }, 10);
-  });  
+  var percentageShown = 10;
+  $('.panel').mouseenter(function() {
+    $('.panel').stop(true);
 
-  $('.panel.result').mouseenter(function() {
-    clearTimeout(bounce);
-    bounce = setTimeout(function() {
-      $('.panel.html').animate({ 'left': '10%'}, 300);
-      $('.panel.js').animate({ 'left': '20%'}, 300);
-      $('.panel.result').animate({ 'left': '30%'}, 300, function() {
+    var
+    el       = $(this),
+    siblings = el.siblings().andSelf(),
+    passed   = false,
+    largest  = 100 - siblings.length*percentageShown,
+    current  = 0;
+
+    if (el.hasClass('result')) {
+      el.find('.toggle').fadeIn();
+    } else {
+      el.parent().find('.result .toggle').fadeOut();
+    }
+
+    siblings.each(function(index) {
+
+      $(this).animate({ 'left': current + '%' }, 300, function() {
         $('.panel.result .CodeMirror-scroll').css('overflow', 'auto');
       });
-      
-      $('.panel.result .toggle, .panel.result .render').fadeIn();
-      
-    }, 10);
-  });
 
-  $('.panel').mouseleave(function() {
+      if (this === el[0]) {
+        current += largest;
+      } else {
+        current += percentageShown;
+      }
+    });
+  }).mouseleave(function() {
+    $('.panel').stop(true);
     $('.CodeMirror-scroll', this).css('overflow', 'hidden');  
   });
-  
+
   $('.toggle').toggle(
     function() {
       $('.panel.result .CodeMirror').fadeOut();
