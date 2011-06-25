@@ -73,7 +73,7 @@
                 <div class="panel json">
                 <div class="label">JSON</div>
 
-<textarea id="jsonSample1" name="jsonSample1">
+<textarea class="jsonEditor">
 [
   {
     "name": "hij1nx",
@@ -89,7 +89,7 @@
                 <div class="panel html">
                 <div class="label">HTML</div>
                 
-<textarea id="htmlSample1" name="htmlSample1">
+<textarea class="htmlEditor">
   <ul class="contacts" style="display: none">
     <li class="contact">
       <span class="name">My Name</span>
@@ -101,7 +101,7 @@
                 <div class="panel js">
                 <div class="label">Script</div>
                 
-<textarea id="jsSample1" name="jsSample1">
+<textarea class="jsEditor">
 weld($('.contact', container)[0], data, { 
   alias: { 
     name : function(parent, element, key, value) { 
@@ -118,7 +118,7 @@ weld($('.contact', container)[0], data, {
                   <div class="label">Result</div>
                   <button class="toggle">Preview</button>
 
-<textarea id="resultSample1" name="jsSample1">
+<textarea class="resultEditor">
 <ul class="contacts" style="display: none">
   <li class="contact">
     <span class="name">My Name</span>
@@ -132,73 +132,67 @@ weld($('.contact', container)[0], data, {
 
 <h2 id="-how-topics-work">How topics work</h2> 
  
-<p>Understanding <em>topics</em> is one of the keys to understanding Vows. Unlike other testing frameworks,
-Vows forces a clear separation between the element which is tested, the <em>topic</em>, and the actual tests, the <em>vows</em>.</p> 
  
-<p>Let’s start with a simple example of a context:</p> 
- 
-<pre><code>{ topic: 42,
-  'should be equal to 42': function (topic) {
-    assert.equal (topic, 42);
-  }
-}
-</code></pre> 
- 
-<p>So this shows us that the value of the topic is passed down to our test function (refered to as a <em>vow</em> from now on) as an argument.
-Simple enough. Now let’s look at an equivalent example, written differently:</p> 
- 
-<pre><code>{ topic: function () { return 42 },
-  'should be equal to 42': function (topic) {
-    assert.equal (topic, 42);
-  }
-}
-</code></pre> 
- 
-<p>Same thing. Topics can be functions too. The return value becomes the topic. Now what if we have multiple vows?</p> 
- 
-<pre><code>{ topic: function () { return 42 },
-  'should be a number': function (topic) {
-    assert.isNumber (topic);
-  },
-  'should be equal to 42': function (topic) {
-    assert.equal (topic, 42);
-  }
-}
-</code></pre> 
- 
-<p>It works as expected, the value is passed down to each <em>vow</em>. Note that the topic function is <strong>only run once</strong>.</p> 
- 
-<h3>Scope</h3> 
- 
-<p>Sometimes, you might need a parent topic’s value, from inside a child topic. This is easy, because there is
-a notion of topic <em>scope</em>. Let’s look at an example:</p> 
- 
-<pre><code>{ topic: new(DataStore),
-  'should respond to `get()` and `put()`': function (store) {
-    assert.isFunction (store.get);
-    assert.isFunction (store.put);
-  },
-  'calling `get(42)`': {
-    topic: function (store) { return store.get(42) },
-    'should return the object with id 42': function (topic) {
-      assert.equal (topic.id, 42);
-    }
-  }
-}
-</code></pre> 
- 
-<p>In the example above, the value of the top-level topic is passed as an argument to the inner topic, in the same manner
-it’s passed to the vows. For clarity, I named both arguments which refer to the outer topic as <code>store</code>.</p> 
- 
-<p>Note that the scoping isn’t limited to a single level. Consider:</p> 
- 
-<pre><code>topic: function (a, /* Parent topic                     */
-                 b, /* Parent of parent topic           */
-                 c  /* Parent of parent of parent topic */) {}
-</code></pre> 
- 
-<p>So the parent topics are passed along to each topic function in the certain order: the immediate parent is always the first
-argument (<code>a</code>), and the outer topics follow (<code>b</code>, then <code>c</code>), like the layers of an onion.</p> 
+               <div class="panels">
+                 <div class="panel json">
+                 <div class="label">JSON</div>
+
+ <textarea class="jsonEditor">
+ [
+   {
+     "name": "hij1nx",
+     "title": "code exploder"
+   },
+   {
+     "name": "tmpvar",
+     "title": "code pimp"
+   }
+ ]
+ </textarea>
+                 </div>
+                 <div class="panel html">
+                 <div class="label">HTML</div>
+
+ <textarea class="htmlEditor">
+   <ul class="contacts" style="display: none">
+     <li class="contact">
+       <span class="name">My Name</span>
+       <p class="title">Leet Developer</p>
+     </li>
+   </ul>
+ </textarea>        
+                 </div>
+                 <div class="panel js">
+                 <div class="label">Script</div>
+
+ <textarea class="jsEditor">
+ weld($('.contact', container)[0], data, { 
+   alias: { 
+     name : function(parent, element, key, value) { 
+       // Sanity
+       test.ok(key === 'name');
+
+       return $('.foo', element)[0];
+     }
+   }
+ });
+ </textarea>        
+                 </div>
+                 <div class="panel result">
+                   <div class="label">Result</div>
+                   <button class="toggle">Preview</button>
+
+ <textarea class="resultEditor">
+ <ul class="contacts" style="display: none">
+   <li class="contact">
+     <span class="name">My Name</span>
+     <p class="title">Leet Developer</p>
+   </li>
+ </ul>
+ </textarea>
+                 </div>
+               </div>
+
  
 <h2 id="-running-a-suite">Running a suite</h2> 
  

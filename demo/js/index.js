@@ -578,28 +578,35 @@
   // CodeMirror.defineMIME("text/javascript", "javascript");
   // CodeMirror.defineMIME("application/json", {name: "javascript", json: true});
 
-  var jsonSample1 = CodeMirror.fromTextArea(document.getElementById("jsonSample1"), {
-    lineNumbers: true,
-    matchBrackets: true,
-    mode: { name: "javascript", htmlMode: false }
+  $(".jsonEditor").each(function() {
+    CodeMirror.fromTextArea(this, {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: { name: "javascript", htmlMode: false }
+    });
   });
 
-  var htmlSample1 = CodeMirror.fromTextArea(document.getElementById("htmlSample1"), {
-    mode: { name: "xml", htmlMode: true }
+  $(".htmlEditor").each(function() {
+    CodeMirror.fromTextArea(this, {
+      mode: { name: "xml", htmlMode: true }
+    });
   });
   
-  var jsSample1 = CodeMirror.fromTextArea(document.getElementById("jsSample1"), {
-    lineNumbers: true,
-    matchBrackets: true,
-    mode: { name: "javascript", htmlMode: false }
+  $(".jsEditor").each(function() {
+    CodeMirror.fromTextArea(this, {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: { name: "javascript", htmlMode: false }
+    });
   });
   
-  var resultSample1 = CodeMirror.fromTextArea(document.getElementById("resultSample1"), {
-    lineNumbers: true,
-    matchBrackets: true,
-    mode: { name: "xml", htmlMode: true }
+  $(".resultEditor").each(function() {
+    CodeMirror.fromTextArea(this, {
+      lineNumbers: true,
+      matchBrackets: true,
+      mode: { name: "xml", htmlMode: true }
+    });
   });
-
 
   var percentageShown = 10;
   $('.panel').mouseenter(function() {
