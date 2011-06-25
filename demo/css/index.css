@@ -68,15 +68,15 @@
 }
 
 .json .CodeMirror-scroll {
-	width: 69.5%;
+	width: 59.5%;
 }
 
 .html .CodeMirror-scroll {
-	width: 77%;
+	width: 66%;
 }
 
 .js .CodeMirror-scroll {
-	width: 87%;
+	width: 74.5%;
 }
 
 .toggle, .render {
