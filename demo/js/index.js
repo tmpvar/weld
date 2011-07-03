@@ -667,12 +667,12 @@
       try {
         // Create an iframe and inject jquery/weld
         var iframe = $('#sandbox');
-      
+
         iframe.ready(function() {
           var body = iframe.contents().find('body');
           body.html(rawHtml);
-          body.append('<script type="text/javsacript">' + rawJs + '</script>');
-          console.log(body);
+          body.append('<sc'  + 'ript type="text/javsacript">' + rawJson + ';' + rawJs + '</scr' + 'ipt>');
+          console.log(body.html());
         });
       }
       catch(ex) {
