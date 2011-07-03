@@ -1,7 +1,7 @@
 var jsdom    =   require('jsdom')
     ,path     =   require("path")
     ,jqpath   =   path.join(__dirname, 'vendor', 'jquery.js')
-    ,wpath      = require('weld').filepath;
+    ,wpath      = require(__dirname + '/../lib/weld').filepath;
 
 module.exports = function (name, fn) {
     jsdom.env(path.join(__dirname, 'test.html'), [jqpath, wpath], function(errors, window) {

@@ -105,21 +105,18 @@ Using JSDOM, we can easily create a DOM, load some libraries and read a file. Le
       var fs    = require('fs'),
           jsdom = require('jsdom');
 
-      jsdom.env({
-        code: [
-          '/../lib/jquery.js',
-          require('weld').filepath
-        ],
-        html: '/../files/contexts.html'
-      },
-      function(errors, window) {
+      jsdom.env(
+        './test.html', 
+        ['./jquery.js', './weld.js'],
+        function(errors, window) {
 
-        var data = [{ name: 'hij1nx',  title : 'code slayer' },
-                    { name: 'tmpvar', title : 'code pimp' }];
+          var data = [{ name: 'hij1nx',  title : 'code slayer' },
+                      { name: 'tmpvar', title : 'code pimp' }];
 
-        window.weld(window.$('.contact')[0], data);
+          window.weld(window.$('.contact')[0], data);
 
-      });
+        }
+      );
 
 Here is the corresponding markup that our script above will load...
 
@@ -227,7 +224,7 @@ Weld will automatically import the nodes into the proper document (dest.html)...
       jsdom.env(path.join(__dirname, 'files', 'source.html'), function(serrs, sw) {
         var sources = sw.document.getElementsByTagName("span");
 
-        jsdom.env(path.join(__dirname, 'files', 'dest.html'),[jqpath, wpath], function(errors, window) {
+        jsdom.env(path.join(__dirname, 'files', 'dest.html'), [jqpath, wpath], function(errors, window) {
 
           var $ = window.jQuery;
 
@@ -314,14 +311,22 @@ Debugging recursive data can be a real pain. With the `debug` option, you can se
     };
 
 
-## Credits
-developed by [hij1nx][2] and [tmpvar][3]
-
 If you want to learn more about JSDOM, go [here][1] it's an awesome project.
 
 ## Version
-0.2.0
+0.2.1
+
+## Licence
+
+(The MIT License)
+
+Copyright (c) 2011 hij1nx <http://www.twitter.com/hij1nx>, tmpvar <http://www.twitter.com/tmpvar>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 
 [1]: https://github.com/tmpvar/jsdom
-[2]: http://twitter.com/hij1nx
-[3]: http://twitter.com/tmpvar
