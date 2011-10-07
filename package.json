@@ -4,7 +4,7 @@
   "description": "Template antimatter for javascript",
   "keywords": ["templates", "templating", "jsdom", "unobtrusive"],
   "author" : "hij1nx <hij1nx@gmail.com> http://twitter.com/hij1nx",
-  "contributers" : [
+  "contributors" : [
     "Elijah Insua <tmpvar@gmail.com> http://tmpvar.com",
     "Caolan McMahon http://caolanmcmahon.com"
   ],
