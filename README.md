@@ -1,7 +1,7 @@
 ***
 
-# Weld has been deprecated in favor of Plates. (https://github.com/flatiron/plates)
-
+# Weld has been deprecated in favor of my new project, Plates. (https://github.com/flatiron/plates)
+We will continue to maintain and fix issues with the project but will not be adding any new features.
 ***
 
 ![Alt text](https://github.com/hij1nx/weld/raw/master/documentation-assets/github-header.png)<br/>
