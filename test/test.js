@@ -269,7 +269,7 @@
         weld($(template)[0], [
           { where : 'world' }
         ], {
-          map : function(element, k, v) {
+          map : function(parent, element, k, v) {
             return false;
           }
         });
@@ -432,6 +432,52 @@
 
         test.done();
       })
+    },
+    "Test 19: Returning string from map replaces the value with the provided string" : function(test) {
+      getTemplate('null', function(window, weld, $) {
+
+        var template = $('<ul class="list"><li class="item">hello <span class="where">replace this</span><span class="other">other text</span></li></ul>');
+        $('#temp').append(template);
+
+        weld($(template)[0], [
+          {
+              where : 'do not display this',
+              other : 'stuff'
+          }
+        ], {
+          map : function(parent, element, k, v) {
+              if(k == 'where')
+              {
+                  return 'display this instead';
+              }
+            return true;
+          }
+        });
+
+        test.ok($('.where').text() === 'display this instead');
+        test.ok($('.other').text() === 'stuff');
+        test.done();
+
+      });
+    },
+    "Test 20: Returning true from map does not effect value" : function(test) {
+      getTemplate('null', function(window, weld, $) {
+
+        var template = $('<ul class="list"><li class="item">hello <span class="where">replace this</span></li></ul>');
+        $('#temp').append(template);
+
+        weld($(template)[0], [
+          { where : 'display this' }
+        ], {
+          map : function(parent, element, k, v) {
+            return true;
+          }
+        });
+
+        test.ok($('.where').text() === 'display this');
+        test.done();
+
+      });
     }
   };
 }((typeof module === "undefined") ? window : module.exports));
