@@ -32,22 +32,22 @@
         test.ok($('.icon', template).attr('src') === data.icon);
         test.ok($(':input[name="value"]', template).val() === data.value);
         test.done();
-      
+
       });
-    
+
     },
-  
+
     "Test 3: Generate markup based on an element using the alias parameter to explicitly correlate data-keys and elements": function(test) {
-    
+
       getTemplate('contacts-alias', function(window, weld, $, template) {
 
         var data = [{ name: 'hij1nx',  title: 'code exploder' },
                     { name: 'tmpvar', title: 'code pimp' }];
 
-        weld($('.contact', template)[0], data, { 
-          alias: { 
-            'name': 'foo', 
-            'title': 'title' 
+        weld($('.contact', template)[0], data, {
+          alias: {
+            'name': 'foo',
+            'title': 'title'
           }
         });
 
@@ -64,16 +64,16 @@
       });
 
     },
-  
+
     "Test 4: Generate markup based on an element using an (alias w/function) parameter to explicitly correlate data and elements": function(test) {
       getTemplate('contacts-alias', function(window, weld, $, template) {
 
         var data = [{ name: 'hij1nx',  title: 'code exploder' },
                     { name: 'tmpvar', title: 'code pimp' }];
 
-        weld($('.contact', template)[0], data, { 
-          alias: { 
-            'name' : function(parent, element, key, value) { 
+        weld($('.contact', template)[0], data, {
+          alias: {
+            'name' : function(parent, element, key, value) {
               // Sanity
               test.ok(key === 'name');
 
@@ -95,8 +95,8 @@
 
       });
 
-    },  
-  
+    },
+
     "Test 5: Generate markup from an element with an alternate method of insertion": function(test) {
       getTemplate('contacts', function(window, weld, $, template) {
         var
@@ -118,7 +118,7 @@
 
         test.ok($('.contact:nth(0) .title', template).text() == "code pimp");
         test.ok($('.contact:nth(1) .title', template).text() == "code exploder");
-      
+
         test.ok(times === 2);
         test.done();
       });
@@ -150,9 +150,9 @@
 
         test.done();
       });
-  
+
     },
-  
+
     "Test 7: Create markup from an array of objects that have one dimention": function(test) {
       getTemplate('contacts', function(window, weld, $, template) {
         var data = [{ name: 'hij1nx',  title : 'code exploder' },
@@ -167,7 +167,7 @@
         test.ok($('.contact:nth(0) .title', template).text() == "code exploder");
         test.ok($('.contact:nth(1) .title', template).text() == "code wrangler");
         test.done();
-    
+
       });
 
     },
@@ -192,14 +192,14 @@
 
         // TODO: remove siblings who match .person
         // it is impossible to do explicit maching (even/odd)
-      
+
         // SIDECASE FIX0r
         //         - when matching arrays
         //         - capture the className
         //         - compare with siblings[*].className (be aware of ordering!)
         //         - remove COMPLETE matches
-        //     
-        
+        //
+
         weld($('.people')[0], {
           person: [
             {
@@ -233,19 +233,19 @@
 
         test.ok($('.person.bar').text() === "hello");
         test.ok($('.person.bar').length === 1);
-      
+
         test.ok($('.person.submit').length === 1);
         test.ok($('.person.submit').text() === "Sidecase #2: additional classes (no data equiv)");
         //  Every node that gets iterated over should have a pre-processed class
         // (7 in total)
-      
+
         test.ok($('.pre-processed').length === 8);
         test.done();
 
       });
 
     },
-   
+
    "Test 10: Create markup using form elements as the template": function(test) {
       getTemplate('form', function(window, weld, $) {
 
@@ -326,9 +326,9 @@
                      { name: 'tmpvar', title: 'code pimp' }],
             found = 0;
 
-        weld($('.contact', container)[0], data, { 
-          alias: { 
-            name : function(parent, element, key, value) { 
+        weld($('.contact', container)[0], data, {
+          alias: {
+            name : function(parent, element, key, value) {
               // Sanity
               test.ok(key === 'name');
 
@@ -348,7 +348,7 @@
         test.done();
       });
     },
-  
+
     "Test 15: Alias may opt out of rendering a data-key/element match because of a false value": function(test) {
 
       getTemplate('contacts-opt-out', function(window, weld, $, container) {
@@ -358,8 +358,8 @@
                      { name: 'tmpvar', title: 'code pimp' }],
             found = 0;
 
-        weld($('.contact', container)[0], data, { 
-          alias: { 
+        weld($('.contact', container)[0], data, {
+          alias: {
             name : false
           }
         });
@@ -403,7 +403,7 @@
         test.done();
       })
     },
-    
+
     "Test 18: depth traversal shouldn't stop on a missed key [array]" : function(test) {
       getTemplate('depth-failure-on-miss', function(window, weld, $, container) {
         var data = {
@@ -432,6 +432,51 @@
 
         test.done();
       })
-    }
+    },
+    "Test 18: checkboxes should work with boolean values" : function(test) {
+      getTemplate('checkbox-test', function(window, weld, $, container) {
+        var data = {
+          question: true,
+          question2: false
+        };
+
+        weld(container, data);
+
+        test.ok($(':input[name=question]').is(':checked') === true);
+        test.ok($(':input[name=question2]').is(':checked') === false);
+
+        test.done();
+      })
+    },
+    "Test 19: checkboxes should work with numeric string values" : function(test) {
+      getTemplate('checkbox-test', function(window, weld, $, container) {
+        var data = {
+          question: '1',
+          question2: '0'
+        };
+
+        weld(container, data);
+
+        test.ok($(':input[name=question]').is(':checked') === true);
+        test.ok($(':input[name=question2]').is(':checked') === false);
+
+        test.done();
+      })
+    },
+    "Test 20: checkboxes should work with english truthy string values" : function(test) {
+      getTemplate('checkbox-test', function(window, weld, $, container) {
+        var data = {
+          question: 'yes',
+          question2: 'no'
+        };
+
+        weld(container, data);
+
+        test.ok($(':input[name=question]').is(':checked') === true);
+        test.ok($(':input[name=question2]').is(':checked') === false);
+
+        test.done();
+      })
+    },
   };
 }((typeof module === "undefined") ? window : module.exports));

@@ -1,6 +1,6 @@
 {
   "name": "weld",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Template antimatter for javascript",
   "keywords": ["templates", "templating", "jsdom", "unobtrusive"],
   "author" : "hij1nx <hij1nx@gmail.com> http://twitter.com/hij1nx",
@@ -11,7 +11,7 @@
   "licenses": [{"type": "MIT"}],
   "repositories": [{
       "type": "git",
-      "url": "git@github.com:hij1nx/weld.git" 
+      "url": "git@github.com:hij1nx/weld.git"
   }],
   "dependencies": {
      "jsdom" : ">= 0.2.0"
