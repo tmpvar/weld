@@ -478,5 +478,19 @@
         test.done();
       })
     },
+    "Test 21: Create markup using select elements as the template": function(test) {
+      getTemplate('form', function(window, weld, $) {
+
+        var data = {
+          'spam': 2 
+        };
+
+        weld($('form')[0], data);
+
+        test.ok(parseInt($('select[name=spam]').val()) === data.spam);
+        test.done();
+
+      });
+    },
   };
 }((typeof module === "undefined") ? window : module.exports));
