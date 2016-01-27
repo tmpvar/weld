@@ -518,5 +518,30 @@
         test.done();
       });
     },
+    "Test 23: Selectively insert objects using the insert-precheck filter": function(test) {
+      getTemplate('insert-precheck', function(window, weld, $) {
+
+        weld($('.things')[0], 
+        {
+          things: [
+            { thing : '1' },
+            { thing : '2' },
+            { thing : '3' }
+          ]            
+        },
+        {
+          insertPrecheck: function(parent, element, key, value) {
+            // don't insert the second "thing" by returning false
+            return value.thing != '2'; 
+          }
+        });
+
+        test.ok($('.things').length === 2);
+        test.ok($('.things:nth(0) .thing').text() === '1');
+        test.ok($('.things:nth(1) .thing').text() === '3');
+
+        test.done();
+      });
+    },
   };
 }((typeof module === "undefined") ? window : module.exports));
